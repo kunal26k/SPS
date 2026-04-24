@@ -1,0 +1,390 @@
+{
+  "school": {
+    "identity": {
+      "name": "Sharda Public School",
+      "shortName": "SPS",
+      "tagline": "Learn • Excel • Perform",
+      "motto": "Seva Parmo Dharma",
+      "mottoMeaning": "Service before Self",
+      "established": 2001,
+      "yearsOfOperation": 23,
+      "board": "CBSE",
+      "affiliationNumber": "3530299",
+      "affiliationDate": "30.08.2011",
+      "affiliationStatus": "Provisional",
+      "nocNumber": "1130(1)/XXIV-3/10/01(06)2010",
+      "nocIssued": "28 June 2010",
+      "trust": "Sharda Public School Samiti",
+      "trustRegistration": "Registered under Company Act 1956",
+      "managingCommitteeMembers": 10,
+      "description": "Best School in Almora — committed to delivering holistic education that empowers students to succeed in a changing world.",
+      "mission": "To provide comprehensive, quality education that produces global citizens equipped with 21st-century competencies including civic literacy, cultural awareness, and communication skills, advancing Human Excellence.",
+      "seoDescription": "Best CBSE School in Almora — Nursery to Class XII. Sharda Public School offers academic excellence, modern infrastructure, and holistic development."
+    },
+    "leadership": {
+      "president": {
+        "name": "Dr. H.D. Kandpal",
+        "designation": "Manager / President"
+      },
+      "principal": {
+        "name": "Mrs. Vinita Shekhar",
+        "designation": "Principal",
+        "message": "It is both an honour and a privilege to serve as the Principal of Sharda Public School, an esteemed institution renowned for its commitment to excellence and its continuous efforts to establish the highest standards of education in Almora.\n\nAt the heart of our institution lies an unwavering commitment to excellence. Every opportunity we encounter is embraced with a relentless drive to reach new heights, driven by a deep and enduring desire to learn and evolve. We believe that striving for excellence is not just a goal but a mindset that can be cultivated and passed on to our most precious asset — our students.\n\nOur students have brought us immense pride by reaching exceptional milestones and achieving remarkable success at the state, national, and international levels in academics, sports, and co-curricular activities. I am equally fortunate to be supported by a highly experienced and dedicated team whose efforts have played a crucial role in elevating the school to its deemed position. Together with my devoted colleagues and faculty, we are committed to building upon this solid foundation, striving to further elevate the standards across all areas to their highest potential.\n\nIn addition to my goal of being an effective administrator, I aspire to be a trusted mentor, friend, philosopher, and guide to our students — someone they can rely on and trust as they grow and realise their potential in various fields of education.\n\nI assure that the doors of our Institution will always be open to both students and their parents. I welcome your suggestions and input as we work together to foster a nurturing and supportive environment for all."
+      }
+    },
+    "contact": {
+      "general": {
+        "phone": ["7300502640", "05962-236611", "05962-236073", "05962-230283"],
+        "email": "contact@shardapublicschool.com",
+        "alternateEmail": "spsalmora57192@gmail.com"
+      },
+      "admissions": {
+        "email": "admission@shardapublicschool.com"
+      },
+      "social": {
+        "facebook": true,
+        "instagram": true,
+        "youtube": true,
+        "linkedin": true
+      }
+    },
+    "campuses": [
+      {
+        "id": "junior",
+        "name": "Junior Branch",
+        "address": "Khatyari, Khagmara Kote, Almora",
+        "pincode": "263601",
+        "type": "Junior School (Nursery to Class 5)",
+        "mapEmbed": null
+      },
+      {
+        "id": "senior",
+        "name": "Senior Branch",
+        "address": "Near Circuit House, Dugalkhola, Almora",
+        "pincode": "263601",
+        "type": "Senior School (Class 6 to XII)",
+        "admissionTiming": "Monday to Saturday, 8:30 AM – 2:30 PM",
+        "mapEmbed": null
+      }
+    ],
+    "campus": {
+      "totalArea": {
+        "acres": 6.0,
+        "sqMeters": 24281.16
+      },
+      "builtUpArea": {
+        "sqMeters": 602.0117
+      },
+      "playground": {
+        "sqMeters": 990
+      }
+    }
+  },
+  "stats": {
+    "students": "1300+",
+    "faculty": "50+",
+    "yearsOfExcellence": "23+",
+    "teacherStudentRatio": "1:20",
+    "sportsPrograms": 15,
+    "campuses": 2,
+    "note": "Student count varies across pages (1300+ on homepage, 1200 in About, 1000+ in History). Recommended to standardize to 1300+ as most recent figure."
+  },
+  "academics": {
+    "classes": "Nursery to Class XII",
+    "academicSession": "April to March",
+    "admissionPeriod": "April to September",
+    "curriculum": "CBSE National Curriculum Framework (NCF) 2024",
+    "policyAlignment": "New Education Policy (NEP) 2020",
+    "programs": [
+      {
+        "id": "primary",
+        "name": "Primary Wing",
+        "classes": "Nursery to Class 5",
+        "location": "Junior Branch",
+        "approach": "Play-based learning, social interaction, emotional development, child-friendly infrastructure with preschool atmosphere",
+        "philosophy": "A strong foundation in the early years lays the groundwork for a lifetime of learning"
+      },
+      {
+        "id": "middle",
+        "name": "Middle School",
+        "classes": "Class 3 to 8",
+        "location": "Senior Branch",
+        "approach": "Concept-based and experiential learning, CBSE NCF 2024, NEP principles",
+        "competencies": ["Communication", "Creativity", "Collaboration", "Critical Thinking"]
+      },
+      {
+        "id": "secondary",
+        "name": "Secondary",
+        "classes": "Class 9 to 10",
+        "location": "Senior Branch",
+        "highlights": "Consistently top CBSE results regionally for 10+ years"
+      },
+      {
+        "id": "senior-secondary",
+        "name": "Senior Secondary",
+        "classes": "Class 11 to 12",
+        "location": "Senior Branch",
+        "streams": "NOT SPECIFIED on website — needs to be confirmed (likely Science, Commerce, Humanities/Arts)",
+        "strengths": "Unmatched CBSE Class 12 results in Almora",
+        "support": "Regular assessments, one-on-one academic counseling",
+        "infrastructure": ["Science Labs", "AI & Computer Labs", "Smart Classrooms"]
+      }
+    ],
+    "teachingApproach": {
+      "methodology": ["Concept-based learning", "Experiential learning", "Skill-based orientation"],
+      "classroomCulture": "Students free to ask questions, clear doubts, express ideas — mentors not just subject experts",
+      "staffingApproach": "Low student-teacher ratio (1:20) for individualized support"
+    }
+  },
+  "infrastructure": {
+    "classrooms": {
+      "description": "Natural light, proper ventilation, thoughtfully arranged seating",
+      "features": ["Display boards showcasing student work", "Low student-teacher ratio", "Student-centered environment"],
+      "smartFeatures": "Smart classrooms referenced in higher secondary section — specific details not on classrooms page"
+    },
+    "labs": [
+      {
+        "name": "Physics Laboratory",
+        "subjects": ["Mechanics", "Electricity", "Magnetism", "Optics"],
+        "description": "Fully equipped lab for exploring fundamental principles through safe, structured experiments"
+      },
+      {
+        "name": "Chemistry Laboratory",
+        "features": ["Modern safety equipment", "High-quality apparatus"],
+        "description": "Students explore chemical reactions and compounds — theory reinforced through hands-on application"
+      },
+      {
+        "name": "Biology Laboratory",
+        "equipment": ["Microscopes", "Models", "Specimens"],
+        "topics": ["Cell structures", "Anatomy", "Physiology", "Genetics", "Ecology"]
+      },
+      {
+        "name": "Computer Science Lab",
+        "features": ["High-speed internet", "Modern hardware", "Educational software"],
+        "skills": ["Programming", "Graphic design", "Digital fluency"]
+      },
+      {
+        "name": "Robotics & AI Lab",
+        "description": "Students design, build, and code machines. Introduces AI, Virtual Reality, and emerging technologies",
+        "skills": ["Robotics", "Artificial Intelligence", "VR", "Coding"],
+        "goal": "Prepare learners for technology-driven futures"
+      }
+    ],
+    "library": {
+      "tagline": "The nucleus of our school",
+      "philosophy": "A well-read mind creates a foundation where insight takes root and vision grows",
+      "programs": ["Reading challenges", "Book clubs", "Author visits", "Storytelling sessions", "Book fairs", "Literature festivals", "Creative writing workshops", "Literature competitions"],
+      "access": "Throughout school day + extended hours for exam prep and project work",
+      "staff": "Librarians available for assistance",
+      "bookCount": null
+    },
+    "cafeteria": {
+      "philosophy": "Our cafeteria isn't just a place to eat — it's a space where nutrition meets care",
+      "pillars": ["Balanced Nutrition", "Chef-Curated Menu", "Hygiene First", "Inclusive for All"],
+      "description": "Wholesome, balanced lunches thoughtfully curated by in-house chefs for nutritional needs, taste preferences, and age-specific requirements",
+      "capacity": null
+    },
+    "auditorium": {
+      "description": "The platform where students express, perform, and shine",
+      "features": ["Professional-grade sound system", "Stage lighting", "Projection capabilities", "Spacious seating for large audiences"],
+      "events": ["Morning assemblies", "Theatrical performances", "Debates", "Musical performances", "Annual functions", "Guest lectures", "Parent events", "Seminars", "Inter-school competitions"],
+      "capacity": null
+    },
+    "sports": {
+      "philosophy": "Physical education is just as vital as academics",
+      "totalPrograms": 15,
+      "outdoor": ["Cricket Pitch & Practice Nets", "Football Field", "Hockey Ground", "Volleyball Court", "Basketball Court", "Badminton Court"],
+      "indoor": ["Table Tennis", "Chess Arena", "Gymnasium", "Carrom", "Board Games", "Multi-Purpose Indoor Hall"],
+      "specialized": ["Swimming Pool (with qualified instructors and lifeguards)"],
+      "fullList": ["Swimming", "Gym Training", "Chess", "Basketball", "Football", "Table Tennis", "Volleyball", "Hockey", "Badminton", "Cricket", "Carrom"],
+      "note": "Website claims 15 programs; only 11 explicitly listed — 4 need to be confirmed"
+    },
+    "transport": {
+      "coverage": "Entire Almora region",
+      "features": ["GPS-tracking enabled vehicles", "Trained and verified drivers and attendants", "Safe boarding zones with staff supervision", "Dedicated routes throughout Almora"],
+      "vehicleCount": null
+    },
+    "safety": {
+      "security": ["Round-the-clock security personnel", "CCTV surveillance across key areas", "Fire safety equipment and signage"],
+      "emergency": ["Emergency protocols", "Evacuation drills"],
+      "medical": "Fully equipped infirmary staffed by trained medical personnel; coordinates with local hospitals for urgent situations"
+    }
+  },
+  "admissions": {
+    "currentSession": "2025-26",
+    "status": "Open",
+    "classes": "Nursery to Class XII",
+    "timing": {
+      "days": "Monday to Saturday",
+      "hours": "8:30 AM – 2:30 PM"
+    },
+    "location": "Dugalkhola campus (Senior Branch)",
+    "process": [
+      {
+        "step": 1,
+        "title": "Enquiry & School Visit",
+        "description": "Visit our campus or connect online to understand our programs and environment"
+      },
+      {
+        "step": 2,
+        "title": "Registration",
+        "description": "Collect or download the admission form and submit it with required documents"
+      },
+      {
+        "step": 3,
+        "title": "Interaction / Assessment",
+        "description": "Your child will undergo a brief assessment or interaction to determine class readiness"
+      },
+      {
+        "step": 4,
+        "title": "Verification & Confirmation",
+        "description": "Admission is finalized after fee submission and document approval"
+      }
+    ],
+    "documentsRequired": "Not specified on website — needs to be confirmed",
+    "feeStructure": "Not published on website",
+    "ageCriteria": "Not specified on website"
+  },
+  "alumni": [
+    {
+      "name": "Aakriti Kumar",
+      "achievement": "IIT Madras"
+    },
+    {
+      "name": "Ojasvi Jalal",
+      "achievement": "University of Edinburgh, UK"
+    },
+    {
+      "name": "Kartik Jalal",
+      "achievement": "Postgraduate studies, Australia"
+    },
+    {
+      "name": "Roshani Sirari",
+      "achievement": "LSR, Delhi University"
+    },
+    {
+      "name": "Aditi Kumar",
+      "achievement": "B.Tech Biotechnology, IIT Jodhpur",
+      "batch": "2020-21, PCM"
+    }
+  ],
+  "achievements": {
+    "academicResults": [
+      { "year": "2024-25", "class10": "Outstanding performance in CBSE board exams", "class12": "Extraordinary performance in CBSE Board Exams" },
+      { "year": "2023-24", "class10": "Exceptional academic achievements", "class12": "Outstanding achievements" },
+      { "year": "2023", "class10": "Exceptional achievements", "class12": "Remarkable achievements in board exams" },
+      { "year": "2022", "class10": "Recognized toppers", "class12": "Recognized toppers" }
+    ],
+    "note": "No specific names, scores, or rank positions published on website — needs content from school"
+  },
+  "contentIssues": [
+    {
+      "page": "About — Vision",
+      "issue": "Lorem ipsum placeholder text — no actual vision statement published",
+      "priority": "CRITICAL — fix before launch"
+    },
+    {
+      "page": "Homepage Stats",
+      "issue": "Student count inconsistency: 1300+ (homepage) vs 1200 (About) vs 1000+ (History)",
+      "priority": "HIGH — standardize across all pages"
+    },
+    {
+      "page": "Homepage Stats",
+      "issue": "'100 Collaborations' stat is vague and unverified — no context given",
+      "priority": "MEDIUM — remove or clarify"
+    },
+    {
+      "page": "Hero Section",
+      "issue": "Socrates quote as primary hero tagline is generic — not school's own voice",
+      "priority": "MEDIUM — replace with school-specific messaging"
+    },
+    {
+      "page": "Senior Secondary",
+      "issue": "Class 11-12 streams not specified anywhere on website",
+      "priority": "HIGH — confirm Science / Commerce / Arts streams"
+    },
+    {
+      "page": "Sports",
+      "issue": "Claims 15 sports programs but only 11 explicitly listed",
+      "priority": "MEDIUM — confirm complete list"
+    },
+    {
+      "page": "Mandatory Disclosure",
+      "issue": "Trust registration shows valid until 18.08.2022 — may be outdated/expired",
+      "priority": "HIGH — legal/regulatory — verify and update"
+    },
+    {
+      "page": "Achievements",
+      "issue": "CBSE results mentioned vaguely with no topper names, scores, or ranks",
+      "priority": "LOW — add specific data if available"
+    }
+  ],
+  "navigation": {
+    "current": [
+      {
+        "label": "Home",
+        "url": "/"
+      },
+      {
+        "label": "About",
+        "url": "/about",
+        "children": ["School History", "Principal's Desk", "Achievements", "Mandatory Public Disclosure"]
+      },
+      {
+        "label": "Academics",
+        "url": "/academics",
+        "children": ["Primary & Secondary Education", "Higher Secondary Education", "Curriculum & Subjects", "Faculty", "Rules and Regulations"]
+      },
+      {
+        "label": "Admission",
+        "url": "/admission",
+        "children": ["Admission Process"]
+      },
+      {
+        "label": "Media Gallery",
+        "url": "/media-gallery",
+        "children": ["Photo & Video Gallery", "Press Releases"]
+      },
+      {
+        "label": "Student Life",
+        "url": "/student-life",
+        "children": ["Alumni"]
+      },
+      {
+        "label": "Infrastructure",
+        "url": "/infrastructure",
+        "children": ["Classrooms", "Cafeteria", "Library", "STEM Labs", "Auditorium", "Sports Facilities", "Transport & Safety"]
+      }
+    ],
+    "proposed": [
+      { "label": "Home", "url": "/" },
+      {
+        "label": "About",
+        "url": "/about",
+        "children": ["Our Story", "Vision & Mission", "Principal's Desk", "Achievements", "Mandatory Disclosure"]
+      },
+      {
+        "label": "Academics",
+        "url": "/academics",
+        "children": ["Primary (Nursery–5)", "Middle School (6–8)", "Secondary (9–10)", "Senior Secondary (11–12)", "Faculty"]
+      },
+      {
+        "label": "Admissions",
+        "url": "/admissions"
+      },
+      {
+        "label": "Life at SPS",
+        "url": "/life-at-sps",
+        "children": ["Student Life", "Sports", "Gallery", "Alumni"]
+      },
+      {
+        "label": "Infrastructure",
+        "url": "/infrastructure"
+      },
+      {
+        "label": "Contact",
+        "url": "/contact"
+      }
+    ]
+  }
+}

@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --navy:      #1A2E4A;
+    --green:     #2D6A3F;
+    --gold:      #E8A820;
+    --white:     #FFFFFF;
+    --light-gray:#F7F8FA;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply font-inter text-navy bg-white;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    @apply font-playfair;
+    line-height: 1.2;
+  }
+
+  h4, h5, h6 {
+    @apply font-montserrat font-semibold;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    background-color: #E8A820;
+    color: #1A2E4A;
+  }
+}
+
+@layer components {
+  .btn-gold {
+    @apply bg-gold text-navy font-montserrat font-700 px-6 py-3 rounded-full
+           hover:bg-gold-300 transition-all duration-200 inline-flex items-center gap-2
+           focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2;
+  }
+
+  .btn-navy {
+    @apply bg-navy text-white font-montserrat font-600 px-6 py-3 rounded-full
+           hover:bg-navy-700 transition-all duration-200 inline-flex items-center gap-2
+           focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply border-2 border-white text-white font-montserrat font-600 px-6 py-3 rounded-full
+           hover:bg-white hover:text-navy transition-all duration-200 inline-flex items-center gap-2;
+  }
+
+  .section-heading {
+    @apply font-playfair text-3xl md:text-4xl lg:text-5xl text-navy font-700 leading-tight;
+  }
+
+  .section-subheading {
+    @apply font-inter text-gray-600 text-lg leading-relaxed max-w-2xl;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden
+           transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .tag {
+    @apply font-montserrat text-xs font-700 uppercase tracking-widest px-3 py-1 rounded-full;
+  }
+
+  .nav-link {
+    @apply font-montserrat text-sm font-500 transition-colors duration-200;
+  }
+
+  .form-label {
+    @apply font-montserrat text-xs font-700 text-navy uppercase tracking-wider mb-1.5 block;
+  }
+
+  .form-input {
+    @apply w-full border border-gray-200 rounded-xl px-4 py-3 font-inter text-navy text-sm
+           focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 bg-white;
+  }
+}
+
+@layer utilities {
+  .font-700 { font-weight: 700; }
+  .font-600 { font-weight: 600; }
+  .font-500 { font-weight: 500; }
+
+  .text-balance { text-wrap: balance; }
+
+  .bg-light { background-color: #F7F8FA; }
+
+  /* Gradient overlays */
+  .overlay-navy {
+    background: linear-gradient(135deg, rgba(26,46,74,0.90) 0%, rgba(26,46,74,0.65) 60%, rgba(45,106,63,0.45) 100%);
+  }
+
+  /* Placeholder image blocks (until real photos provided) */
+  .photo-placeholder {
+    @apply bg-gradient-to-br from-navy-100 to-green-100 flex items-center justify-center;
+  }
+
+  /* Scroll reveal — base state (Framer Motion handles animation) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: #F7F8FA; }
+::-webkit-scrollbar-thumb  { background: #1A2E4A; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #E8A820; }
+
+/* Print */
+@media print {
+  .no-print { display: none !important; }
+}
