@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+// Plain <a> links: every other screen is a full page with its own global CSS.
 import { useState } from "react";
 
 const links = [
@@ -15,28 +15,28 @@ export function SiteNav({ active }: { active: string }) {
 
   return (
     <nav className="site-nav">
-      <Link href="/" className="nav-logo">
+      <a href="/" className="nav-logo">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/SPS-crest.png" alt="Sharda Public School" />
         <div className="nav-brand">
           <span className="name">Sharda Public School</span>
           <span className="motto">Learn • Excel • Perform</span>
         </div>
-      </Link>
+      </a>
       <div className={open ? "nav-center open" : "nav-center"}>
         <ul className="nav-links">
           {links.map((l) => (
             <li key={l.href} className={l.href === active ? "active" : undefined}>
-              <Link href={l.href} onClick={() => setOpen(false)}>
+              <a href={l.href} onClick={() => setOpen(false)}>
                 {l.label}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
       </div>
-      <Link href="/about#admissions" className="nav-apply">
+      <a href="/about#admissions" className="nav-apply">
         Apply Now
-      </Link>
+      </a>
       <button
         type="button"
         className="nav-burger"

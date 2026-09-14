@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
-import "./globals.css";
 
 const serif = Cormorant_Garamond({
   subsets: ["latin"],

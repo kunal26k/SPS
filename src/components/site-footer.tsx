@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const columns = [
   {
     title: "About",
@@ -49,7 +47,7 @@ export function SiteFooter() {
             <ul>
               {col.links.map((l) => (
                 <li key={l.label}>
-                  <Link href={l.href}>{l.label}</Link>
+                  <a href={l.href}>{l.label}</a>
                 </li>
               ))}
             </ul>

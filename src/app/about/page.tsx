@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { FeedbackForm } from "@/components/feedback-form";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
+// Shell CSS is imported here, not in the root layout, so it never styles the imported design screens.
+import "./site-shell.css";
 import "./about.css";
 
 export const metadata: Metadata = {
