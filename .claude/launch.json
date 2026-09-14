@@ -2,9 +2,20 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "SPS web only (Next.js dev)",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "dev"
+      ],
+      "port": 3300
+    },
+    {
       "name": "SPS Website (Next.js dev)",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
       "port": 3000,
       "autoPort": true,
       "cwd": "sps-website"

@@ -1,3 +1,5 @@
+> **Two projects live in this repo (2026-09-14).** The root app (`src/`, `package.json`) is **SPS web only**, a Next.js 15 rebuild of the Claude Design export in `design/` — work on it matches `design/*.html` exactly (plain CSS, Cormorant Garamond + DM Sans). The notes below describe the older `sps-website/` app.
+
 # Sharda Public School — Website Project
 
 ## Project Overview
