@@ -1,23 +1,36 @@
 "use client";
 
-// Plain <a> links: every other screen is a full page with its own global CSS.
-import { useState } from "react";
+// Shared website nav. Plain <a> links: each page is a full load with its own page CSS.
+import { useEffect, useState } from "react";
+import { siteLinks } from "@/site/links";
 
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/academics", label: "Academics" },
-  { href: "/admissions", label: "Admissions" },
-  { href: "/about", label: "About" },
-];
+type Props = {
+  active: string;
+  /** Transparent over a full-bleed hero until the page scrolls (Home). */
+  overHero?: boolean;
+};
 
-export function SiteNav({ active }: { active: string }) {
+export function SiteNav({ active, overHero = false }: Props) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    if (!overHero) return;
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [overHero]);
+
+  const className = ["site-nav", overHero && "over-hero", scrolled && "scrolled", open && "menu-open"]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <nav className="site-nav">
+    <nav className={className} aria-label="Main">
       <a href="/" className="nav-logo">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/SPS-crest.png" alt="Sharda Public School" />
+        <img src="/uploads/SPS-crest.png" alt="Sharda Public School" />
         <div className="nav-brand">
           <span className="name">Sharda Public School</span>
           <span className="motto">Learn • Excel • Perform</span>
@@ -25,16 +38,16 @@ export function SiteNav({ active }: { active: string }) {
       </a>
       <div className={open ? "nav-center open" : "nav-center"}>
         <ul className="nav-links">
-          {links.map((l) => (
+          {siteLinks.map((l) => (
             <li key={l.href} className={l.href === active ? "active" : undefined}>
-              <a href={l.href} onClick={() => setOpen(false)}>
+              <a href={l.href} aria-current={l.href === active ? "page" : undefined} onClick={() => setOpen(false)}>
                 {l.label}
               </a>
             </li>
           ))}
         </ul>
       </div>
-      <a href="/about#admissions" className="nav-apply">
+      <a href="/admissions#enquire" className="nav-apply">
         Apply Now
       </a>
       <button

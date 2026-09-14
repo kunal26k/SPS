@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { loaders, screens } from "@/design/screens";
 
-type Params = { screen?: string[] };
+type Params = { screen: string[] };
 
 export const dynamicParams = false;
 
 export function generateStaticParams(): Params[] {
-  return screens.map((s) => ({ screen: s.route === "/" ? [] : s.route.slice(1).split("/") }));
+  return screens.map((s) => ({ screen: s.route.slice(1).split("/") }));
 }
 
 function idFor(params: Params) {
-  return params.screen?.length ? params.screen.join("--") : "home";
+  return params.screen.join("--");
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {

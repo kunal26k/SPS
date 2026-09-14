@@ -5,64 +5,32 @@ import { SiteNav } from "@/components/site-nav";
 // Shell CSS is imported here, not in the root layout, so it never styles the imported design screens.
 import "./site-shell.css";
 import "./about.css";
+import { school } from "@/site/school";
 
 export const metadata: Metadata = {
   title: "About — Sharda Public School",
 };
 
-const keyDates = [
-  { k: "Form opens", v: "15 Nov 2025" },
-  { k: "Form closes", v: "10 Jan 2026" },
-  { k: "Assessments", v: "Feb 2026" },
-  { k: "Result", v: "Mar 2026" },
+const keyFacts = [
+  { k: "Session", v: "2025–26" },
+  { k: "Classes open", v: "Nursery – XI" },
+  { k: "Office hours", v: "Mon–Sat · 8:30–2:30" },
+  { k: "Where", v: "Senior Branch" },
 ];
 
-const steps: { num: string; meta: string; title: string; body: string; list?: string[] }[] = [
-  {
-    num: "01",
-    meta: "Step One · 5 minutes",
-    title: "Enquire online or by phone.",
-    body: "Tell us about your child — current grade, previous school, any specific needs. Our admissions team replies within one working day with a campus-visit invitation.",
-    list: ["Email: admissions@shardaschool.in", "Phone: +91 94120 09988"],
-  },
-  {
-    num: "02",
-    meta: "Step Two · ~2 hours on campus",
-    title: "Visit the campus and meet a counsellor.",
-    body: "A walk-through of the academic blocks, hostels and grounds, followed by a 30-minute conversation with one of our admissions counsellors and, where appropriate, the relevant Head of School.",
-  },
-  {
-    num: "03",
-    meta: "Step Three · 15 days to compile",
-    title: "Submit the application form & documents.",
-    body: "Forms are filled online; supporting documents may be submitted in person or scanned by email.",
-    list: [
-      "Birth certificate & recent photograph",
-      "Last two years of school report cards",
-      "Aadhaar / passport copy of student and parents",
-      "Transfer Certificate (if currently enrolled elsewhere)",
-    ],
-  },
-  {
-    num: "04",
-    meta: "Step Four · One day on campus",
-    title: "Assessment & family interview.",
-    body: "For Nursery–II, a play-based assessment with the child and a short conversation with parents. For higher grades, a written assessment in English, Mathematics and a subject of choice, followed by a faculty interview.",
-  },
-  {
-    num: "05",
-    meta: "Step Five · Within 14 days",
-    title: "Offer of admission & enrolment.",
-    body: "Successful candidates receive a written offer with fee details. Enrolment is confirmed on payment of the first-term fee within 14 days. Scholarships, if applicable, are communicated alongside the offer.",
-  },
+// school-data.json → admissions.process; the full guide lives on /admissions.
+const steps = [
+  { num: "01", meta: "Step One", title: "Enquiry & school visit.", body: "Visit our campus or connect with us to understand our programs and environment." },
+  { num: "02", meta: "Step Two", title: "Registration.", body: "Collect the admission form and submit it with the required documents." },
+  { num: "03", meta: "Step Three", title: "Interaction / assessment.", body: "A brief, age-appropriate interaction or assessment to understand class readiness." },
+  { num: "04", meta: "Step Four", title: "Verification & confirmation.", body: "Admission is finalised after document verification and fee submission." },
 ];
 
 const helpLines = [
-  { icon: "A", name: "Admissions Desk", sub: "Forms, fees, assessments, scholarships", num: "+91 94120 09988" },
-  { icon: "F", name: "Fees & Accounts", sub: "Invoices, refunds, payment plans", num: "+91 5962 231 105" },
-  { icon: "T", name: "Transport & Hostel", sub: "Bus routes, boarding, day-stay", num: "+91 5962 231 107" },
-  { icon: "E", name: "Exams & Records", sub: "Mark sheets, transfer certificates", num: "+91 5962 231 108" },
-  { icon: "!", name: "Emergency / After-hours", sub: "Medical, hostel, urgent only", num: "+91 94120 11122" },
+  { icon: "A", name: "Admissions", sub: "Enquiries, visits, forms · also on WhatsApp", num: school.phones.admissions.label, tel: school.phones.admissions.tel },
+  { icon: "O", name: "School Office", sub: "General enquiries", num: school.phones.office[0].label, tel: school.phones.office[0].tel },
+  { icon: "O", name: "School Office", sub: "Alternate line", num: school.phones.office[1].label, tel: school.phones.office[1].tel },
+  { icon: "O", name: "School Office", sub: "Alternate line", num: school.phones.office[2].label, tel: school.phones.office[2].tel },
 ];
 
 const testimonials: { stars: string; quote: string; initials: string; tone?: "amber" | "navy"; name: string; role: string }[] = [
@@ -143,8 +111,8 @@ export default function AboutPage() {
               <div className="sec-eyebrow">School Contact</div>
               <h2 className="sec-title">Reach the front office.</h2>
               <p className="sec-intro">
-                Our office is open through the academic year. For admissions specifically, please use the dedicated
-                admissions desk number below.
+                Two campuses, one front office. For admissions, call or WhatsApp the admissions number, or visit the
+                Senior Branch during office hours.
               </p>
             </div>
           </div>
@@ -155,64 +123,62 @@ export default function AboutPage() {
               <div className="sub">Front Office &amp; General Enquiries</div>
               <div className="contact-rows">
                 <div className="crow">
-                  <div className="lbl">Address</div>
+                  <div className="lbl">Junior Branch</div>
                   <div className="val">
-                    <span className="strong">Sharda Public School</span>
-                    Deodar Estate, Bright End Corner Road,
+                    <span className="strong">Nursery – Class V</span>
+                    Khatyari, Khagmara Kote,
                     <br />
-                    Almora — 263601, Uttarakhand, India
-                    <small>Approx. 2 km from Almora town centre.</small>
+                    Almora — 263601, Uttarakhand
+                  </div>
+                </div>
+                <div className="crow">
+                  <div className="lbl">Senior Branch</div>
+                  <div className="val">
+                    <span className="strong">Class VI – XII</span>
+                    Near Circuit House, Dugalkhola,
+                    <br />
+                    Almora — 263601, Uttarakhand
+                    <small>The admissions office is at the Senior Branch.</small>
                   </div>
                 </div>
                 <div className="crow">
                   <div className="lbl">Phone</div>
                   <div className="val">
-                    <a href="tel:+915962231100">+91 5962 231 100</a> &nbsp;·&nbsp;{" "}
-                    <a href="tel:+915962231101">+91 5962 231 101</a>
-                    <small>Mon – Sat, 8:30 am – 4:30 pm IST</small>
+                    <a href={school.phones.admissions.tel}>{school.phones.admissions.label}</a> &nbsp;·&nbsp;{" "}
+                    <a href={school.phones.office[0].tel}>{school.phones.office[0].label}</a>
+                    <small>Also {school.phones.office[1].label} and {school.phones.office[2].label}</small>
                   </div>
                 </div>
                 <div className="crow">
                   <div className="lbl">Email</div>
                   <div className="val">
-                    <a href="mailto:office@shardaschool.in">office@shardaschool.in</a>
-                    <small>Replies within one working day.</small>
+                    <a href={`mailto:${school.email.general}`}>{school.email.general}</a>
                   </div>
                 </div>
                 <div className="crow">
                   <div className="lbl">Admissions</div>
                   <div className="val">
-                    <a href="mailto:admissions@shardaschool.in">admissions@shardaschool.in</a> &nbsp;·&nbsp;{" "}
-                    <a href="tel:+919412009988">+91 94120 09988</a>
-                  </div>
-                </div>
-                <div className="crow">
-                  <div className="lbl">Hours</div>
-                  <div className="val">
-                    Monday – Friday &nbsp; 8:00 am – 4:30 pm
-                    <br />
-                    Saturday &nbsp; 8:00 am – 1:00 pm
-                    <br />
-                    <small>Closed on Sundays and gazetted holidays.</small>
+                    <a href={`mailto:${school.email.admissions}`}>{school.email.admissions}</a>
+                    <small>{school.admissionHours}</small>
                   </div>
                 </div>
                 <div className="crow">
                   <div className="lbl">Affiliation</div>
                   <div className="val">
                     <span className="strong">Central Board of Secondary Education</span>
-                    CBSE Affiliation No. 3530142
-                    <small>Senior Secondary, recognized since 1989.</small>
+                    CBSE Affiliation No. {school.affiliationNumber}
+                    <small>Established {school.established} · Nursery to Class XII</small>
                   </div>
                 </div>
               </div>
             </div>
 
             <aside className="map-card">
-              <div className="pin">◉ Almora · 1,651 m</div>
+              <div className="pin">◉ Almora · Kumaon</div>
               <h4>Find us in the hills.</h4>
               <p>
-                A 5-minute drive from Mall Road. Visitor parking available at the lower gate; please report to security
-                before entering campus.
+                Two campuses in Almora: the Junior Branch at Khatyari for Nursery to Class V, and the Senior Branch near
+                Circuit House, Dugalkhola, for Classes VI to XII. Admissions visits are at the Senior Branch.
               </p>
               <div className="map-svg-wrap">
                 <svg viewBox="0 0 300 180" preserveAspectRatio="none" aria-hidden="true">
@@ -226,16 +192,16 @@ export default function AboutPage() {
                   <circle cx="160" cy="90" r="6" fill="rgba(232,160,48,0.9)" />
                   <circle cx="160" cy="90" r="14" fill="none" stroke="rgba(232,160,48,0.4)" strokeWidth="1" />
                 </svg>
-                <span>Map Placeholder · Replace with embed</span>
+                <span>Khatyari · Dugalkhola · Almora</span>
               </div>
               <div className="map-meta">
                 <div>
-                  <div className="k">Coordinates</div>
-                  <div className="v">29.5971° N, 79.6593° E</div>
+                  <div className="k">Junior Branch</div>
+                  <div className="v">Khatyari · Nursery–V</div>
                 </div>
                 <div>
-                  <div className="k">Nearest Airport</div>
-                  <div className="v">Pantnagar (PGH) · 134 km</div>
+                  <div className="k">Senior Branch</div>
+                  <div className="v">Dugalkhola · VI–XII</div>
                 </div>
               </div>
             </aside>
@@ -254,45 +220,46 @@ export default function AboutPage() {
           <div className="principal-grid">
             <div className="pp-portrait">
               <div className="pp-name-card">
-                <div className="nm">Dr. Anjali Pant</div>
-                <div className="ti">Principal · Since 2017</div>
+                <div className="nm">{school.principal}</div>
+                <div className="ti">Principal</div>
               </div>
             </div>
             <div className="pp-body">
+              {/* Verbatim from the Principal's message (school-data.json → leadership.principal). */}
               <blockquote className="pp-quote">
-                &quot;We do not merely prepare children for examinations — we prepare them to think, to lead, and to
-                live with conscience among the mountains and beyond.&quot;
+                &quot;I assure that the doors of our Institution will always be open to both students and their
+                parents.&quot;
               </blockquote>
               <p className="pp-text">
-                Dr. Pant has led Sharda Public School since 2017, bringing to it twenty-three years of experience across
-                CBSE and IB schools in Dehradun, Mussoorie and Pune. She holds a doctorate in Educational Leadership
-                from Punjab University and is a regular contributor to national curriculum advisory boards.
+                It is both an honour and a privilege to serve as the Principal of Sharda Public School, an esteemed
+                institution renowned for its commitment to excellence and its continuous efforts to establish the
+                highest standards of education in Almora.
               </p>
               <p className="pp-text">
-                The Principal&apos;s office is open to parents, students and prospective families by prior
-                appointment. Please write or call ahead — Dr. Pant prefers conversations she can give her full attention
-                to.
+                In addition to my goal of being an effective administrator, I aspire to be a trusted mentor, friend,
+                philosopher, and guide to our students — someone they can rely on and trust as they grow and realise
+                their potential in various fields of education.
               </p>
 
               <div className="pp-contact">
                 <div>
-                  <div className="k">Direct Email</div>
+                  <div className="k">Email</div>
                   <div className="v">
-                    <a href="mailto:principal@shardaschool.in">principal@shardaschool.in</a>
+                    <a href={`mailto:${school.email.general}`}>{school.email.general}</a>
                   </div>
                 </div>
                 <div>
-                  <div className="k">PA / Office</div>
-                  <div className="v">+91 5962 231 110</div>
+                  <div className="k">School Office</div>
+                  <div className="v">{school.phones.office[0].label}</div>
                 </div>
                 <div>
-                  <div className="k">Open Hours</div>
-                  <div className="v">Tue &amp; Thu · 11 am – 1 pm</div>
+                  <div className="k">Meetings</div>
+                  <div className="v">By appointment</div>
                 </div>
               </div>
 
               <div className="pp-cta">
-                <a href="mailto:principal@shardaschool.in">Request an appointment →</a>
+                <a href={`mailto:${school.email.general}`}>Request an appointment →</a>
               </div>
             </div>
           </div>
@@ -303,31 +270,28 @@ export default function AboutPage() {
           <div className="sec-head-row">
             <div>
               <div className="sec-eyebrow">How to Get Admission</div>
-              <h2 className="sec-title">Five steps from enquiry to enrolment.</h2>
+              <h2 className="sec-title">Four steps from enquiry to enrolment.</h2>
               <p className="sec-intro">
-                Admissions for the 2026–27 session open in November 2025. We admit roughly 280 students across grades;
-                entry into Nursery, Class VI and Class XI is most competitive.
+                Admissions for Session 2025–26 are open from Nursery to Class XI. Age criteria, what happens on
+                assessment day, fees and FAQs are all on the admissions page.
               </p>
             </div>
           </div>
 
           <div className="adm-grid">
             <aside className="adm-aside">
-              <h4>Key dates</h4>
-              <p>
-                The numbers most parents ask about, kept in one place. Fees shown are annual and include tuition, library
-                and lab.
-              </p>
+              <h4>At a glance</h4>
+              <p>The admissions office is at the Senior Branch, near Circuit House, Dugalkhola. Walk-ins are welcome; a call or WhatsApp lets us arrange a teacher and a class to visit.</p>
               <div className="adm-key">
-                {keyDates.map((d) => (
+                {keyFacts.map((d) => (
                   <div className="adm-key-row" key={d.k}>
                     <span className="k">{d.k}</span>
                     <span className="v">{d.v}</span>
                   </div>
                 ))}
               </div>
-              <a href="mailto:admissions@shardaschool.in" className="btn">
-                Start your application
+              <a href="/admissions" className="btn">
+                Read the admissions guide
               </a>
             </aside>
 
@@ -339,13 +303,6 @@ export default function AboutPage() {
                     <div className="meta">{s.meta}</div>
                     <h5>{s.title}</h5>
                     <p>{s.body}</p>
-                    {s.list && (
-                      <ul>
-                        {s.list.map((li) => (
-                          <li key={li}>{li}</li>
-                        ))}
-                      </ul>
-                    )}
                   </div>
                 </div>
               ))}
@@ -360,19 +317,21 @@ export default function AboutPage() {
               <div className="sec-eyebrow">Help &amp; Support</div>
               <h3 className="card-title">Who to call for what.</h3>
               <p className="card-sub">
-                Five direct lines so your enquiry reaches the right person on the first ring. Lines are staffed Mon–Sat,
-                8:30 am – 4:30 pm.
+                Call the admissions line for anything about joining SPS, or the school office for everything else.
+                Admissions office hours: {school.admissionHours}.
               </p>
 
               <div className="help-list">
                 {helpLines.map((h) => (
-                  <div className="help-row" key={h.name}>
+                  <div className="help-row" key={h.num}>
                     <div className="help-icon">{h.icon}</div>
                     <div className="name">
                       {h.name}
                       <small>{h.sub}</small>
                     </div>
-                    <div className="num">{h.num}</div>
+                    <a className="num" href={h.tel}>
+                      {h.num}
+                    </a>
                   </div>
                 ))}
               </div>
@@ -380,8 +339,8 @@ export default function AboutPage() {
               <div className="help-extra">
                 <div className="k">Can&apos;t find what you need?</div>
                 <div className="v">
-                  Write to <a href="mailto:help@shardaschool.in">help@shardaschool.in</a> — every email is read by a
-                  person and routed within four working hours.
+                  Write to <a href={`mailto:${school.email.general}`}>{school.email.general}</a> — every email is read by a
+                  person and routed to the right office.
                 </div>
               </div>
             </div>
@@ -434,7 +393,7 @@ export default function AboutPage() {
           <h3>
             Still have questions? <em>We&apos;d rather you ask</em> than wonder.
           </h3>
-          <a href="mailto:admissions@shardaschool.in">Talk to admissions</a>
+          <a href="/admissions#enquire">Talk to admissions</a>
         </div>
       </main>
 

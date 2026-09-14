@@ -1,0 +1,17 @@
+/* About page tokens and base — from design/About.html <style>. Nav and footer live in src/site/shell.css. */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --forest: #1b4d30; --forest-mid: #286640; --forest-light: #3d8f5a; --forest-pale: #e8f4ec;
+  --navy: #162840; --navy-mid: #1e3a5c; --navy-deep: #0e1e2e;
+  --amber: #c8831a; --amber-light: #e8a030; --amber-pale: #fdf5e8;
+  --sky: #2f7ea8; --sky-light: #e8f4fb;
+  --warm: #faf9f6; --snow: #f5f8fa; --cream: #f2ede4;
+  --text: #1a2418; --muted: #52645a; --border: #dce8e0;
+  --nav-h: 76px;
+  --serif: 'Cormorant Garamond', serif;
+  --sans: 'DM Sans', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--sans); background: var(--warm); color: var(--text); overflow-x: hidden; }
+a { color: inherit; }
