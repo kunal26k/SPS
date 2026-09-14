@@ -9,7 +9,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "import:design": "node scripts/import-design.mjs",
-    "export:preview": "STATIC_EXPORT=1 next build && node scripts/flatten-export.mjs"
+    "export:preview": "STATIC_EXPORT=1 next build && node scripts/flatten-export.mjs",
+    "export:site": "pnpm export:preview && node scripts/export-site.mjs"
   },
   "dependencies": {
     "next": "15.5.25",
