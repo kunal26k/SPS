@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Messages — Teacher Portal · Sharda Public School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest:#1b4d30; --forest-mid:#286640; --forest-light:#3d8f5a; --forest-pale:#e8f4ec;
+      --navy:#162840; --navy-mid:#1e3a5c; --amber:#c8831a; --amber-light:#e8a030; --amber-pale:#fdf5e8;
+      --sky:#2f7ea8; --sky-light:#e8f4fb; --red:#c0392b; --red-pale:#fdf0ef;
+      --purple:#6b21a8; --clay:#a8572f; --teal:#2f8a7e; --plum:#6b3f69;
+      --warm:#faf9f6; --snow:#f5f8fa; --cream:#f2ede4; --border:#dce8e0;
+      --text:#1a2418; --muted:#52645a; --sidebar-w:260px; --teacher-accent:#1e3a5c;
+    }
+    html { font-size:16px; }
+    body { font-family:'DM Sans',sans-serif; background:var(--snow); color:var(--text); display:flex; min-height:100vh; overflow-x:hidden; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { width:var(--sidebar-w); background:var(--teacher-accent); min-height:100vh; display:flex; flex-direction:column; position:fixed; top:0; left:0; z-index:100; overflow-y:auto; }
+    .sidebar-logo { padding:22px 20px 18px; border-bottom:1px solid rgba(255,255,255,0.07); display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .sidebar-logo img { height:38px; filter:brightness(0) invert(1); }
+    .sidebar-logo-text .name { font-family:'Cormorant Garamond',serif; font-size:15px; font-weight:600; color:#fff; }
+    .sidebar-logo-text .sub { font-size:10px; color:rgba(255,255,255,0.4); margin-top:1px; letter-spacing:0.1em; }
+    .sidebar-user { padding:18px 20px; border-bottom:1px solid rgba(255,255,255,0.07); display:flex; align-items:center; gap:12px; }
+    .user-av { width:42px; height:42px; border-radius:50%; background:var(--navy); display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; color:#fff; flex-shrink:0; }
+    .user-info .name { font-size:13.5px; font-weight:600; color:#fff; }
+    .user-info .role { font-size:11px; color:rgba(255,255,255,0.45); margin-top:1px; }
+    .user-badge { margin-left:auto; background:var(--amber); color:#fff; font-size:9px; font-weight:800; padding:3px 8px; border-radius:20px; letter-spacing:0.08em; }
+    .sidebar-nav { padding:14px 0; flex:1; }
+    .nav-section { padding:12px 20px 4px; font-size:9.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.25); }
+    .nav-item { display:flex; align-items:center; gap:12px; padding:11px 20px; cursor:pointer; color:rgba(255,255,255,0.6); font-size:13.5px; font-weight:500; transition:all 0.2s; border-left:3px solid transparent; text-decoration:none; }
+    .nav-item:hover { color:#fff; background:rgba(255,255,255,0.05); }
+    .nav-item.active { color:#fff; background:rgba(255,255,255,0.08); border-left-color:var(--amber-light); }
+    .nav-item .ni-icon { font-size:16px; width:20px; text-align:center; flex-shrink:0; }
+    .ni-badge { margin-left:auto; background:var(--red); color:#fff; font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px; }
+    .sidebar-footer { padding:16px 20px; border-top:1px solid rgba(255,255,255,0.07); }
+    .sidebar-footer a { color:rgba(255,255,255,0.4); font-size:12.5px; text-decoration:none; transition:color 0.2s; }
+    .sidebar-footer a:hover { color:rgba(255,255,255,0.8); }
+
+    /* ── MAIN ── */
+    .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; min-height:100vh; height:100vh; }
+    .topbar { background:#fff; border-bottom:1px solid var(--border); padding:0 36px; height:64px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+    .topbar-title { font-size:17px; font-weight:600; color:var(--navy); }
+    .topbar-right { display:flex; align-items:center; gap:14px; }
+    .tb-date { font-size:12px; color:var(--muted); }
+    .tb-notif { width:36px; height:36px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer; position:relative; text-decoration:none; }
+    .tb-notif .dot { position:absolute; top:6px; right:6px; width:7px; height:7px; background:var(--red); border-radius:50%; border:1.5px solid #fff; }
+
+    /* ── MESSENGER ── */
+    .messenger { flex:1; display:grid; grid-template-columns:340px 1fr 0; min-height:0; transition:grid-template-columns 0.25s; }
+    .messenger.info-open { grid-template-columns:340px 1fr 290px; }
+
+    .conv-pane { border-right:1px solid var(--border); background:#fff; display:flex; flex-direction:column; min-height:0; }
+    .conv-head { padding:22px 22px 14px; border-bottom:1px solid var(--border); flex-shrink:0; }
+    .conv-head h2 { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:600; color:var(--navy); margin-bottom:12px; }
+    .conv-search { display:flex; align-items:center; gap:8px; background:var(--snow); border:1px solid var(--border); border-radius:6px; padding:9px 12px; }
+    .conv-search input { border:none; background:none; outline:none; font-family:inherit; font-size:13px; color:var(--text); width:100%; }
+    .new-msg-btn { width:100%; margin-top:12px; padding:10px; border:none; border-radius:6px; background:var(--forest); color:#fff; font-family:inherit; font-size:12.5px; font-weight:700; letter-spacing:0.04em; cursor:pointer; transition:background 0.2s; display:flex; align-items:center; justify-content:center; gap:7px; }
+    .new-msg-btn:hover { background:var(--forest-mid); }
+
+    .conv-scroll { overflow-y:auto; flex:1; min-height:0; }
+    .conv-group-label { padding:16px 22px 6px; font-size:9.5px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); }
+    .conv-item { display:flex; align-items:center; gap:12px; padding:12px 22px; cursor:pointer; border-left:3px solid transparent; transition:background 0.15s; }
+    .conv-item:hover { background:var(--snow); }
+    .conv-item.active { background:var(--sky-light); border-left-color:var(--navy-mid); }
+    .conv-av { width:44px; height:44px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; color:#fff; position:relative; }
+    .conv-av.group { border-radius:12px; font-size:19px; }
+    .conv-av .online { position:absolute; bottom:1px; right:1px; width:11px; height:11px; border-radius:50%; background:var(--forest-light); border:2px solid #fff; }
+    .conv-meta { flex:1; min-width:0; }
+    .conv-row1 { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
+    .conv-name { font-size:13.5px; font-weight:600; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .conv-time { font-size:10.5px; color:var(--muted); flex-shrink:0; }
+    .conv-row2 { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:3px; }
+    .conv-preview { font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .conv-preview.unread { color:var(--text); font-weight:600; }
+    .conv-unread { flex-shrink:0; background:var(--red); color:#fff; font-size:10px; font-weight:700; min-width:18px; height:18px; padding:0 5px; border-radius:9px; display:flex; align-items:center; justify-content:center; }
+    .conv-tag { font-size:9px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:1px 6px; border-radius:3px; margin-left:4px; }
+    .conv-tag.official { background:var(--navy); color:#fff; }
+    .conv-tag.live { background:var(--red); color:#fff; }
+    .conv-tag.exam { background:var(--purple); color:#fff; }
+    .conv-tag.event { background:var(--amber); color:#fff; }
+
+    /* chat */
+    .chat-pane { display:flex; flex-direction:column; min-height:0; background:var(--warm); }
+    .chat-head { background:#fff; border-bottom:1px solid var(--border); padding:12px 24px; display:flex; align-items:center; gap:13px; flex-shrink:0; }
+    .chat-head .conv-av { width:42px; height:42px; }
+    .chat-head-info { flex:1; min-width:0; }
+    .chat-head-name { font-size:15px; font-weight:600; color:var(--navy); display:flex; align-items:center; gap:8px; }
+    .chat-head-sub { font-size:11.5px; color:var(--muted); margin-top:2px; }
+    .chat-head-actions { display:flex; gap:8px; }
+    .chat-icon-btn { width:36px; height:36px; border-radius:50%; border:1px solid var(--border); background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; cursor:pointer; transition:background 0.2s; }
+    .chat-icon-btn:hover { background:var(--snow); }
+    .chat-icon-btn.active { background:var(--sky-light); border-color:var(--sky); }
+
+    .chat-body { flex:1; overflow-y:auto; padding:24px 28px; min-height:0; display:flex; flex-direction:column; gap:4px; }
+    .day-sep { text-align:center; margin:14px 0; }
+    .day-sep span { font-size:10.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); background:var(--cream); padding:4px 14px; border-radius:20px; }
+    .sys-msg { text-align:center; font-size:11.5px; color:var(--muted); margin:6px 0; font-style:italic; }
+
+    .msg { display:flex; gap:9px; max-width:74%; margin-top:8px; }
+    .msg.in { align-self:flex-start; }
+    .msg.out { align-self:flex-end; flex-direction:row-reverse; }
+    .msg-av { width:30px; height:30px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff; }
+    .msg-stack { display:flex; flex-direction:column; }
+    .msg.out .msg-stack { align-items:flex-end; }
+    .msg-author { font-size:11px; font-weight:700; color:var(--navy-mid); margin-bottom:3px; display:flex; align-items:center; gap:6px; }
+    .role-pill { font-size:8.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; padding:1px 5px; border-radius:3px; background:var(--cream); color:var(--muted); }
+    .role-pill.principal { background:var(--navy); color:#fff; }
+    .role-pill.teacher { background:var(--forest-pale); color:var(--forest); }
+    .role-pill.hod { background:var(--sky-light); color:var(--sky); }
+    .role-pill.coordinator { background:var(--purple-pale,#f3eafd); color:var(--purple); }
+    .role-pill.cr { background:rgba(200,131,26,0.15); color:var(--amber); }
+    .role-pill.student { background:var(--cream); color:var(--muted); }
+    .bubble { padding:10px 14px; border-radius:14px; font-size:13.5px; line-height:1.5; box-shadow:0 1px 2px rgba(22,40,64,0.04); }
+    .msg.in .bubble { background:#fff; border:1px solid var(--border); border-top-left-radius:4px; color:var(--text); }
+    .msg.out .bubble { background:var(--navy-mid); color:#fff; border-top-right-radius:4px; }
+    .msg-time { font-size:10px; color:var(--muted); margin-top:4px; }
+    .msg.out .msg-time { display:flex; align-items:center; gap:4px; }
+    .tick { color:var(--sky); font-size:11px; }
+    .attach-chip { display:inline-flex; align-items:center; gap:8px; margin-top:6px; padding:8px 12px; border-radius:8px; background:var(--sky-light); border:1px solid #cfe6f3; font-size:12px; color:var(--navy-mid); font-weight:500; }
+    .msg.out .attach-chip { background:rgba(255,255,255,0.14); border-color:rgba(255,255,255,0.25); color:#fff; }
+
+    /* composer */
+    .composer { background:#fff; border-top:1px solid var(--border); padding:14px 20px; flex-shrink:0; }
+    .composer-row { display:flex; align-items:flex-end; gap:10px; }
+    .composer-tool { width:38px; height:38px; border-radius:50%; border:none; background:var(--snow); display:flex; align-items:center; justify-content:center; font-size:17px; cursor:pointer; transition:background 0.2s; flex-shrink:0; }
+    .composer-tool:hover { background:var(--cream); }
+    .composer-input { flex:1; border:1.5px solid var(--border); border-radius:22px; padding:10px 16px; font-family:inherit; font-size:13.5px; resize:none; outline:none; max-height:120px; line-height:1.4; transition:border-color 0.2s; }
+    .composer-input:focus { border-color:var(--sky); }
+    .send-btn { width:42px; height:42px; border-radius:50%; border:none; background:var(--navy-mid); color:#fff; font-size:17px; cursor:pointer; transition:all 0.2s; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+    .send-btn:hover { background:var(--navy); transform:scale(1.05); }
+    .composer-note { font-size:10.5px; color:var(--muted); margin-top:7px; padding-left:48px; display:flex; align-items:center; gap:6px; }
+
+    /* info */
+    .info-pane { border-left:1px solid var(--border); background:#fff; overflow-y:auto; }
+    .info-hero { padding:28px 22px 22px; text-align:center; border-bottom:1px solid var(--border); }
+    .info-hero .conv-av { width:72px; height:72px; margin:0 auto 12px; font-size:26px; }
+    .info-hero h3 { font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:600; color:var(--navy); }
+    .info-hero p { font-size:12px; color:var(--muted); margin-top:4px; }
+    .info-sec { padding:18px 22px; border-bottom:1px solid var(--border); }
+    .info-sec h4 { font-size:9.5px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:12px; }
+    .member { display:flex; align-items:center; gap:11px; padding:7px 0; }
+    .member-av { width:34px; height:34px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; }
+    .member-info .m-name { font-size:13px; font-weight:600; color:var(--navy); }
+    .member-info .m-role { font-size:10.5px; color:var(--muted); }
+    .member .role-pill { margin-left:auto; }
+    .info-about { font-size:12.5px; color:var(--muted); line-height:1.6; }
+
+    @media (max-width:1120px){ .messenger{ grid-template-columns:300px 1fr 0; } .messenger.info-open{ grid-template-columns:300px 1fr 0; } .info-pane{ display:none; } }
+  
+.sb-burger{display:none;width:38px;height:38px;border:1px solid var(--border);border-radius:4px;background:#fff;align-items:center;justify-content:center;font-size:17px;cursor:pointer;flex-shrink:0;color:var(--navy);}
+.sb-backdrop{display:none;position:fixed;inset:0;background:rgba(16,29,49,0.45);z-index:99;}
+.sb-backdrop.show{display:block;}
+@media (max-width:1080px){
+  .sidebar{transform:translateX(-100%);transition:transform .28s ease;}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0!important;}
+  .sb-burger{display:flex;}
+  .dash-grid,.analytics-grid,.att-top,.sal-top,.comm-grid,.role-grid,.content-grid,.leave-grid,.form-grid,.results-summary,.att-grid,.brk-grid,.pay-detail-grid,.enroll-grid,.live-grid,.class-strength,.fee-stats,.summary-row,.att-summary-strip,.pipeline-strip{grid-template-columns:repeat(2,1fr)!important;}
+  [style*="grid-template-columns:repeat(4"],[style*="grid-template-columns:repeat(5"],[style*="grid-template-columns:repeat(6"]{grid-template-columns:repeat(2,1fr)!important;}
+}
+@media (max-width:680px){
+  .topbar{padding:0 16px;}
+  .content{padding:20px 16px;}
+  .dash-grid,.analytics-grid,.att-top,.sal-top,.comm-grid,.role-grid,.content-grid,.leave-grid,.form-grid,.results-summary,.att-grid,.brk-grid,.pay-detail-grid,.enroll-grid,.live-grid,.class-strength,.fee-stats,.summary-row,.att-summary-strip,.pipeline-strip,.modal-grid{grid-template-columns:1fr!important;}
+  [style*="grid-template-columns"]{grid-template-columns:1fr!important;}
+  .schedule-table,.asgn-table,.student-list,.sr-table,.subject-table{overflow-x:auto;}
+  .st-header,.st-row{min-width:560px;}
+  .at-head,.at-row{min-width:640px;}
+  .student-row{min-width:520px;}
+  .sr-head,.sr-row{min-width:480px;}
+  .leave-card,.q-card{grid-template-columns:36px 1fr!important;}
+  .punch-row,.leave-grid{grid-template-columns:1fr!important;}
+}
+</style>
+</head>
+<body>
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <a href="Teacher Portal.html" class="sidebar-logo">
+      <img src="uploads/assets-1777010966211.png" alt="SPS" />
+      <div class="sidebar-logo-text">
+        <div class="name">Sharda Public School</div>
+        <div class="sub">Teacher Portal</div>
+      </div>
+    </a>
+    <div class="sidebar-user">
+      <div class="user-av">S</div>
+      <div class="user-info">
+        <div class="name">Mr. Suresh Negi</div>
+        <div class="role">Mathematics · Classes IX & X</div>
+      </div>
+      <span class="user-badge">FACULTY</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Overview</div>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">🏠</span> Dashboard</a>
+      <div class="nav-section">Assignments</div>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">📝</span> Manage Assignments <span class="ni-badge">4</span></a>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">➕</span> Create Assignment</a>
+      <div class="nav-section">Classes</div>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">📊</span> Class Analytics</a>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">📺</span> Schedule Live Class</a>
+      <div class="nav-section">Students</div>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">👥</span> My Students</a>
+      <div class="nav-item active"><span class="ni-icon">💬</span> Messages <span class="ni-badge">6</span></div>
+      <div class="nav-section">My Profile</div>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">🕘</span> My Attendance</a>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">💰</span> My Salary &amp; Payslips</a>
+      <div class="nav-section">More</div>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">🗓️</span> School Calendar</a>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">📚</span> Teaching Resources</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="SPS Website WIP.html">← Back to School Website</a>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title">Messages</div>
+      <div class="topbar-right">
+        <span class="tb-date">Mon, 28 Apr 2026</span>
+        <div class="tb-notif">🔔<div class="dot"></div></div>
+        <div class="tb-notif">👤</div>
+      </div>
+    </div>
+
+    <div class="messenger" id="messenger">
+      <div class="conv-pane">
+        <div class="conv-head">
+          <h2>Messages</h2>
+          <div class="conv-search">
+            <span style="font-size:13px;color:var(--muted);">🔍</span>
+            <input type="text" placeholder="Search classes, staff & groups…" oninput="filterConvs(this.value)" />
+          </div>
+          <button class="new-msg-btn" onclick="alert('New message — pick a student, parent, colleague or create a group.')">✏️ New Message</button>
+        </div>
+        <div class="conv-scroll" id="convScroll"></div>
+      </div>
+      <div class="chat-pane" id="chatPane"></div>
+      <div class="info-pane" id="infoPane"></div>
+    </div>
+  </div>
+
+  <script>
+    const COLORS = { forest:'#1b4d30', navy:'#162840', navyMid:'#1e3a5c', amber:'#c8831a', sky:'#2f7ea8', red:'#c0392b', purple:'#6b21a8', plum:'#6b3f69', teal:'#2f8a7e', clay:'#a8572f' };
+
+    // people (roles: teacher, principal, hod, coordinator, cr, student)
+    const P = {
+      negi:   { name:'Mr. Suresh Negi', short:'You',          role:'teacher',     sub:'Mathematics · You',            color:COLORS.navyMid },
+      khanna: { name:'Mrs. A. Khanna',  short:'Principal',    role:'principal',   sub:'Principal · SPS',              color:COLORS.navy },
+      iyer:   { name:'Mr. K. Iyer',     short:'Mr. Iyer',     role:'hod',         sub:'HOD · Mathematics',            color:COLORS.sky },
+      verma:  { name:'Mrs. S. Verma',   short:'Mrs. Verma',   role:'teacher',     sub:'English',                      color:COLORS.plum },
+      nair:   { name:'Dr. P. Nair',     short:'Dr. Nair',     role:'hod',         sub:'HOD · Science',                color:COLORS.teal },
+      gupta:  { name:'Mrs. N. Gupta',   short:'Mrs. Gupta',   role:'coordinator', sub:'Examination Coordinator',      color:COLORS.purple },
+      rao:    { name:'Coach Rao',       short:'Coach Rao',    role:'teacher',     sub:'Physical Education',           color:COLORS.clay },
+      aryan:  { name:'Aryan Bisht',     short:'Aryan',        role:'cr',          sub:'Class IX-A · CR',              color:COLORS.forest },
+      priya:  { name:'Priya Pant',      short:'Priya',        role:'student',     sub:'Class IX-A',                   color:COLORS.amber },
+      kabir:  { name:'Kabir Anand',     short:'Kabir',        role:'cr',          sub:'Class X-B · CR',               color:COLORS.red },
+    };
+    const roleLabel = { teacher:'Teacher', principal:'Principal', hod:'HOD', coordinator:'Exam Cell', cr:'Class CR', student:'Student' };
+    function initials(name){ return name.replace(/^(Mr\.|Mrs\.|Dr\.|Coach)\s/,'').trim()[0]; }
+
+    const CONVS = [
+      {
+        id:'staff', group:'pinned', kind:'group', icon:'🏛️', color:COLORS.navy,
+        name:'Staff Leadership', tag:'OFFICIAL', tagCls:'official',
+        sub:'Principal · HODs · Class Teachers',
+        about:'Private staff coordination channel led by the Principal. Policy updates, approvals, escalations and whole-school decisions. Not visible to students or parents.',
+        members:['khanna','iyer','nair','verma','negi'], online:true, time:'11:02', unread:2,
+        preview:'Principal: Please submit Term-1 marks by Friday.',
+        messages:[
+          { sys:'Channel managed by the Principal\'s office' },
+          { day:'Today' },
+          { from:'khanna', t:'Good morning all. Reminder — Term-1 internal marks must be uploaded by Friday EOD.', time:'10:48' },
+          { from:'iyer',  t:'Mathematics dept is on track. Mr. Negi, IX & X by Thursday?', time:'10:55' },
+          { from:'negi',  t:'Yes sir. IX-A and X-B marks will be uploaded by Thursday evening.', time:'10:58' },
+          { from:'khanna',t:'Please submit Term-1 marks by Friday. Thank you, everyone.', time:'11:02' },
+        ]
+      },
+      {
+        id:'mathdept', group:'pinned', kind:'group', icon:'➗', color:COLORS.sky,
+        name:'Mathematics Department', tag:'', tagCls:'',
+        sub:'HOD + 4 Math faculty',
+        about:'Subject department group for Mathematics. Lesson planning, question-paper moderation and shared resources.',
+        members:['iyer','negi'], online:true, time:'09:30', unread:0,
+        preview:'Mr. Iyer: Paper moderation meeting at 2 PM.',
+        messages:[
+          { day:'Today' },
+          { from:'iyer', t:'Question-paper moderation for Half-Yearly at 2 PM in the staffroom.', time:'09:25' },
+          { from:'negi', t:'Noted sir. I\'ll bring the IX-A draft.', time:'09:30' },
+        ]
+      },
+      {
+        id:'ixa', group:'classes', kind:'group', icon:'📘', color:COLORS.forest,
+        name:'Class IX-A — Mathematics', tag:'', tagCls:'',
+        sub:'36 students · Class group',
+        about:'Class group for IX-A Mathematics. Homework, reminders and announcements. Moderated by Mr. Negi with CR Aryan Bisht.',
+        members:['negi','aryan','priya'], online:true, time:'08:40', unread:1,
+        preview:'Aryan: Sir, will tomorrow\'s test include Ch. 6?',
+        messages:[
+          { day:'Today' },
+          { from:'negi',  t:'Class, revise Lines & Angles (Ch. 6) for tomorrow\'s short test.', time:'08:30' },
+          { from:'aryan', t:'Sir, will tomorrow\'s test include Ch. 6?', time:'08:40' },
+        ]
+      },
+      {
+        id:'xb', group:'classes', kind:'group', icon:'📗', color:COLORS.teal,
+        name:'Class X-B — Mathematics', tag:'', tagCls:'',
+        sub:'38 students · Class group',
+        about:'Class group for X-B Mathematics. Board-exam preparation, practice sets and doubt clearing.',
+        members:['negi','kabir'], online:true, time:'Yesterday', unread:0,
+        preview:'You: Extra doubt-clearing session on Saturday, 10 AM.',
+        messages:[
+          { day:'Yesterday' },
+          { from:'negi',  t:'Quadratic Equations practice set uploaded. Submit by Monday.', time:'03:10 PM', attach:{ic:'📄',name:'X-B_Quadratics_Set.pdf'} },
+          { from:'kabir', t:'Thank you sir!', time:'03:22 PM' },
+          { from:'negi',  t:'Extra doubt-clearing session on Saturday, 10 AM.', time:'03:25 PM' },
+        ]
+      },
+      {
+        id:'annualday', group:'events', kind:'group', icon:'🎭', color:COLORS.amber,
+        name:'Annual Day 2026 — Organizing', tag:'UPCOMING', tagCls:'event',
+        sub:'Staff committee · 14 Aug',
+        about:'Organizing committee for Annual Day 2026. Programme schedule, duty roster and rehearsal coordination. Event date: 14 August 2026.',
+        members:['verma','rao','negi'], online:true, time:'Mon', unread:1,
+        preview:'Mrs. Verma: Need 2 teachers for stage management.',
+        messages:[
+          { day:'Monday' },
+          { from:'verma', t:'Planning meeting Thursday. We need 2 teachers for stage management.', time:'12:10' },
+          { from:'rao',   t:'I can take ground arrangements & seating.', time:'12:18' },
+          { from:'verma', t:'Mr. Negi, could you handle the prize-distribution list?', time:'12:25' },
+        ]
+      },
+      {
+        id:'sciexpo', group:'events', kind:'group', icon:'🔬', color:COLORS.red,
+        name:'Science Exhibition — Today', tag:'LIVE', tagCls:'live',
+        sub:'Ongoing now · Main Hall',
+        about:'Live coordination for the Science Exhibition happening today in the Main Hall. Real-time updates on judging, crowd flow and timings.',
+        members:['nair','negi','rao'], online:true, time:'10:15', unread:1,
+        preview:'Dr. Nair: Judging starts at 11 — bring score sheets.',
+        messages:[
+          { sys:'Event is live · Main Hall' },
+          { day:'Today' },
+          { from:'nair', t:'Exhibition is open. Judging starts at 11 — bring your score sheets.', time:'10:05' },
+          { from:'negi', t:'On my way to the Maths & Logic stalls.', time:'10:12' },
+          { from:'nair', t:'Great. Crowd is building — Coach Rao, can you manage the entry queue?', time:'10:15' },
+        ]
+      },
+      {
+        id:'examcell', group:'exams', kind:'group', icon:'📋', color:COLORS.purple,
+        name:'Half-Yearly Exam Cell', tag:'EXAM', tagCls:'exam',
+        sub:'Exam coordinator + invigilators',
+        about:'Examination coordination group for the Half-Yearly exams (Sep 2026). Datesheet, invigilation duty, seating plans and paper logistics.',
+        members:['gupta','khanna','negi','iyer'], online:true, time:'09:50', unread:0,
+        preview:'Mrs. Gupta: Invigilation duty chart is out.',
+        messages:[
+          { day:'Today' },
+          { from:'gupta', t:'Half-Yearly datesheet finalised. Invigilation duty chart is out.', time:'09:40', attach:{ic:'📄',name:'HalfYearly_Datesheet.pdf'} },
+          { from:'gupta', t:'Mr. Negi — you have Hall A on 16 & 18 Sep, 9 AM.', time:'09:45' },
+          { from:'negi',  t:'Noted, Mrs. Gupta. I\'ll be there by 8:45.', time:'09:50' },
+        ]
+      },
+      {
+        id:'khanna', group:'direct', kind:'dm', color:COLORS.navy,
+        name:'Mrs. A. Khanna', personId:'khanna', sub:'Principal',
+        online:false, time:'Fri', unread:0,
+        preview:'You: Thank you ma\'am, I\'ll prepare the report.',
+        about:'Principal of Sharda Public School.',
+        messages:[
+          { day:'Friday' },
+          { from:'khanna', t:'Mr. Negi, could you share the IX-A improvement plan before the PTM?', time:'01:20 PM' },
+          { from:'negi',  t:'Thank you ma\'am, I\'ll prepare the report.', time:'01:35 PM' },
+        ]
+      },
+      {
+        id:'aryan', group:'direct', kind:'dm', color:COLORS.forest,
+        name:'Aryan Bisht', personId:'aryan', sub:'Class IX-A · Class Representative',
+        online:true, time:'08:55', unread:1,
+        preview:'Aryan: Sir, I\'ve collected the quiz-team consent forms.',
+        about:'Class Representative for IX-A.',
+        messages:[
+          { day:'Today' },
+          { from:'aryan', t:'Good morning sir. I\'ve collected the quiz-team consent forms.', time:'08:55' },
+        ]
+      },
+    ];
+
+    const GROUP_LABELS = { pinned:'Staff & Leadership', classes:'My Classes', events:'Events', exams:'Examinations', direct:'Direct Messages' };
+    let activeId = 'staff';
+
+    function renderConvList(filter){
+      const scroll = document.getElementById('convScroll');
+      filter = (filter||'').toLowerCase();
+      let html='';
+      ['pinned','classes','events','exams','direct'].forEach(g=>{
+        const items = CONVS.filter(c=>c.group===g && (c.name.toLowerCase().includes(filter)||c.preview.toLowerCase().includes(filter)));
+        if(!items.length) return;
+        html += `<div class="conv-group-label">${GROUP_LABELS[g]}</div>`;
+        items.forEach(c=>{
+          const isGrp = c.kind==='group';
+          const avInner = isGrp ? c.icon : initials(c.name);
+          const online = c.online ? '<span class="online"></span>' : '';
+          const tag = c.tag ? `<span class="conv-tag ${c.tagCls}">${c.tag}</span>` : '';
+          const unread = c.unread ? `<span class="conv-unread">${c.unread}</span>` : '';
+          html += `
+            <div class="conv-item ${c.id===activeId?'active':''}" onclick="openConv('${c.id}')">
+              <div class="conv-av ${isGrp?'group':''}" style="background:${c.color}">${avInner}${online}</div>
+              <div class="conv-meta">
+                <div class="conv-row1"><div class="conv-name">${c.name}${tag}</div><div class="conv-time">${c.time}</div></div>
+                <div class="conv-row2"><div class="conv-preview ${c.unread?'unread':''}">${c.preview}</div>${unread}</div>
+              </div>
+            </div>`;
+        });
+      });
+      scroll.innerHTML = html;
+    }
+    function filterConvs(v){ renderConvList(v); }
+
+    function renderChat(c){
+      const pane = document.getElementById('chatPane');
+      const isGrp = c.kind==='group';
+      const headAv = `<div class="conv-av ${isGrp?'group':''}" style="background:${c.color}">${isGrp?c.icon:initials(c.name)}</div>`;
+      let body='';
+      c.messages.forEach(m=>{
+        if(m.day){ body+=`<div class="day-sep"><span>${m.day}</span></div>`; return; }
+        if(m.sys){ body+=`<div class="sys-msg">🔒 ${m.sys}</div>`; return; }
+        const out = m.from==='negi';
+        const p = P[m.from];
+        const attach = m.attach ? `<div class="attach-chip">${m.attach.ic} ${m.attach.name}</div>` : '';
+        const author = (isGrp && !out) ? `<div class="msg-author">${p.name}<span class="role-pill ${p.role}">${roleLabel[p.role]}</span></div>` : '';
+        const avatar = (!out) ? `<div class="msg-av" style="background:${p.color}">${initials(p.name)}</div>` : '';
+        const tick = out ? '<span class="tick">✓✓</span>' : '';
+        body += `<div class="msg ${out?'out':'in'}">${avatar}<div class="msg-stack">${author}<div class="bubble">${m.t}${attach}</div><div class="msg-time">${tick}${m.time}</div></div></div>`;
+      });
+      const noteText = c.id==='staff'
+        ? 'Private staff channel · visible only to Principal, HODs & Class Teachers'
+        : (isGrp ? `Posting to ${c.name}` : 'Messages are logged per school communication policy');
+      pane.innerHTML = `
+        <div class="chat-head">${headAv}
+          <div class="chat-head-info">
+            <div class="chat-head-name">${c.name}${c.tag?`<span class="conv-tag ${c.tagCls}">${c.tag}</span>`:''}</div>
+            <div class="chat-head-sub">${isGrp ? c.sub : (c.online?'● Online':'Last seen recently')}</div>
+          </div>
+          <div class="chat-head-actions">
+            <div class="chat-icon-btn" title="Call" onclick="alert('Voice call is not available in this demo.')">📞</div>
+            <div class="chat-icon-btn" id="infoBtn" title="Details" onclick="toggleInfo()">ℹ️</div>
+          </div>
+        </div>
+        <div class="chat-body" id="chatBody">${body}</div>
+        <div class="composer">
+          <div class="composer-row">
+            <button class="composer-tool" title="Attach" onclick="alert('Attach a file, worksheet or notice.')">📎</button>
+            <textarea class="composer-input" id="composerInput" rows="1" placeholder="Write a message…" oninput="autoGrow(this)" onkeydown="onKey(event)"></textarea>
+            <button class="composer-tool" title="Emoji" onclick="addEmoji()">😊</button>
+            <button class="send-btn" onclick="sendMsg()">➤</button>
+          </div>
+          <div class="composer-note">🔒 ${noteText}</div>
+        </div>`;
+      scrollChatBottom();
+    }
+
+    function renderInfo(c){
+      const pane = document.getElementById('infoPane');
+      const isGrp = c.kind==='group';
+      const headAv = `<div class="conv-av ${isGrp?'group':''}" style="background:${c.color}">${isGrp?c.icon:initials(c.name)}</div>`;
+      let membersHtml='';
+      if(isGrp){
+        membersHtml = `<div class="info-sec"><h4>Members · ${c.members.length}</h4>`;
+        c.members.forEach(id=>{ const p=P[id];
+          membersHtml += `<div class="member"><div class="member-av" style="background:${p.color}">${initials(p.name)}</div>
+            <div class="member-info"><div class="m-name">${p.name}${id==='negi'?' (You)':''}</div><div class="m-role">${p.sub}</div></div>
+            <span class="role-pill ${p.role}">${roleLabel[p.role]}</span></div>`;
+        });
+        membersHtml += `</div>`;
+      }
+      pane.innerHTML = `
+        <div class="info-hero">${headAv}<h3>${c.name}</h3><p>${c.sub}</p></div>
+        <div class="info-sec"><h4>About</h4><div class="info-about">${c.about}</div></div>
+        ${membersHtml}
+        <div class="info-sec"><h4>Shared</h4><div class="info-about">📄 Documents · 📷 Photos · 🔗 Links</div></div>`;
+    }
+
+    function openConv(id){
+      activeId = id;
+      const c = CONVS.find(x=>x.id===id); c.unread=0;
+      renderConvList(document.querySelector('.conv-search input').value);
+      renderChat(c); renderInfo(c);
+    }
+
+    let infoOpen=false;
+    function toggleInfo(){
+      infoOpen=!infoOpen;
+      document.getElementById('messenger').classList.toggle('info-open', infoOpen);
+      const btn=document.getElementById('infoBtn'); if(btn) btn.classList.toggle('active', infoOpen);
+    }
+
+    function autoGrow(el){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,120)+'px'; }
+    function onKey(e){ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendMsg(); } }
+    function addEmoji(){ const i=document.getElementById('composerInput'); i.value+='🙂'; i.focus(); }
+    function nowTime(){ const d=new Date(); let h=d.getHours(),m=d.getMinutes(); const ap=h>=12?'PM':'AM'; h=h%12||12; return `${h}:${String(m).padStart(2,'0')} ${ap}`; }
+    function sendMsg(){
+      const input=document.getElementById('composerInput'); const txt=input.value.trim(); if(!txt) return;
+      const c=CONVS.find(x=>x.id===activeId);
+      c.messages.push({ from:'negi', t:escapeHtml(txt), time:nowTime() });
+      c.preview='You: '+txt; c.time='now';
+      input.value=''; input.style.height='auto';
+      renderChat(c); renderConvList(document.querySelector('.conv-search input').value);
+    }
+    function escapeHtml(s){ return s.replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+    function scrollChatBottom(){ const b=document.getElementById('chatBody'); if(b) b.scrollTop=b.scrollHeight; }
+
+    renderConvList(''); openConv('staff');
+  </script>
+
+<div class="sb-backdrop" id="sbBackdrop" onclick="closeSidebar()"></div>
+<script>
+function openSidebar(){document.querySelector('.sidebar').classList.add('open');document.getElementById('sbBackdrop').classList.add('show');}
+function closeSidebar(){document.querySelector('.sidebar').classList.remove('open');document.getElementById('sbBackdrop').classList.remove('show');}
+document.querySelectorAll('.nav-item').forEach(el=>el.addEventListener('click',closeSidebar));
+</script>
+</body>
+</html>

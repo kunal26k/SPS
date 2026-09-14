@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Sharda Public School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest: #1b4d30; --forest-mid: #286640; --forest-light: #3d8f5a; --forest-pale: #e8f4ec;
+      --navy: #162840; --navy-mid: #1e3a5c; --navy-deep: #0e1e2e;
+      --amber: #c8831a; --amber-light: #e8a030; --amber-pale: #fdf5e8;
+      --sky: #2f7ea8; --sky-light: #e8f4fb;
+      --warm: #faf9f6; --snow: #f5f8fa; --cream: #f2ede4;
+      --text: #1a2418; --muted: #52645a; --border: #dce8e0;
+      --nav-h: 76px;
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--warm); color: var(--text); overflow-x: hidden; }
+    a { color: inherit; }
+
+    /* ─── NAV ─── */
+    nav.site-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h); display: flex; align-items: center;
+      padding: 0 48px; background: rgba(22, 40, 64, 0.98);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.18); backdrop-filter: blur(12px);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+    .nav-logo img { height: 46px; filter: brightness(0) invert(1); }
+    .nav-brand .name { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: #fff; display: block; line-height: 1; }
+    .nav-brand .motto { font-size: 9.5px; color: var(--amber-light); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 4px; display: block; }
+    .nav-center { flex: 1; display: flex; justify-content: center; }
+    .nav-links { display: flex; gap: 4px; list-style: none; }
+    .nav-links > li > a {
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+      padding: 8px 14px; border-radius: 4px; transition: color 0.2s, background 0.2s;
+    }
+    .nav-links > li > a:hover, .nav-links > li.active > a { color: #fff; background: rgba(255,255,255,0.1); }
+.dropdown { position: absolute; top: calc(100% + 8px); left: 0; background: var(--navy); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 210px; box-shadow: 0 16px 48px rgba(0,0,0,0.4); opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity 0.2s, transform 0.2s; z-index: 300; }
+    .nav-links > li:hover .dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .dropdown a { display: block; padding: 10px 18px; color: rgba(255,255,255,0.75); font-size: 13px; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.15s, background 0.15s; }
+    .dropdown a:last-child { border-bottom: none; }
+    .dropdown a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-right { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+    .nav-portal { color: rgba(255,255,255,0.7); font-size: 12.5px; text-decoration: none; padding: 7px 14px; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; transition: all 0.2s; }
+    .nav-portal:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
+    .nav-apply { background: var(--amber); color: #fff; padding: 9px 20px; border-radius: 4px; font-size: 13px; font-weight: 600; text-decoration: none; letter-spacing: 0.03em; transition: background 0.2s; }
+    .nav-apply:hover { background: var(--amber-light); }
+
+    /* ─── HEADER ─── */
+    .page-head {
+      padding: calc(var(--nav-h) + 64px) 80px 64px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--forest) 120%);
+      color: #fff; position: relative; overflow: hidden;
+    }
+    .page-head::before {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(232,160,48,0.12), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(61,143,90,0.18), transparent 50%);
+      pointer-events: none;
+    }
+    .page-head .crumb { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-light); margin-bottom: 14px; position: relative; }
+    .page-head h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 6vw, 76px); font-weight: 600; line-height: 1.05; max-width: 900px; position: relative; }
+    .page-head .lede { font-size: 17px; color: rgba(255,255,255,0.7); max-width: 660px; margin-top: 20px; line-height: 1.7; position: relative; }
+
+    /* ─── SECTION SCAFFOLD ─── */
+    section { padding: 96px 80px; }
+    .sec-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; }
+    .sec-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 52px); font-weight: 600; color: var(--navy); line-height: 1.1; max-width: 720px; }
+    .sec-intro { font-size: 15.5px; color: var(--muted); line-height: 1.75; max-width: 620px; margin-top: 16px; }
+    .sec-head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; margin-bottom: 56px; flex-wrap: wrap; }
+
+    /* ─── SCHOOL CONTACT ─── */
+    .contact-section { background: var(--snow); }
+    .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; }
+    .contact-card {
+      background: #fff; border: 1px solid var(--border);
+      padding: 40px 44px; border-radius: 4px;
+    }
+    .contact-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .contact-card .sub { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--forest); margin-bottom: 28px; }
+    .contact-rows { display: flex; flex-direction: column; gap: 18px; }
+    .crow { display: grid; grid-template-columns: 110px 1fr; gap: 20px; padding: 14px 0; border-bottom: 1px dashed var(--border); }
+    .crow:last-child { border-bottom: none; }
+    .crow .lbl { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+    .crow .val { font-size: 15px; color: var(--text); line-height: 1.6; }
+    .crow .val a { color: var(--navy); text-decoration: none; border-bottom: 1px solid var(--border); }
+    .crow .val a:hover { color: var(--amber); border-color: var(--amber); }
+    .crow .val .strong { font-weight: 600; color: var(--navy); display: block; margin-bottom: 2px; }
+    .crow .val small { color: var(--muted); font-size: 12.5px; display: block; margin-top: 4px; }
+
+    .map-card {
+      background: var(--navy); color: #fff; border-radius: 4px; padding: 36px 36px 32px;
+      display: flex; flex-direction: column; gap: 18px; position: relative; overflow: hidden;
+    }
+    .map-card::before {
+      content: ""; position: absolute; right: -60px; top: -60px;
+      width: 240px; height: 240px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,160,48,0.18), transparent 70%);
+    }
+    .map-card .pin { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--amber-light); position: relative; }
+    .map-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; line-height: 1.15; position: relative; }
+    .map-card p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; position: relative; }
+    .map-svg-wrap { background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.15); border-radius: 3px; height: 180px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .map-svg-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.4; }
+    .map-svg-wrap span { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(255,255,255,0.55); text-transform: uppercase; position: relative; }
+    .map-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; position: relative; }
+    .map-meta div { padding: 12px 14px; background: rgba(255,255,255,0.04); border-radius: 3px; }
+    .map-meta .k { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+    .map-meta .v { font-size: 13.5px; color: #fff; font-weight: 500; }
+
+    /* ─── PRINCIPAL ─── */
+    .principal-section { background: var(--forest); color: #fff; }
+    .principal-section .sec-eyebrow { color: var(--amber-light); }
+    .principal-section .sec-title { color: #fff; }
+    .principal-grid { display: grid; grid-template-columns: 360px 1fr; gap: 80px; align-items: start; }
+    .pp-portrait {
+      aspect-ratio: 4/5; background: linear-gradient(160deg, var(--navy) 0%, var(--forest-mid) 100%);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 3px;
+      position: relative; overflow: hidden;
+    }
+    .pp-portrait::after {
+      content: "PORTRAIT"; position: absolute; bottom: 14px; left: 14px;
+      font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.4);
+    }
+    .pp-portrait::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(135deg, transparent 0 14px, rgba(255,255,255,0.04) 14px 15px);
+    }
+    .pp-name-card {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 24px 20px 18px;
+      background: linear-gradient(to top, rgba(14,30,46,0.95), transparent);
+    }
+    .pp-name-card .nm { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: #fff; }
+    .pp-name-card .ti { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber-light); margin-top: 4px; }
+
+    .pp-body { padding-top: 8px; }
+    .pp-quote {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(22px, 2vw, 28px); font-weight: 500;
+      color: rgba(255,255,255,0.95); line-height: 1.4; margin-bottom: 28px;
+      border-left: 2px solid var(--amber-light); padding-left: 22px;
+    }
+    .pp-text { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.85; margin-bottom: 16px; }
+
+    .pp-contact { margin-top: 36px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .pp-contact > div { padding: 22px 24px; border-right: 1px solid rgba(255,255,255,0.12); }
+    .pp-contact > div:last-child { border-right: none; }
+    .pp-contact .k { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+    .pp-contact .v { font-size: 14px; color: #fff; font-weight: 500; }
+    .pp-contact .v a { color: var(--amber-light); text-decoration: none; }
+    .pp-cta { margin-top: 28px; display: inline-flex; align-items: center; gap: 12px; }
+    .pp-cta a { color: var(--amber-light); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; text-decoration: none; }
+    .pp-cta a:hover { color: #fff; }
+
+    /* ─── ADMISSION STEPS ─── */
+    .adm-section { background: var(--warm); }
+    .adm-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+    .adm-aside {
+      background: var(--cream); padding: 36px 32px; border-radius: 3px;
+      position: sticky; top: calc(var(--nav-h) + 24px);
+    }
+    .adm-aside h4 { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--navy); margin-bottom: 8px; }
+    .adm-aside p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+    .adm-key { display: flex; flex-direction: column; gap: 14px; }
+    .adm-key-row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px dashed rgba(82,100,90,0.25); }
+    .adm-key-row .k { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+    .adm-key-row .v { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--navy); font-weight: 600; }
+    .adm-aside .btn { display: block; margin-top: 24px; background: var(--forest); color: #fff; text-align: center; padding: 14px; text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 3px; transition: background 0.2s; }
+    .adm-aside .btn:hover { background: var(--forest-mid); }
+
+    .adm-steps { display: flex; flex-direction: column; }
+    .adm-step {
+      display: grid; grid-template-columns: 76px 1fr; gap: 24px;
+      padding: 28px 0; border-bottom: 1px solid var(--border); position: relative;
+    }
+    .adm-step:last-child { border-bottom: none; }
+    .adm-step .num {
+      font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 600;
+      color: var(--amber); line-height: 1; opacity: 0.85;
+    }
+    .adm-step h5 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+    .adm-step .meta { font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--forest); margin-bottom: 10px; font-weight: 600; }
+    .adm-step p { font-size: 14.5px; color: var(--muted); line-height: 1.75; }
+    .adm-step ul { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .adm-step ul li { font-size: 13.5px; color: var(--text); padding-left: 18px; position: relative; }
+    .adm-step ul li::before { content: "—"; position: absolute; left: 0; color: var(--amber); }
+
+    /* ─── HELP & FEEDBACK ─── */
+    .twocol-section { background: var(--snow); }
+    .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .help-card, .fb-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 4px;
+      padding: 44px 44px 40px; display: flex; flex-direction: column;
+    }
+    .help-card { background: var(--navy); color: #fff; border-color: transparent; }
+    .help-card .sec-eyebrow { color: var(--amber-light); }
+    .card-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; line-height: 1.1; margin-bottom: 8px; }
+    .help-card .card-title { color: #fff; }
+    .fb-card .card-title { color: var(--navy); }
+    .card-sub { font-size: 14.5px; line-height: 1.7; margin-bottom: 28px; }
+    .help-card .card-sub { color: rgba(255,255,255,0.65); }
+    .fb-card .card-sub { color: var(--muted); }
+
+    .help-list { display: flex; flex-direction: column; gap: 2px; }
+    .help-row {
+      display: grid; grid-template-columns: 36px 1fr auto; gap: 16px; align-items: center;
+      padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .help-row:last-child { border-bottom: none; }
+    .help-icon {
+      width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; color: var(--amber-light); font-weight: 600;
+    }
+    .help-row .name { font-size: 14.5px; color: #fff; font-weight: 500; }
+    .help-row .name small { display: block; font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: 400; }
+    .help-row .num { font-size: 13.5px; color: var(--amber-light); font-weight: 500; letter-spacing: 0.04em; }
+
+    .help-extra {
+      margin-top: 28px; padding: 22px 24px;
+      background: rgba(232,160,48,0.1); border-left: 2px solid var(--amber-light);
+      border-radius: 0 3px 3px 0;
+    }
+    .help-extra .k { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber-light); margin-bottom: 6px; }
+    .help-extra .v { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65; }
+
+    /* feedback form */
+    .fb-form { display: flex; flex-direction: column; gap: 16px; }
+    .fb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .fb-field { display: flex; flex-direction: column; gap: 6px; }
+    .fb-field label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+    .fb-field input, .fb-field select, .fb-field textarea {
+      font-family: inherit; font-size: 14px; color: var(--text);
+      background: var(--snow); border: 1px solid var(--border); border-radius: 3px;
+      padding: 12px 14px; outline: none; transition: border-color 0.2s;
+    }
+    .fb-field input:focus, .fb-field select:focus, .fb-field textarea:focus { border-color: var(--forest); background: #fff; }
+    .fb-field textarea { resize: vertical; min-height: 110px; }
+
+    .fb-rate { display: flex; gap: 6px; }
+    .fb-rate button {
+      flex: 1; background: var(--snow); border: 1px solid var(--border); border-radius: 3px;
+      padding: 12px 0; font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600;
+      color: var(--navy); cursor: pointer; transition: all 0.2s;
+    }
+    .fb-rate button:hover { border-color: var(--amber); }
+    .fb-rate button.active { background: var(--amber); color: #fff; border-color: var(--amber); }
+    .fb-submit {
+      margin-top: 8px; background: var(--forest); color: #fff; border: none;
+      padding: 14px 28px; border-radius: 3px; font-family: inherit; font-size: 13px;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s; align-self: flex-start;
+    }
+    .fb-submit:hover { background: var(--forest-mid); }
+    .fb-thanks { display: none; padding: 14px 16px; background: var(--forest-pale); border-left: 3px solid var(--forest); color: var(--forest); font-size: 13.5px; border-radius: 0 3px 3px 0; }
+    .fb-thanks.show { display: block; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testi-section { background: var(--warm); }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .testi {
+      background: #fff; border: 1px solid var(--border); border-radius: 4px;
+      padding: 36px 32px; display: flex; flex-direction: column;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .testi:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(22,40,64,0.08); }
+    .testi .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 64px; line-height: 0.4; color: var(--amber); margin-bottom: 18px; height: 30px; }
+    .testi blockquote {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 19px; font-weight: 500; color: var(--navy);
+      line-height: 1.5; margin-bottom: 28px; flex: 1;
+    }
+    .testi-foot { display: flex; align-items: center; gap: 14px; padding-top: 22px; border-top: 1px solid var(--border); }
+    .testi-av {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--forest), var(--forest-mid));
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; flex-shrink: 0;
+    }
+    .testi-av.amber { background: linear-gradient(135deg, var(--amber), var(--amber-light)); }
+    .testi-av.navy { background: linear-gradient(135deg, var(--navy), var(--navy-mid)); }
+    .testi-info .name { font-size: 14px; color: var(--navy); font-weight: 600; }
+    .testi-info .role { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .testi .stars { color: var(--amber); letter-spacing: 0.08em; font-size: 13px; margin-bottom: 14px; }
+
+    /* ─── CTA STRIP ─── */
+    .cta-strip {
+      background: var(--navy-deep); color: #fff;
+      padding: 64px 80px;
+      display: flex; justify-content: space-between; align-items: center; gap: 48px;
+    }
+    .cta-strip h3 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 500; line-height: 1.2; max-width: 700px; }
+    .cta-strip h3 em { color: var(--amber-light); font-style: italic; }
+    .cta-strip a { background: var(--amber); color: #fff; padding: 16px 32px; border-radius: 3px; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; flex-shrink: 0; }
+    .cta-strip a:hover { background: var(--amber-light); }
+
+    /* ─── FOOTER ─── */
+    footer { background: #0e1e2e; padding: 64px 80px 32px; }
+    .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 28px; }
+    .footer-brand img { height: 50px; filter: brightness(0) invert(1); margin-bottom: 16px; display: block; }
+    .footer-brand p { font-size: 13.5px; color: rgba(255,255,255,0.38); line-height: 1.7; }
+    .footer-col h5 { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.55); font-size: 13.5px; text-decoration: none; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--amber-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-size: 11.5px; color: rgba(255,255,255,0.25); }
+    .footer-motto { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: rgba(255,255,255,0.2); }
+
+    .nav-burger{display:none;width:34px;height:34px;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:none;border:none;cursor:pointer;flex-shrink:0;}
+.nav-burger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;}
+    @media (max-width: 980px) {
+      nav.site-nav { padding: 0 24px; }
+      .nav-burger { display: flex; }
+      .nav-center { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--navy); padding: 8px 24px 20px; box-shadow: 0 16px 32px rgba(0,0,0,0.35); }
+      .nav-center.open { display: flex; }
+      .nav-links { flex-direction: column; gap: 0; width: 100%; }
+      .nav-links > li > a { padding: 14px 4px; display: block; }
+      .page-head, section, .cta-strip, footer { padding-left: 28px; padding-right: 28px; }
+      .contact-grid, .principal-grid, .adm-grid, .twocol { grid-template-columns: 1fr; gap: 40px; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .pp-contact { grid-template-columns: 1fr; }
+      .pp-contact > div { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.12); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .cta-strip { flex-direction: column; align-items: flex-start; }
+      .adm-aside { position: static; }
+    }
+
+
+.vw-switch{position:fixed;bottom:16px;right:16px;z-index:9999;display:flex;gap:4px;background:#0e1d31;border-radius:30px;padding:4px;box-shadow:0 8px 24px rgba(0,0,0,0.3);font-family:'DM Sans',sans-serif;}
+.vw-switch button{border:none;background:none;color:rgba(255,255,255,0.65);font-size:11px;font-weight:600;padding:8px 14px;border-radius:22px;cursor:pointer;transition:all .2s;}
+.vw-switch button.active{background:#c8831a;color:#fff;}
+.vw-overlay{position:fixed;inset:0;background:#1a2418;z-index:10000;display:flex;flex-direction:column;align-items:center;padding:24px 0;overflow:auto;}
+.vw-overlay .vw-bar{color:#fff;font-size:13px;margin-bottom:14px;display:flex;align-items:center;gap:14px;}
+.vw-overlay .vw-bar button{background:rgba(255,255,255,0.12);border:none;color:#fff;padding:7px 16px;border-radius:20px;font-size:12px;cursor:pointer;}
+.vw-overlay iframe{border:10px solid #111;border-radius:22px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+</style>
+</head>
+<body data-screen-label="About — SPS">
+
+  <!-- ═══ NAV ═══ -->
+  <nav class="site-nav">
+    <a href="Home.html" class="nav-logo">
+      <img src="uploads/SPS-crest.png" alt="Sharda Public School" />
+      <div class="nav-brand">
+        <span class="name">Sharda Public School</span>
+        <span class="motto">Learn • Excel • Perform</span>
+      </div>
+    </a>
+    <div class="nav-center">
+      <ul class="nav-links">
+        <li><a href="Home.html#home">Home</a></li>
+        <li><a href="Academics.html">Academics</a></li>
+        <li><a href="Admissions.html">Admissions</a></li>
+        <li class="active"><a href="About.html">About</a></li>
+      </ul>
+    </div>
+        <div class="nav-right">
+    </div>
+<a href="About.html#admissions" class="nav-apply">Apply Now</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- ═══ PAGE HEAD ═══ -->
+  <header class="page-head">
+    <div class="crumb">Home / About</div>
+    <h1>A school of excellence in the Deodar forests of Almora.</h1>
+    <p class="lede">Everything you need to know about Sharda Public School — how to reach us, who leads us, how admissions work, and what our families and alumni have to say.</p>
+  </header>
+
+  <!-- ═══ SCHOOL CONTACT ═══ -->
+  <section class="contact-section" id="contact">
+    <div class="sec-head-row">
+      <div>
+        <div class="sec-eyebrow">School Contact</div>
+        <h2 class="sec-title">Reach the front office.</h2>
+        <p class="sec-intro">Our office is open through the academic year. For admissions specifically, please use the dedicated admissions desk number below.</p>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Sharda Public School</h3>
+        <div class="sub">Front Office &amp; General Enquiries</div>
+        <div class="contact-rows">
+          <div class="crow">
+            <div class="lbl">Address</div>
+            <div class="val">
+              <span class="strong">Sharda Public School</span>
+              Deodar Estate, Bright End Corner Road,<br/>
+              Almora — 263601, Uttarakhand, India
+              <small>Approx. 2 km from Almora town centre.</small>
+            </div>
+          </div>
+          <div class="crow">
+            <div class="lbl">Phone</div>
+            <div class="val">
+              <a href="tel:+915962231100">+91 5962 231 100</a> &nbsp;·&nbsp;
+              <a href="tel:+915962231101">+91 5962 231 101</a>
+              <small>Mon – Sat, 8:30 am – 4:30 pm IST</small>
+            </div>
+          </div>
+          <div class="crow">
+            <div class="lbl">Email</div>
+            <div class="val">
+              <a href="mailto:office@shardaschool.in">office@shardaschool.in</a>
+              <small>Replies within one working day.</small>
+            </div>
+          </div>
+          <div class="crow">
+            <div class="lbl">Admissions</div>
+            <div class="val">
+              <a href="mailto:admissions@shardaschool.in">admissions@shardaschool.in</a> &nbsp;·&nbsp;
+              <a href="tel:+919412009988">+91 94120 09988</a>
+            </div>
+          </div>
+          <div class="crow">
+            <div class="lbl">Hours</div>
+            <div class="val">
+              Monday – Friday &nbsp; 8:00 am – 4:30 pm<br/>
+              Saturday &nbsp; 8:00 am – 1:00 pm<br/>
+              <small>Closed on Sundays and gazetted holidays.</small>
+            </div>
+          </div>
+          <div class="crow">
+            <div class="lbl">Affiliation</div>
+            <div class="val">
+              <span class="strong">Central Board of Secondary Education</span>
+              CBSE Affiliation No. 3530142
+              <small>Senior Secondary, recognized since 1989.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="map-card">
+        <div class="pin">◉ Almora · 1,651 m</div>
+        <h4>Find us in the hills.</h4>
+        <p>A 5-minute drive from Mall Road. Visitor parking available at the lower gate; please report to security before entering campus.</p>
+        <div class="map-svg-wrap">
+          <svg viewBox="0 0 300 180" preserveAspectRatio="none">
+            <defs>
+              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="0.4"/>
+              </pattern>
+            </defs>
+            <rect width="300" height="180" fill="url(#grid)"/>
+            <path d="M 0 110 Q 80 60 160 90 T 300 70" stroke="rgba(232,160,48,0.7)" stroke-width="1.5" fill="none"/>
+            <circle cx="160" cy="90" r="6" fill="rgba(232,160,48,0.9)"/>
+            <circle cx="160" cy="90" r="14" fill="none" stroke="rgba(232,160,48,0.4)" stroke-width="1"/>
+          </svg>
+          <span>Map Placeholder · Replace with embed</span>
+        </div>
+        <div class="map-meta">
+          <div>
+            <div class="k">Coordinates</div>
+            <div class="v">29.5971° N, 79.6593° E</div>
+          </div>
+          <div>
+            <div class="k">Nearest Airport</div>
+            <div class="v">Pantnagar (PGH) · 134 km</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ═══ PRINCIPAL ═══ -->
+  <section class="principal-section" id="principal">
+    <div class="sec-head-row">
+      <div>
+        <div class="sec-eyebrow">Principal's Office</div>
+        <h2 class="sec-title">A word from our Principal.</h2>
+      </div>
+    </div>
+
+    <div class="principal-grid">
+      <div class="pp-portrait">
+        <div class="pp-name-card">
+          <div class="nm">Dr. Anjali Pant</div>
+          <div class="ti">Principal · Since 2017</div>
+        </div>
+      </div>
+      <div class="pp-body">
+        <blockquote class="pp-quote">
+          "We do not merely prepare children for examinations — we prepare them to think, to lead, and to live with conscience among the mountains and beyond."
+        </blockquote>
+        <p class="pp-text">
+          Dr. Pant has led Sharda Public School since 2017, bringing to it twenty-three years of experience across CBSE and IB schools in Dehradun, Mussoorie and Pune. She holds a doctorate in Educational Leadership from Punjab University and is a regular contributor to national curriculum advisory boards.
+        </p>
+        <p class="pp-text">
+          The Principal's office is open to parents, students and prospective families by prior appointment. Please write or call ahead — Dr. Pant prefers conversations she can give her full attention to.
+        </p>
+
+        <div class="pp-contact">
+          <div>
+            <div class="k">Direct Email</div>
+            <div class="v"><a href="mailto:principal@shardaschool.in">principal@shardaschool.in</a></div>
+          </div>
+          <div>
+            <div class="k">PA / Office</div>
+            <div class="v">+91 5962 231 110</div>
+          </div>
+          <div>
+            <div class="k">Open Hours</div>
+            <div class="v">Tue &amp; Thu · 11 am – 1 pm</div>
+          </div>
+        </div>
+
+        <div class="pp-cta">
+          <a href="mailto:principal@shardaschool.in">Request an appointment →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ADMISSIONS ═══ -->
+  <section class="adm-section" id="admissions">
+    <div class="sec-head-row">
+      <div>
+        <div class="sec-eyebrow">How to Get Admission</div>
+        <h2 class="sec-title">Five steps from enquiry to enrolment.</h2>
+        <p class="sec-intro">Admissions for the 2026–27 session open in November 2025. We admit roughly 280 students across grades; entry into Nursery, Class VI and Class XI is most competitive.</p>
+      </div>
+    </div>
+
+    <div class="adm-grid">
+      <aside class="adm-aside" style="width: 488px; height: 496px">
+        <h4>Key dates<br></h4>
+        <p>The numbers most parents ask about, kept in one place. Fees shown are annual and include tuition, library and lab.</p>
+        <div class="adm-key">
+          <div class="adm-key-row"><span class="k">Form opens</span><span class="v">15 Nov 2025</span></div>
+          <div class="adm-key-row"><span class="k">Form closes</span><span class="v">10 Jan 2026</span></div>
+          <div class="adm-key-row"><span class="k">Assessments</span><span class="v">Feb 2026</span></div>
+          <div class="adm-key-row"><span class="k">Result</span><span class="v">Mar 2026</span></div>
+        </div>
+        <a href="mailto:admissions@shardaschool.in" class="btn">Start your application</a>
+      </aside>
+
+      <div class="adm-steps">
+        <div class="adm-step">
+          <div class="num">01</div>
+          <div>
+            <div class="meta">Step One · 5 minutes</div>
+            <h5>Enquire online or by phone.</h5>
+            <p>Tell us about your child — current grade, previous school, any specific needs. Our admissions team replies within one working day with a campus-visit invitation.</p>
+            <ul>
+              <li>Email: admissions@shardaschool.in</li>
+              <li>Phone: +91 94120 09988</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="adm-step">
+          <div class="num">02</div>
+          <div>
+            <div class="meta">Step Two · ~2 hours on campus</div>
+            <h5>Visit the campus and meet a counsellor.</h5>
+            <p>A walk-through of the academic blocks, hostels and grounds, followed by a 30-minute conversation with one of our admissions counsellors and, where appropriate, the relevant Head of School.</p>
+          </div>
+        </div>
+
+        <div class="adm-step">
+          <div class="num">03</div>
+          <div>
+            <div class="meta">Step Three · 15 days to compile</div>
+            <h5>Submit the application form &amp; documents.</h5>
+            <p>Forms are filled online; supporting documents may be submitted in person or scanned by email.</p>
+            <ul>
+              <li>Birth certificate &amp; recent photograph</li>
+              <li>Last two years of school report cards</li>
+              <li>Aadhaar / passport copy of student and parents</li>
+              <li>Transfer Certificate (if currently enrolled elsewhere)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="adm-step">
+          <div class="num">04</div>
+          <div>
+            <div class="meta">Step Four · One day on campus</div>
+            <h5>Assessment &amp; family interview.</h5>
+            <p>For Nursery–II, a play-based assessment with the child and a short conversation with parents. For higher grades, a written assessment in English, Mathematics and a subject of choice, followed by a faculty interview.</p>
+          </div>
+        </div>
+
+        <div class="adm-step">
+          <div class="num">05</div>
+          <div>
+            <div class="meta">Step Five · Within 14 days</div>
+            <h5>Offer of admission &amp; enrolment.</h5>
+            <p>Successful candidates receive a written offer with fee details. Enrolment is confirmed on payment of the first-term fee within 14 days. Scholarships, if applicable, are communicated alongside the offer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HELP & FEEDBACK ═══ -->
+  <section class="twocol-section" id="help">
+    <div class="twocol">
+
+      <!-- HELP -->
+      <div class="help-card">
+        <div class="sec-eyebrow">Help &amp; Support</div>
+        <h3 class="card-title">Who to call for what.</h3>
+        <p class="card-sub">Five direct lines so your enquiry reaches the right person on the first ring. Lines are staffed Mon–Sat, 8:30 am – 4:30 pm.</p>
+
+        <div class="help-list">
+          <div class="help-row">
+            <div class="help-icon">A</div>
+            <div class="name">Admissions Desk<small>Forms, fees, assessments, scholarships</small></div>
+            <div class="num">+91 94120 09988</div>
+          </div>
+          <div class="help-row">
+            <div class="help-icon">F</div>
+            <div class="name">Fees &amp; Accounts<small>Invoices, refunds, payment plans</small></div>
+            <div class="num">+91 5962 231 105</div>
+          </div>
+          <div class="help-row">
+            <div class="help-icon">T</div>
+            <div class="name">Transport &amp; Hostel<small>Bus routes, boarding, day-stay</small></div>
+            <div class="num">+91 5962 231 107</div>
+          </div>
+          <div class="help-row">
+            <div class="help-icon">E</div>
+            <div class="name">Exams &amp; Records<small>Mark sheets, transfer certificates</small></div>
+            <div class="num">+91 5962 231 108</div>
+          </div>
+          <div class="help-row">
+            <div class="help-icon">!</div>
+            <div class="name">Emergency / After-hours<small>Medical, hostel, urgent only</small></div>
+            <div class="num">+91 94120 11122</div>
+          </div>
+        </div>
+
+        <div class="help-extra">
+          <div class="k">Can't find what you need?</div>
+          <div class="v">Write to <a href="mailto:help@shardaschool.in" style="color:#fff;text-decoration:underline;">help@shardaschool.in</a> — every email is read by a person and routed within four working hours.</div>
+        </div>
+      </div>
+
+      <!-- FEEDBACK -->
+      <div class="fb-card">
+        <div class="sec-eyebrow">Give Feedback</div>
+        <h3 class="card-title">Tell us how we're doing.</h3>
+        <p class="card-sub">Compliments, complaints, suggestions — all of it goes to the Principal's office and the relevant Head of School. We respond to every signed message within five working days.</p>
+
+        <form class="fb-form" id="fbForm" onsubmit="event.preventDefault(); document.getElementById('fbThanks').classList.add('show'); this.reset(); document.querySelectorAll('.fb-rate button').forEach(b=>b.classList.remove('active'));">
+          <div class="fb-row">
+            <div class="fb-field">
+              <label for="fbName">Your name</label>
+              <input id="fbName" type="text" required placeholder="As you'd like us to address you" />
+            </div>
+            <div class="fb-field">
+              <label for="fbRole">You are a</label>
+              <select id="fbRole" required>
+                <option value="">Select…</option>
+                <option>Parent / Guardian</option>
+                <option>Current Student</option>
+                <option>Alumnus / Alumna</option>
+                <option>Staff Member</option>
+                <option>Prospective Family</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="fb-row">
+            <div class="fb-field">
+              <label for="fbEmail">Email</label>
+              <input id="fbEmail" type="email" required placeholder="you@example.com" />
+            </div>
+            <div class="fb-field">
+              <label for="fbTopic">Topic</label>
+              <select id="fbTopic" required>
+                <option value="">Select a topic…</option>
+                <option>Academics &amp; Curriculum</option>
+                <option>Admissions Process</option>
+                <option>Facilities &amp; Hostel</option>
+                <option>Transport</option>
+                <option>Co-curricular &amp; Sports</option>
+                <option>A compliment</option>
+                <option>Something else</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="fb-field">
+            <label>Overall, how would you rate your experience?</label>
+            <div class="fb-rate" id="fbRate">
+              <button type="button" data-v="1">1</button>
+              <button type="button" data-v="2">2</button>
+              <button type="button" data-v="3">3</button>
+              <button type="button" data-v="4">4</button>
+              <button type="button" data-v="5">5</button>
+            </div>
+          </div>
+
+          <div class="fb-field">
+            <label for="fbMsg">Your message</label>
+            <textarea id="fbMsg" required placeholder="Be as specific as you'd like — names, dates, what worked, what didn't."></textarea>
+          </div>
+
+          <button type="submit" class="fb-submit">Send feedback</button>
+          <div class="fb-thanks" id="fbThanks">Thank you — your message is on its way to the Principal's office. You'll hear from us within five working days.</div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ TESTIMONIALS ═══ -->
+  <section class="testi-section" id="testimonials">
+    <div class="sec-head-row">
+      <div>
+        <div class="sec-eyebrow">Testimonials</div>
+        <h2 class="sec-title">Voices from our community.</h2>
+        <p class="sec-intro">Parents, students and alumni in their own words. We pick a fresh set every term — these are from the spring of 2026.</p>
+      </div>
+    </div>
+
+    <div class="testi-grid">
+      <article class="testi">
+        <div class="quote-mark">"</div>
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <blockquote>
+          What sets Sharda apart isn't the mountains — it's how the teachers know every child. Our daughter went from anxious about Maths to leading her class quiz team in two years.
+        </blockquote>
+        <div class="testi-foot">
+          <div class="testi-av">RK</div>
+          <div class="testi-info">
+            <div class="name">Reema &amp; Karan Bisht</div>
+            <div class="role">Parents · Class VII &amp; Class III</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="testi">
+        <div class="quote-mark">"</div>
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <blockquote>
+          The Himalayan Education programme isn't a gimmick. Six days at base camp taught me more about leadership and patience than any classroom ever did. I miss the school every day at college.
+        </blockquote>
+        <div class="testi-foot">
+          <div class="testi-av amber">AT</div>
+          <div class="testi-info">
+            <div class="name">Aarav Tiwari</div>
+            <div class="role">Alumnus · Class of 2024 · IIT Roorkee</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="testi">
+        <div class="quote-mark">"</div>
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <blockquote>
+          Admissions was the most respectful process I've been through as a parent. No hidden fees, no donations, just a quiet conversation about what's right for my son. That alone told me a lot about the school.
+        </blockquote>
+        <div class="testi-foot">
+          <div class="testi-av navy">MS</div>
+          <div class="testi-info">
+            <div class="name">Meera Shah</div>
+            <div class="role">Parent · Class XI (new admit)</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="testi">
+        <div class="quote-mark">"</div>
+        <div class="stars">★ ★ ★ ★ ☆</div>
+        <blockquote>
+          Teaching here for nine years has been the steadiest, most dignified work of my career. The school protects classroom time fiercely, and that lets us actually teach.
+        </blockquote>
+        <div class="testi-foot">
+          <div class="testi-av">PJ</div>
+          <div class="testi-info">
+            <div class="name">Prof. Padmini Joshi</div>
+            <div class="role">Faculty · Department of Literature</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="testi">
+        <div class="quote-mark">"</div>
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <blockquote>
+          I came for the boarding and stayed for the choir. Every house sings on Founder's Day and I still cry when I hear our school song. Sharda is a place that holds you, gently.
+        </blockquote>
+        <div class="testi-foot">
+          <div class="testi-av amber">SN</div>
+          <div class="testi-info">
+            <div class="name">Saachi Negi</div>
+            <div class="role">Class XII · Boarder since Class VI</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="testi">
+        <div class="quote-mark">"</div>
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <blockquote>
+          We compared four schools across Uttarakhand. Sharda was the only one where the Principal sat down with us herself, asked about our son's hobbies, and remembered his name when we visited again three months later.
+        </blockquote>
+        <div class="testi-foot">
+          <div class="testi-av navy">VR</div>
+          <div class="testi-info">
+            <div class="name">Vikram Rawat</div>
+            <div class="role">Parent · Class IV</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══ CTA STRIP ═══ -->
+  <div class="cta-strip">
+    <h3>Still have questions? <em>We'd rather you ask</em> than wonder.</h3>
+    <a href="mailto:admissions@shardaschool.in">Talk to admissions</a>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="uploads/SPS-crest.png" alt="Sharda Public School" />
+        <p>Sharda Public School stands in the ancient Deodar forests of Almora, Uttarakhand — a school of excellence, character, and Himalayan spirit.</p>
+        <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,0.25);">CBSE Affiliated · Almora, Uttarakhand, India</p>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <ul>
+          <li><a href="About.html">Our Story</a></li>
+          <li><a href="About.html#principal">Principal's Office</a></li>
+          <li><a href="About.html#testimonials">Testimonials</a></li>
+          <li><a href="Home.html#gallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Admissions</h5>
+        <ul>
+          <li><a href="About.html#admissions">How to Apply</a></li>
+          <li><a href="About.html#admissions">Key Dates</a></li>
+          <li><a href="About.html#admissions">Scholarships</a></li>
+          <li><a href="About.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="About.html#help">Help Desk</a></li>
+          <li><a href="About.html#help">Give Feedback</a></li>
+          <li><a href="Student Portal.html">Student Portal</a></li>
+          <li><a href="Teacher Portal.html">Teacher Portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Sharda Public School, Almora, Uttarakhand. All rights reserved.</p>
+      <div class="footer-motto">Learn • Excel • Perform</div>
+    </div>
+  </footer>
+
+  <script>
+    // Rating buttons
+    document.querySelectorAll('.fb-rate button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.fb-rate button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+
+<script>
+(function(){var b=document.querySelector('.nav-burger'),c=document.querySelector('.nav-center');if(b&&c){b.addEventListener('click',function(){c.classList.toggle('open');});c.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){c.classList.remove('open');});});}
+var pd=document.querySelector('.portal-dd');if(pd){var toggle=pd.querySelector('.nav-portal');toggle.addEventListener('click',function(e){if(window.matchMedia('(hover: none)').matches){e.preventDefault();pd.classList.toggle('open');}});}})();
+</script>
+
+<div class="vw-switch" id="vwSwitch">
+  <button data-vw="desktop" class="active">Desktop</button>
+  <button data-vw="tablet">Tablet</button>
+  <button data-vw="mobile">Mobile</button>
+</div>
+<script>
+(function(){
+  var sw=document.getElementById('vwSwitch');
+  if(/(^|[?&])vwpreview=1/.test(location.search)){sw.style.display='none';return;}
+  var sizes={tablet:820,mobile:390};
+  function openPreview(mode){
+    var overlay=document.createElement('div');overlay.className='vw-overlay';overlay.id='vwOverlay';
+    var bar=document.createElement('div');bar.className='vw-bar';
+    bar.innerHTML='<span>Previewing at '+sizes[mode]+'px ('+mode+')</span>';
+    var closeBtn=document.createElement('button');closeBtn.textContent='\u2715 Exit preview';
+    closeBtn.onclick=function(){overlay.remove();sw.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.vw==='desktop');});};
+    bar.appendChild(closeBtn);
+    var frame=document.createElement('iframe');
+    var sep=location.href.indexOf('?')===-1?'?':'&';frame.src=location.href+sep+'vwpreview=1';
+    frame.style.width=sizes[mode]+'px';
+    frame.style.height=(mode==='mobile'?'760px':'1000px');
+    overlay.appendChild(bar);overlay.appendChild(frame);
+    document.body.appendChild(overlay);
+  }
+  sw.addEventListener('click',function(e){
+    var btn=e.target.closest('button');if(!btn)return;
+    sw.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    var mode=btn.dataset.vw;
+    var existing=document.getElementById('vwOverlay');if(existing)existing.remove();
+    if(mode!=='desktop')openPreview(mode);
+  });
+})();
+</script>
+</body>
+</html>

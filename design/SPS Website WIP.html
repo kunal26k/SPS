@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sharda Public School, Almora — Learn • Excel • Perform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --nav-h: 66px;
+      --navy:        #162840;
+      --navy-deep:   #0e1d31;
+      --forest:      #1b4d30;
+      --forest-mid:  #286640;
+      --amber:       #c8831a;
+      --amber-light: #e8a030;
+    }
+    html, body { height: 100%; }
+    body { font-family: 'DM Sans', sans-serif; background: #0e1d31; overflow: hidden; }
+
+    /* ─── GLOBAL NAV ─── */
+    .gnav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--nav-h); display: flex; align-items: center; gap: 18px;
+      padding: 0 30px;
+      background: rgba(14, 29, 49, 0.97);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.35);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .gnav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; cursor: pointer; }
+    .gnav-logo img { height: 40px; filter: brightness(0) invert(1); }
+    .gnav-brand .name { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: #fff; line-height: 1; display: block; white-space: nowrap; }
+    .gnav-brand .motto { font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber-light); margin-top: 3px; display: block; white-space: nowrap; }
+
+    .gnav-center { flex: 1; display: flex; justify-content: center; }
+    .gnav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .gnav-links > li { position: relative; }
+    .gnav-links > li > a, .gnav-links > li > button {
+      font-family: inherit; cursor: pointer; background: none; border: none;
+      color: rgba(255,255,255,0.82); text-decoration: none;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.03em;
+      padding: 8px 14px; border-radius: 5px; display: flex; align-items: center; gap: 6px;
+      transition: color 0.18s, background 0.18s; white-space: nowrap;
+    }
+    .gnav-links > li > a:hover, .gnav-links > li > button:hover { color: #fff; background: rgba(255,255,255,0.09); }
+    .gnav-links > li.active > a, .gnav-links > li.active > button { color: #fff; background: rgba(255,255,255,0.12); }
+    .gnav-links .caret { width: 9px; height: 9px; opacity: 0.6; transition: transform 0.2s; }
+    .gnav-links > li:hover .caret { transform: rotate(180deg); }
+
+    /* dropdown */
+    .gdrop {
+      position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(6px);
+      min-width: 220px; background: #fff; border-radius: 8px; padding: 8px;
+      box-shadow: 0 16px 44px rgba(0,0,0,0.32); opacity: 0; pointer-events: none;
+      transition: opacity 0.18s, transform 0.18s; z-index: 1100;
+    }
+    .gnav-links > li:hover .gdrop { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .gdrop::before { content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px; }
+    .gdrop a {
+      display: flex; align-items: center; gap: 11px; padding: 11px 13px; border-radius: 6px;
+      text-decoration: none; color: #1d2329; transition: background 0.14s;
+    }
+    .gdrop a:hover { background: #f2ede4; }
+    .gdrop .dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+    .gdrop .dd-t { display: block; font-size: 13.5px; font-weight: 600; line-height: 1.25; }
+    .gdrop .dd-s { display: block; font-size: 11px; color: #7b8590; margin-top: 2px; line-height: 1.3; }
+    .d-stu { background: #2f7ea8; } .d-tea { background: var(--amber); } .d-adm { background: #1e3a5c; } .d-doc { background: #7b8590; }
+
+    .gnav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .gnav-right .gdrop { left: auto; right: 0; transform: translateX(0) translateY(6px); }
+    .gnav-right .gnav-links > li:hover .gdrop { transform: translateX(0) translateY(0); }
+    .gnav-apply {
+      background: var(--amber); color: #fff; text-decoration: none; cursor: pointer; border: none;
+      font-family: inherit; font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em;
+      padding: 9px 18px; border-radius: 5px; transition: background 0.18s, transform 0.18s;
+    }
+    .gnav-apply:hover { background: var(--amber-light); transform: translateY(-1px); }
+
+    /* ─── CONTENT ─── */
+    .stage {
+      position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0;
+      background: #faf9f6;
+    }
+    /* App routes (portals/login) render full-viewport with their own chrome — hide shell header to avoid a double header */
+    body.app-mode .gnav { display: none; }
+    body.app-mode .stage, body.app-mode .loadbar { top: 0; }
+    .stage iframe { width: 100%; height: 100%; border: 0; display: block; background: #faf9f6; }
+    .loadbar {
+      position: fixed; top: var(--nav-h); left: 0; height: 2.5px; width: 0;
+      background: linear-gradient(90deg, var(--amber), var(--amber-light)); z-index: 1200;
+      transition: width 0.3s ease, opacity 0.3s; box-shadow: 0 0 8px rgba(232,160,48,0.6);
+    }
+
+    /* mobile menu toggle */
+    .gnav-burger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+    .gnav-burger span { display: block; width: 22px; height: 2px; background: #fff; margin: 4px 0; border-radius: 2px; }
+
+    @media (max-width: 940px) {
+      .gnav-center { display: none; position: absolute; top: var(--nav-h); left: 0; right: 0;
+        background: rgba(14,29,49,0.99); padding: 12px; box-shadow: 0 16px 32px rgba(0,0,0,0.4); }
+      .gnav-center.open { display: block; }
+      .gnav-links { flex-direction: column; align-items: stretch; gap: 2px; }
+      .gnav-links .gdrop { position: static; transform: none; opacity: 1; pointer-events: all;
+        box-shadow: none; background: rgba(255,255,255,0.05); margin: 4px 0 8px; min-width: 0; }
+      .gnav-links .gdrop a { color: #e8ebee; }
+      .gnav-links .gdrop a:hover { background: rgba(255,255,255,0.08); }
+      .gdrop .dd-s { color: rgba(255,255,255,0.5); }
+      .gnav-links > li:hover .caret { transform: none; }
+      .gnav-burger { display: block; }
+      .gnav-center { flex: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="gnav">
+    <a class="gnav-logo" data-route="home" title="Home">
+      <img src="uploads/SPS-crest.png" alt="Sharda Public School" />
+      <div class="gnav-brand">
+        <span class="name">Sharda Public School</span>
+        <span class="motto">Learn • Excel • Perform</span>
+      </div>
+    </a>
+
+    <button class="gnav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+
+    <div class="gnav-center" id="navcenter">
+      <ul class="gnav-links">
+        <li data-nav="home"><a data-route="home">Home</a></li>
+        <li data-nav="academics"><a data-route="academics">Academics</a></li>
+        <li data-nav="admissions"><a data-route="admissions">Admissions</a></li>
+        <li data-nav="about"><a data-route="about">About</a></li>
+      </ul>
+    </div>
+
+    <div class="gnav-right">
+      <ul class="gnav-links">
+        <li data-nav="portal">
+          <button type="button">Portals
+            <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="gdrop">
+            <a data-route="loginStudent"><span class="dot d-stu"></span><span><span class="dd-t">Student Portal</span><span class="dd-s">Timetable, assignments, grades</span></span></a>
+            <a data-route="loginTeacher"><span class="dot d-tea"></span><span><span class="dd-t">Teacher Portal</span><span class="dd-s">Gradebook, attendance, planning</span></span></a>
+            <a data-route="loginAdmin"><span class="dot d-adm"></span><span><span class="dd-t">Admin Portal</span><span class="dd-s">Enrolment, staff, operations</span></span></a>
+          </div>
+        </li>
+      </ul>
+      <a class="gnav-apply" data-route="admissions">Apply Now</a>
+    </div>
+  </nav>
+
+  <div class="loadbar" id="loadbar"></div>
+  <div class="stage"><iframe id="frame" title="Sharda Public School"></iframe></div>
+
+  <script>
+    const ROUTES = {
+      home:       { file: 'index.html',                title: 'Home',         nav: 'home',       public: true },
+      about:      { file: 'About.html',                title: 'About',        nav: 'about',      public: true },
+      academics:  { file: 'Academics.html',            title: 'Academics',    nav: 'academics',  public: true },
+      admissions: { file: 'Admissions.html',           title: 'Admissions',   nav: 'admissions', public: true },
+      loginStudent: { file: 'Login.html', query: 'role=student', title: 'Student Login', nav: 'portal' },
+      loginTeacher: { file: 'Login.html', query: 'role=teacher', title: 'Teacher Login', nav: 'portal' },
+      loginAdmin:   { file: 'Login.html', query: 'role=admin',   title: 'Admin Login',   nav: 'portal' },
+      student:    { file: 'Student Portal.html',       title: 'Student Portal',nav: 'portal' },
+      teacher:    { file: 'Teacher Portal.html',       title: 'Teacher Portal',nav: 'portal' },
+      admin:      { file: 'Admin Portal.html',         title: 'Admin Portal', nav: 'portal' },
+      docs:       { file: 'Feature Documentation.html',title: 'Documentation',nav: 'resources' },
+      v1:         { file: 'index v1.html',             title: 'Homepage v1',  nav: 'resources' },
+    };
+    const FILE_TO_ROUTE = {};
+    Object.keys(ROUTES).forEach(r => { FILE_TO_ROUTE[ROUTES[r].file.toLowerCase()] = r; });
+
+    const frame   = document.getElementById('frame');
+    const loadbar = document.getElementById('loadbar');
+    const burger  = document.getElementById('burger');
+    const navcenter = document.getElementById('navcenter');
+
+    // CSS injected into public pages so their own fixed nav is removed and the
+    // global shell nav becomes the single source of truth. --nav-h:0 collapses
+    // the top offsets those pages compute from it, so no gap is left behind.
+    const SUPPRESS_CSS = `
+      #main-nav, nav.site-nav, nav.top, nav.scrolled { display: none !important; }
+      :root { --nav-h: 0px !important; }
+      html { scroll-padding-top: 0 !important; }
+    `;
+
+    let current = null;
+
+    const ROUTE_KEYS_LC = {};
+    Object.keys(ROUTES).forEach(k => { ROUTE_KEYS_LC[k.toLowerCase()] = k; });
+    function routeFromHash() {
+      const h = (location.hash || '').replace(/^#\/?/, '').trim().toLowerCase();
+      return ROUTE_KEYS_LC[h] || 'home';
+    }
+
+    function go(routeKey, push) {
+      const r = ROUTES[routeKey];
+      if (!r) return;
+      if (push && routeFromHash() !== routeKey) { location.hash = routeKey; return; } // hashchange will re-enter
+      current = routeKey;
+
+      loadbar.style.opacity = '1';
+      loadbar.style.width = '30%';
+      frame.removeAttribute('srcdoc');
+      frame.src = encodeURI(r.file) + (r.query ? '?' + r.query : '');
+
+      document.title = r.title === 'Home'
+        ? 'Sharda Public School, Almora — Learn • Excel • Perform'
+        : r.title + ' — Sharda Public School';
+
+      // sync active nav
+      document.querySelectorAll('.gnav-links > li').forEach(li => {
+        li.classList.toggle('active', li.dataset.nav === r.nav);
+      });
+      // full-screen app routes (portals + login) hide the shell header to avoid a double header
+      document.body.classList.toggle('app-mode', r.nav === 'portal');
+      // close mobile menu
+      navcenter.classList.remove('open');
+    }
+
+    frame.addEventListener('load', () => {
+      loadbar.style.width = '100%';
+      setTimeout(() => { loadbar.style.opacity = '0'; loadbar.style.width = '0'; }, 280);
+
+      try {
+        const doc = frame.contentDocument;
+        if (!doc) return;
+        const r = ROUTES[current];
+
+        // suppress inner nav on public marketing pages
+        if (r && r.public) {
+          const s = doc.createElement('style');
+          s.textContent = SUPPRESS_CSS;
+          doc.head.appendChild(s);
+        }
+
+        // intercept in-page links to .html so navigation stays inside the shell
+        doc.querySelectorAll('a[href]').forEach(a => {
+          const href = a.getAttribute('href') || '';
+          const bare = href.split('#')[0].split('?')[0];
+          if (/\.html$/i.test(bare)) {
+            const target = FILE_TO_ROUTE[bare.toLowerCase()];
+            if (target) {
+              a.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                go(target, true);
+              });
+            }
+          }
+        });
+      } catch (err) { /* cross-origin safety — ignore */ }
+    });
+
+    // global nav clicks
+    document.querySelectorAll('[data-route]').forEach(el => {
+      el.addEventListener('click', (e) => { e.preventDefault(); go(el.dataset.route, true); });
+    });
+
+    burger.addEventListener('click', () => navcenter.classList.toggle('open'));
+
+    window.addEventListener('hashchange', () => go(routeFromHash(), false));
+
+    // boot
+    go(routeFromHash(), false);
+  </script>
+</body>
+</html>

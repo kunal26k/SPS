@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Co-work — SPS Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-desktop: #14181d;
+      --win:        #ffffff;
+      --rail:       #1c2127;
+      --rail-hi:    #2a313a;
+      --sidebar:    #f4f2ee;
+      --sidebar-line:#e4e0d8;
+      --ink:        #1d2329;
+      --muted:      #7b8590;
+      --faint:      #aab2bb;
+      --accent:     #c8831a;
+      --accent-2:   #286640;
+      --tab-bar:    #ece8e1;
+      --sps-forest: #1b4d30;
+      --sps-navy:   #162840;
+      --sps-sky:    #2f7ea8;
+      --sps-amber:  #c8831a;
+      --sps-navy-mid:#1e3a5c;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'DM Sans', sans-serif; color: var(--ink);
+      background:
+        radial-gradient(1200px 700px at 70% -10%, #20303a 0%, transparent 60%),
+        radial-gradient(900px 600px at 10% 110%, #1d2a22 0%, transparent 55%),
+        var(--bg-desktop);
+      display: flex; align-items: center; justify-content: center;
+      padding: 28px; overflow: hidden;
+    }
+
+    /* ─── WINDOW ─── */
+    .window {
+      width: 100%; max-width: 1500px; height: 100%; max-height: 940px;
+      background: var(--win); border-radius: 14px; overflow: hidden;
+      display: flex; flex-direction: column;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.35), 0 40px 90px rgba(0,0,0,0.55);
+    }
+
+    /* titlebar */
+    .titlebar {
+      height: 44px; flex-shrink: 0; display: flex; align-items: center;
+      gap: 14px; padding: 0 16px; background: var(--rail);
+      border-bottom: 1px solid rgba(0,0,0,0.35);
+    }
+    .lights { display: flex; gap: 8px; }
+    .lights span { width: 12px; height: 12px; border-radius: 50%; display: block; }
+    .lights .r { background: #ff5f57; } .lights .y { background: #febc2e; } .lights .g { background: #28c840; }
+    .tb-app { display: flex; align-items: center; gap: 9px; margin-left: 6px; }
+    .tb-mark {
+      width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent) 0%, #a8690f 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 12px; color: #fff;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+    .tb-app .name { font-size: 13px; font-weight: 600; color: #e8ebee; }
+    .tb-crumb { font-size: 12px; color: #8a939d; }
+    .tb-crumb b { color: #c3cbd3; font-weight: 600; }
+    .tb-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+    .tb-presence { display: flex; align-items: center; }
+    .tb-presence .av {
+      width: 24px; height: 24px; border-radius: 50%; margin-left: -7px;
+      border: 2px solid var(--rail); font-size: 10px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center; color: #fff;
+    }
+    .tb-presence .av:first-child { margin-left: 0; }
+    .tb-live {
+      display: flex; align-items: center; gap: 6px; font-size: 11px;
+      color: #9aa3ad; font-family: 'DM Mono', monospace;
+    }
+    .tb-live .pulse { width: 7px; height: 7px; border-radius: 50%; background: #28c840; box-shadow: 0 0 0 0 rgba(40,200,64,0.6); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(40,200,64,0.5);} 70%{box-shadow:0 0 0 6px rgba(40,200,64,0);} 100%{box-shadow:0 0 0 0 rgba(40,200,64,0);} }
+
+    /* body split */
+    .shell { flex: 1; display: flex; min-height: 0; }
+
+    /* app rail */
+    .rail {
+      width: 56px; flex-shrink: 0; background: var(--rail);
+      display: flex; flex-direction: column; align-items: center;
+      padding: 12px 0; gap: 6px; border-right: 1px solid rgba(0,0,0,0.3);
+    }
+    .rail-btn {
+      width: 38px; height: 38px; border-radius: 10px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #8b949e; transition: background 0.15s, color 0.15s; position: relative;
+    }
+    .rail-btn:hover { background: var(--rail-hi); color: #d3d9df; }
+    .rail-btn.active { background: var(--rail-hi); color: #fff; }
+    .rail-btn.active::before { content:''; position:absolute; left:-12px; top:9px; bottom:9px; width:3px; border-radius:0 3px 3px 0; background: var(--accent); }
+    .rail-sp { flex: 1; }
+    .rail-btn svg { width: 19px; height: 19px; }
+
+    /* project sidebar */
+    .sidebar {
+      width: 256px; flex-shrink: 0; background: var(--sidebar);
+      border-right: 1px solid var(--sidebar-line);
+      display: flex; flex-direction: column; min-height: 0;
+    }
+    .sb-head { padding: 16px 16px 12px; border-bottom: 1px solid var(--sidebar-line); }
+    .sb-proj { display: flex; align-items: center; gap: 10px; }
+    .sb-proj .logo { width: 36px; height: 36px; border-radius: 7px; flex-shrink: 0; object-fit: cover; background: var(--sps-navy); }
+    .sb-proj .t { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; color: var(--sps-navy); line-height: 1.12; }
+    .sb-proj .s { font-size: 10.5px; color: var(--muted); letter-spacing: 0.02em; margin-top: 3px; }
+    .sb-meta { display: flex; gap: 14px; margin-top: 12px; }
+    .sb-meta .m .n { font-size: 14px; font-weight: 700; color: var(--ink); }
+    .sb-meta .m .l { font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+
+    .sb-scroll { flex: 1; overflow-y: auto; padding: 8px 0 16px; }
+    .sb-group { padding: 12px 16px 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); display: flex; align-items: center; gap: 7px; }
+    .sb-group::after { content:''; flex:1; height:1px; background: var(--sidebar-line); }
+    .file {
+      display: flex; align-items: center; gap: 9px; cursor: pointer;
+      padding: 7px 16px; font-size: 13px; color: #44505a; position: relative;
+      transition: background 0.12s, color 0.12s;
+    }
+    .file:hover { background: rgba(0,0,0,0.04); }
+    .file.active { background: #fff; color: var(--ink); font-weight: 600; }
+    .file.active::before { content:''; position:absolute; left:0; top:4px; bottom:4px; width:3px; background: var(--accent); border-radius:0 3px 3px 0; }
+    .file .ico { width: 15px; height: 15px; flex-shrink: 0; }
+    .file .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .file .star { margin-left: auto; color: var(--accent); font-size: 11px; }
+    .dot { width: 7px; height: 7px; border-radius: 2px; flex-shrink: 0; }
+    .d-web { background: var(--sps-forest); }
+    .d-stu { background: var(--sps-sky); }
+    .d-tea { background: var(--sps-amber); }
+    .d-adm { background: var(--sps-navy-mid); }
+    .d-doc { background: var(--muted); }
+
+    /* main pane */
+    .main { flex: 1; display: flex; flex-direction: column; min-width: 0; background: #fff; }
+    .tabbar { height: 38px; flex-shrink: 0; background: var(--tab-bar); display: flex; align-items: stretch; padding: 0 8px; border-bottom: 1px solid var(--sidebar-line); gap: 2px; }
+    .tab {
+      display: flex; align-items: center; gap: 8px; padding: 0 14px; cursor: pointer;
+      font-size: 12.5px; color: var(--muted); position: relative; max-width: 200px;
+      border-top-left-radius: 7px; border-top-right-radius: 7px; margin-top: 5px;
+    }
+    .tab.active { background: #fff; color: var(--ink); font-weight: 600; box-shadow: 0 -1px 3px rgba(0,0,0,0.04); }
+    .tab .x { font-size: 14px; color: var(--faint); line-height: 1; }
+    .tab .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tab-new { display: flex; align-items: center; justify-content: center; width: 30px; color: var(--faint); font-size: 18px; cursor: pointer; }
+
+    .canvas { flex: 1; position: relative; background: #fff; min-height: 0; }
+    .canvas iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; }
+    .loadbar { position: absolute; top: 0; left: 0; height: 2px; background: var(--accent); width: 0; transition: width 0.3s; z-index: 5; }
+
+    /* statusbar */
+    .statusbar {
+      height: 26px; flex-shrink: 0; background: var(--rail); display: flex; align-items: center;
+      gap: 16px; padding: 0 14px; font-family: 'DM Mono', monospace; font-size: 11px; color: #8a939d;
+    }
+    .statusbar .sb-l { display: flex; align-items: center; gap: 6px; }
+    .statusbar .right { margin-left: auto; display: flex; gap: 16px; }
+    .statusbar b { color: #c3cbd3; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="18" fill="#162840"/>
+      <rect x="30" y="30" width="40" height="40" rx="9" fill="#c8831a"/>
+      <text x="50" y="64" font-family="DM Sans, sans-serif" font-size="30" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    </svg>
+  </template>
+  <div class="window">
+
+    <!-- titlebar -->
+    <div class="titlebar">
+      <div class="lights"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="tb-app">
+        <div class="tb-mark">C</div>
+        <span class="name">Co-work</span>
+      </div>
+      <span class="tb-crumb">Workspace / <b>SPS</b></span>
+      <div class="tb-right">
+        <div class="tb-presence">
+          <div class="av" style="background:#286640">AR</div>
+          <div class="av" style="background:#2f7ea8">JK</div>
+          <div class="av" style="background:#c8831a">M</div>
+        </div>
+        <div class="tb-live"><span class="pulse"></span> 3 online</div>
+      </div>
+    </div>
+
+    <!-- body -->
+    <div class="shell">
+
+      <!-- app rail -->
+      <nav class="rail">
+        <div class="rail-btn active" title="Project files">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="rail-btn" title="Board">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        </div>
+        <div class="rail-btn" title="Chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="rail-btn" title="Activity">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l2 6 4-14 2 8h6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
+        <div class="rail-sp"></div>
+        <div class="rail-btn" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke-linecap="round"/></svg>
+        </div>
+      </nav>
+
+      <!-- project sidebar -->
+      <aside class="sidebar">
+        <div class="sb-head">
+          <div class="sb-proj">
+            <img class="logo" src="uploads/assets-1777010966211.png" alt="SPS" />
+            <div>
+              <div class="t">Sharda Public School</div>
+              <div class="s">Almora · CBSE · K–XII</div>
+            </div>
+          </div>
+          <div class="sb-meta">
+            <div class="m"><div class="n">9</div><div class="l">Screens</div></div>
+            <div class="m"><div class="n">3</div><div class="l">Portals</div></div>
+            <div class="m"><div class="n">3</div><div class="l">Members</div></div>
+          </div>
+        </div>
+        <div class="sb-scroll" id="filelist">
+          <!-- files injected -->
+        </div>
+      </aside>
+
+      <!-- main -->
+      <main class="main">
+        <div class="tabbar" id="tabbar"></div>
+        <div class="canvas">
+          <div class="loadbar" id="loadbar"></div>
+          <iframe id="frame" title="screen"></iframe>
+        </div>
+        <div class="statusbar">
+          <div class="sb-l"><span class="dot d-web"></span> <b id="st-name">SPS Platform</b></div>
+          <span id="st-file">SPS Platform.html</span>
+          <div class="right">
+            <span>UTF-8</span>
+            <span>HTML</span>
+            <span><b>main</b> · synced</span>
+          </div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    const FILES = [
+      { group: 'Platform', items: [
+        { name: 'SPS Platform', file: 'SPS Platform.html', cls: 'd-web', star: true },
+      ]},
+      { group: 'Public Website', items: [
+        { name: 'Home', file: 'index.html', cls: 'd-web' },
+        { name: 'About', file: 'About.html', cls: 'd-web' },
+        { name: 'Academics', file: 'Academics.html', cls: 'd-web' },
+        { name: 'Admissions', file: 'Admissions.html', cls: 'd-web' },
+      ]},
+      { group: 'Portals', items: [
+        { name: 'Student Portal', file: 'Student Portal.html', cls: 'd-stu' },
+        { name: 'Teacher Portal', file: 'Teacher Portal.html', cls: 'd-tea' },
+        { name: 'Admin Portal', file: 'Admin Portal.html', cls: 'd-adm' },
+      ]},
+      { group: 'Resources', items: [
+        { name: 'Feature Docs', file: 'Feature Documentation.html', cls: 'd-doc' },
+        { name: 'Homepage v1', file: 'index v1.html', cls: 'd-doc' },
+      ]},
+    ];
+
+    const fileIcon = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h8l4 4v16H6z" stroke-linejoin="round"/><path d="M14 2v4h4" stroke-linejoin="round"/></svg>';
+
+    const listEl = document.getElementById('filelist');
+    const tabbar = document.getElementById('tabbar');
+    const frame  = document.getElementById('frame');
+    const loadbar= document.getElementById('loadbar');
+    const stName = document.getElementById('st-name');
+    const stFile = document.getElementById('st-file');
+
+    let openTabs = [];   // array of file objects
+    let active = null;
+
+    // render sidebar
+    FILES.forEach(g => {
+      const h = document.createElement('div');
+      h.className = 'sb-group';
+      h.textContent = g.group;
+      listEl.appendChild(h);
+      g.items.forEach(it => {
+        const row = document.createElement('div');
+        row.className = 'file';
+        row.dataset.file = it.file;
+        row.innerHTML = '<span class="dot ' + it.cls + '"></span>' + fileIcon +
+          '<span class="nm">' + it.name + '</span>' + (it.star ? '<span class="star">★</span>' : '');
+        row.addEventListener('click', () => openFile(it));
+        listEl.appendChild(row);
+      });
+    });
+
+    function findItem(file) {
+      for (const g of FILES) for (const it of g.items) if (it.file === file) return it;
+      return null;
+    }
+
+    function openFile(it) {
+      if (!openTabs.find(t => t.file === it.file)) openTabs.push(it);
+      active = it.file;
+      // navigate
+      loadbar.style.width = '35%';
+      frame.src = encodeURI(it.file);
+      frame.onload = () => { loadbar.style.width = '100%'; setTimeout(() => loadbar.style.width = '0', 250); };
+      stName.textContent = it.name;
+      stFile.textContent = it.file;
+      renderTabs();
+      renderActiveFile();
+    }
+
+    function closeTab(file, ev) {
+      ev.stopPropagation();
+      const idx = openTabs.findIndex(t => t.file === file);
+      openTabs = openTabs.filter(t => t.file !== file);
+      if (active === file) {
+        const next = openTabs[idx] || openTabs[idx - 1] || openTabs[0];
+        if (next) openFile(next);
+        else { active = null; frame.src = 'about:blank'; renderTabs(); }
+      } else renderTabs();
+    }
+
+    function renderTabs() {
+      tabbar.innerHTML = '';
+      openTabs.forEach(t => {
+        const el = document.createElement('div');
+        el.className = 'tab' + (t.file === active ? ' active' : '');
+        el.innerHTML = '<span class="dot ' + t.cls + '"></span><span class="nm">' + t.name + '</span><span class="x">×</span>';
+        el.addEventListener('click', () => openFile(t));
+        el.querySelector('.x').addEventListener('click', (e) => closeTab(t.file, e));
+        tabbar.appendChild(el);
+      });
+      const plus = document.createElement('div');
+      plus.className = 'tab-new';
+      plus.textContent = '+';
+      tabbar.appendChild(plus);
+    }
+
+    function renderActiveFile() {
+      document.querySelectorAll('.file').forEach(f => {
+        f.classList.toggle('active', f.dataset.file === active);
+      });
+    }
+
+    // boot
+    openFile(findItem('SPS Platform.html'));
+  </script>
+</body>
+</html>

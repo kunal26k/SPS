@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Calendar — Teacher Portal · Sharda Public School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest:#1b4d30; --forest-mid:#286640; --forest-light:#3d8f5a; --forest-pale:#e8f4ec;
+      --navy:#162840; --navy-mid:#1e3a5c; --amber:#c8831a; --amber-light:#e8a030;
+      --sky:#2f7ea8; --sky-light:#e8f4fb; --red:#c0392b; --red-pale:#fdf0ef;
+      --clay:#a8572f; --plum:#6b3f69;
+      --warm:#faf9f6; --snow:#f5f8fa; --cream:#f2ede4; --border:#dce8e0;
+      --text:#1a2418; --muted:#52645a; --sidebar-w:260px; --teacher-accent:#1e3a5c;
+    }
+    html { font-size:16px; }
+    body { font-family:'DM Sans',sans-serif; background:var(--snow); color:var(--text); display:flex; min-height:100vh; overflow-x:hidden; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { width:var(--sidebar-w); background:var(--teacher-accent); min-height:100vh; display:flex; flex-direction:column; position:fixed; top:0; left:0; z-index:100; overflow-y:auto; }
+    .sidebar-logo { padding:24px 20px 20px; border-bottom:1px solid rgba(255,255,255,0.07); display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .sidebar-logo img { height:38px; filter:brightness(0) invert(1); }
+    .sidebar-logo-text .name { font-family:'Cormorant Garamond',serif; font-size:15px; font-weight:600; color:#fff; }
+    .sidebar-logo-text .sub { font-size:10px; color:rgba(255,255,255,0.4); margin-top:1px; letter-spacing:0.1em; }
+    .sidebar-user { padding:20px; border-bottom:1px solid rgba(255,255,255,0.07); display:flex; align-items:center; gap:12px; }
+    .user-av { width:40px; height:40px; border-radius:50%; background:var(--forest); display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; color:#fff; flex-shrink:0; }
+    .user-info .name { font-size:13.5px; font-weight:600; color:#fff; }
+    .user-info .role { font-size:11px; color:rgba(255,255,255,0.45); margin-top:1px; }
+    .user-badge { margin-left:auto; background:var(--amber); color:#fff; font-size:9px; font-weight:700; padding:3px 8px; border-radius:20px; letter-spacing:0.08em; }
+    .sidebar-nav { padding:16px 0; flex:1; }
+    .nav-section { padding:12px 20px 4px; font-size:9.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.25); }
+    .nav-item { display:flex; align-items:center; gap:12px; padding:11px 20px; cursor:pointer; color:rgba(255,255,255,0.6); font-size:13.5px; font-weight:500; transition:all 0.2s; border-left:3px solid transparent; text-decoration:none; }
+    .nav-item:hover { color:#fff; background:rgba(255,255,255,0.05); }
+    .nav-item.active { color:#fff; background:rgba(255,255,255,0.08); border-left-color:var(--amber-light); }
+    .nav-item .ni-icon { font-size:16px; width:20px; text-align:center; flex-shrink:0; }
+    .nav-item .ni-badge { margin-left:auto; background:var(--red); color:#fff; font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px; }
+    .sidebar-footer { padding:16px 20px; border-top:1px solid rgba(255,255,255,0.07); }
+    .sidebar-footer a { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.4); font-size:13px; text-decoration:none; transition:color 0.2s; }
+    .sidebar-footer a:hover { color:rgba(255,255,255,0.8); }
+
+    /* ── MAIN ── */
+    .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; min-height:100vh; }
+    .topbar { background:#fff; border-bottom:1px solid var(--border); padding:0 36px; height:64px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:50; }
+    .topbar-left { display:flex; align-items:center; gap:12px; }
+    .topbar-title { font-size:17px; font-weight:600; color:var(--navy); }
+    .topbar-breadcrumb { font-size:12px; color:var(--muted); }
+    .topbar-breadcrumb span { color:var(--forest-mid); }
+    .topbar-right { display:flex; align-items:center; gap:16px; }
+    .tb-notif { width:36px; height:36px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer; position:relative; transition:background 0.2s; }
+    .tb-notif:hover { background:var(--snow); }
+    .tb-notif .dot { position:absolute; top:6px; right:6px; width:7px; height:7px; background:var(--red); border-radius:50%; border:1.5px solid #fff; }
+    .tb-date { font-size:12px; color:var(--muted); }
+
+    .content { padding:28px 36px; flex:1; }
+
+    /* ── CALENDAR HEADER ── */
+    .cal-top { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:16px; }
+    .cal-month { font-family:'Cormorant Garamond',serif; font-size:38px; font-weight:600; color:var(--navy); line-height:1; }
+    .cal-month .yr { color:var(--muted); font-weight:500; }
+    .cal-subtitle { font-size:12.5px; color:var(--muted); margin-top:6px; }
+    .cal-nav { display:flex; align-items:center; gap:8px; }
+    .cal-nav-btn { width:38px; height:38px; border-radius:8px; border:1px solid var(--border); background:#fff; font-size:16px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; color:var(--navy); }
+    .cal-nav-btn:hover { background:var(--forest-pale); border-color:var(--forest-light); }
+    .cal-today-btn { padding:0 16px; height:38px; border-radius:8px; border:1px solid var(--border); background:#fff; font-family:inherit; font-size:12.5px; font-weight:700; color:var(--navy); cursor:pointer; letter-spacing:0.04em; transition:all 0.2s; }
+    .cal-today-btn:hover { background:var(--snow); }
+
+    /* ── LAYOUT ── */
+    .cal-layout { display:grid; grid-template-columns:1fr 330px; gap:24px; align-items:start; }
+
+    /* ── FILTERS / LEGEND ── */
+    .legend { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+    .legend-chip { display:inline-flex; align-items:center; gap:7px; padding:7px 14px; border-radius:30px; border:1.5px solid var(--border); background:#fff; font-size:12px; font-weight:600; color:var(--muted); cursor:pointer; transition:all 0.2s; user-select:none; }
+    .legend-chip .swatch { width:10px; height:10px; border-radius:50%; }
+    .legend-chip.off { opacity:0.4; }
+    .legend-chip:hover { border-color:var(--forest-light); }
+
+    /* ── GRID ── */
+    .cal-grid-wrap { background:#fff; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+    .cal-dow { display:grid; grid-template-columns:repeat(7,1fr); background:var(--navy); }
+    .cal-dow div { padding:11px 0; text-align:center; font-size:10.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.55); }
+    .cal-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); }
+    .cal-cell { min-height:112px; min-width:0; border-right:1px solid var(--border); border-bottom:1px solid var(--border); padding:8px; cursor:pointer; position:relative; transition:background 0.15s; display:flex; flex-direction:column; gap:4px; }
+    .cal-cell:nth-child(7n) { border-right:none; }
+    .cal-cell:hover { background:var(--snow); }
+    .cal-cell.muted { background:#fbfcfc; }
+    .cal-cell.muted .cell-num { color:#c4d0c8; }
+    .cal-cell.sunday .cell-num { color:var(--red); }
+    .cal-cell.today { background:var(--forest-pale); }
+    .cell-num { font-size:13px; font-weight:600; color:var(--navy); width:26px; height:26px; display:flex; align-items:center; justify-content:center; border-radius:50%; }
+    .cal-cell.today .cell-num { background:var(--forest); color:#fff; }
+    .ev-pill { font-size:10.5px; font-weight:600; padding:3px 7px; border-radius:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.3; display:flex; align-items:center; gap:5px; }
+    .ev-pill .pdot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+    .ev-more { font-size:10px; font-weight:700; color:var(--muted); padding-left:7px; }
+    .cal-cell.holiday-bg { background:var(--red-pale); }
+
+    /* ── SIDE: UPCOMING ── */
+    .side-card { background:#fff; border:1px solid var(--border); border-radius:8px; padding:20px; margin-bottom:20px; }
+    .side-card h3 { font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:600; color:var(--navy); margin-bottom:4px; }
+    .side-card .sub { font-size:11.5px; color:var(--muted); margin-bottom:16px; }
+    .up-item { display:flex; gap:13px; padding:12px 0; border-top:1px solid var(--border); }
+    .up-item:first-of-type { border-top:none; padding-top:4px; }
+    .up-date { flex-shrink:0; width:46px; text-align:center; }
+    .up-date .d { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; color:var(--navy); line-height:1; }
+    .up-date .m { font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-top:2px; }
+    .up-info { flex:1; min-width:0; border-left:3px solid; padding-left:12px; }
+    .up-title { font-size:13px; font-weight:600; color:var(--navy); line-height:1.35; }
+    .up-meta { font-size:11px; color:var(--muted); margin-top:3px; display:flex; align-items:center; gap:6px; }
+    .up-type { font-size:8.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:1px 6px; border-radius:3px; }
+
+    .exam-row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-top:1px solid var(--border); font-size:13px; }
+    .exam-row:first-of-type { border-top:none; }
+    .exam-row .subj { font-weight:600; color:var(--navy); }
+    .exam-row .when { font-size:11.5px; color:var(--muted); }
+
+    /* ── DAY DETAIL MODAL ── */
+    .modal-overlay { position:fixed; inset:0; background:rgba(22,40,64,0.45); display:none; align-items:center; justify-content:center; z-index:200; padding:20px; }
+    .modal-overlay.open { display:flex; }
+    .modal { background:#fff; border-radius:10px; width:100%; max-width:460px; max-height:80vh; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+    .modal-head { background:linear-gradient(135deg,var(--navy),var(--forest)); padding:24px; color:#fff; position:relative; }
+    .modal-head .mh-day { font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; opacity:0.7; }
+    .modal-head .mh-date { font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:600; margin-top:2px; }
+    .modal-close { position:absolute; top:18px; right:18px; width:32px; height:32px; border-radius:50%; border:none; background:rgba(255,255,255,0.15); color:#fff; font-size:16px; cursor:pointer; }
+    .modal-close:hover { background:rgba(255,255,255,0.28); }
+    .modal-body { padding:20px 24px; overflow-y:auto; }
+    .modal-ev { display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--border); }
+    .modal-ev:first-child { border-top:none; padding-top:2px; }
+    .modal-ev .bar { width:4px; border-radius:4px; flex-shrink:0; }
+    .modal-ev .me-title { font-size:14px; font-weight:600; color:var(--navy); }
+    .modal-ev .me-meta { font-size:12px; color:var(--muted); margin-top:3px; line-height:1.5; }
+    .modal-empty { text-align:center; color:var(--muted); padding:30px 0; font-size:13px; }
+
+    @media (max-width:1080px){ .cal-layout{ grid-template-columns:1fr; } }
+  
+.sb-burger{display:none;width:38px;height:38px;border:1px solid var(--border);border-radius:4px;background:#fff;align-items:center;justify-content:center;font-size:17px;cursor:pointer;flex-shrink:0;color:var(--navy);}
+.sb-backdrop{display:none;position:fixed;inset:0;background:rgba(16,29,49,0.45);z-index:99;}
+.sb-backdrop.show{display:block;}
+@media (max-width:1080px){
+  .sidebar{transform:translateX(-100%);transition:transform .28s ease;}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0!important;}
+  .sb-burger{display:flex;}
+  .dash-grid,.analytics-grid,.att-top,.sal-top,.comm-grid,.role-grid,.content-grid,.leave-grid,.form-grid,.results-summary,.att-grid,.brk-grid,.pay-detail-grid,.enroll-grid,.live-grid,.class-strength,.fee-stats,.summary-row,.att-summary-strip,.pipeline-strip{grid-template-columns:repeat(2,1fr)!important;}
+  [style*="grid-template-columns:repeat(4"],[style*="grid-template-columns:repeat(5"],[style*="grid-template-columns:repeat(6"]{grid-template-columns:repeat(2,1fr)!important;}
+}
+@media (max-width:680px){
+  .topbar{padding:0 16px;}
+  .content{padding:20px 16px;}
+  .dash-grid,.analytics-grid,.att-top,.sal-top,.comm-grid,.role-grid,.content-grid,.leave-grid,.form-grid,.results-summary,.att-grid,.brk-grid,.pay-detail-grid,.enroll-grid,.live-grid,.class-strength,.fee-stats,.summary-row,.att-summary-strip,.pipeline-strip,.modal-grid{grid-template-columns:1fr!important;}
+  [style*="grid-template-columns"]{grid-template-columns:1fr!important;}
+  .schedule-table,.asgn-table,.student-list,.sr-table,.subject-table{overflow-x:auto;}
+  .st-header,.st-row{min-width:560px;}
+  .at-head,.at-row{min-width:640px;}
+  .student-row{min-width:520px;}
+  .sr-head,.sr-row{min-width:480px;}
+  .leave-card,.q-card{grid-template-columns:36px 1fr!important;}
+  .punch-row,.leave-grid{grid-template-columns:1fr!important;}
+}
+</style>
+</head>
+<body>
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <a href="Teacher Portal.html" class="sidebar-logo">
+      <img src="uploads/assets-1777010966211.png" alt="SPS" />
+      <div class="sidebar-logo-text">
+        <div class="name">Sharda Public School</div>
+        <div class="sub">Teacher Portal</div>
+      </div>
+    </a>
+    <div class="sidebar-user">
+      <div class="user-av">S</div>
+      <div class="user-info">
+        <div class="name">Mr. Suresh Negi</div>
+        <div class="role">Mathematics · Classes IX & X</div>
+      </div>
+      <span class="user-badge">FACULTY</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Overview</div>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">🏠</span> Dashboard</a>
+      <div class="nav-section">Assignments</div>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">📝</span> Manage Assignments <span class="ni-badge">4</span></a>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">➕</span> Create Assignment</a>
+      <div class="nav-section">Classes</div>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">📊</span> Class Analytics</a>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">👥</span> My Students</a>
+      <a class="nav-item" href="Teacher Portal - Messages.html"><span class="ni-icon">💬</span> Messages <span class="ni-badge">6</span></a>
+      <div class="nav-section">My Profile</div>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">🕘</span> My Attendance</a>
+      <a class="nav-item" href="Teacher Portal.html"><span class="ni-icon">💰</span> My Salary &amp; Payslips</a>
+      <div class="nav-section">More</div>
+      <div class="nav-item active"><span class="ni-icon">🗓️</span> School Calendar</div>
+      <a class="nav-item" href="Teacher Portal - Settings.html"><span class="ni-icon">⚙️</span> Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="SPS Website WIP.html">← Back to School Website</a>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left"><button class="sb-burger" onclick="openSidebar()" aria-label="Menu">☰</button>
+        <div class="topbar-title">School Calendar</div>
+        <div class="topbar-breadcrumb">SPS Teacher › <span>School Calendar</span></div>
+      </div>
+      <div class="topbar-right">
+        <div class="tb-date">Tue, 16 Jun 2026</div>
+        <div class="tb-notif">🔔<div class="dot"></div></div>
+        <div class="tb-notif">👤</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="cal-top">
+        <div>
+          <div class="cal-month"><span id="calMonthName">June</span> <span class="yr" id="calYear">2026</span></div>
+          <div class="cal-subtitle">Academic Year 2026–27 · Duties, meetings, examinations &amp; holidays</div>
+        </div>
+        <div class="cal-nav">
+          <button class="cal-today-btn" onclick="goToday()">Today</button>
+          <button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button>
+          <button class="cal-nav-btn" onclick="changeMonth(1)">›</button>
+        </div>
+      </div>
+
+      <div class="legend" id="legend"></div>
+
+      <div class="cal-layout">
+        <div class="cal-grid-wrap">
+          <div class="cal-dow"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+
+        <div>
+          <div class="side-card">
+            <h3>Upcoming</h3>
+            <div class="sub">Your next duties &amp; important dates</div>
+            <div id="upcomingList"></div>
+          </div>
+          <div class="side-card">
+            <h3>Invigilation Duty</h3>
+            <div class="sub">Half-Yearly Exams · Sep 2026</div>
+            <div id="examList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day detail modal -->
+  <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <div class="modal-head">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="mh-day" id="mhDay"></div>
+        <div class="mh-date" id="mhDate"></div>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // ── event types ──
+    const TYPES = {
+      duty:    { label:'My Duty', color:'#286640' },
+      meeting: { label:'Meeting', color:'#2f7ea8' },
+      exam:    { label:'Exam',    color:'#162840' },
+      holiday: { label:'Holiday', color:'#c0392b' },
+      event:   { label:'Event',   color:'#c8831a' },
+    };
+    const filters = { duty:true, meeting:true, exam:true, holiday:true, event:true };
+
+    // ── events: date 'YYYY-M-D' (month 0-indexed) ──
+    const EVENTS = [
+      // June 2026
+      { d:'2026-5-16', type:'meeting', title:'Staff Orientation Meeting', meta:'8:00 AM · Staff Room · Term 1 planning' },
+      { d:'2026-5-17', type:'duty',    title:'Morning Assembly Duty', meta:'7:45 AM · Ground · Line supervision (IX-A)' },
+      { d:'2026-5-18', type:'event',   title:'Orientation Assembly', meta:'8:00 AM · Main Auditorium · All classes' },
+      { d:'2026-5-21', type:'event',   title:'International Yoga Day', meta:'7:30 AM · Sports Ground · Faculty participation' },
+      { d:'2026-5-24', type:'duty',    title:'Unit Test 1 — Invigilation', meta:'2nd period · Class IX-A · Mathematics' },
+      { d:'2026-5-24', type:'exam',    title:'Unit Test 1 — Mathematics', meta:'Class IX-A · Ch. 1–3 · Set by S. Negi' },
+      { d:'2026-5-25', type:'meeting', title:'Mathematics Dept. Meeting', meta:'3:15 PM · Room 12 · Syllabus pacing' },
+      { d:'2026-5-27', type:'duty',    title:'Submit Unit Test 1 Marks', meta:'Deadline · Upload to gradebook · IX-A' },
+      { d:'2026-5-29', type:'holiday', title:'Bakrid (Eid al-Adha)', meta:'School closed · Gazetted holiday' },
+      { d:'2026-5-30', type:'event',   title:'Inter-House Football — Round 1', meta:'3:00 PM · Junior squad · Escort duty IX' },
+      // July 2026
+      { d:'2026-6-3',  type:'meeting', title:'Annual Day Committee', meta:'2:30 PM · Auditorium · Event planning' },
+      { d:'2026-6-6',  type:'holiday', title:'Muharram', meta:'School closed · Gazetted holiday' },
+      { d:'2026-6-8',  type:'duty',    title:'Parent-Teacher Meeting', meta:'10:00 AM – 1:00 PM · Class IX-A · Room 12' },
+      { d:'2026-6-10', type:'duty',    title:'Collect Science Projects', meta:'Class IX · Evaluate & record marks' },
+      { d:'2026-6-15', type:'event',   title:'Library Week Begins', meta:'Reading challenge · Faculty book picks' },
+      { d:'2026-6-18', type:'exam',    title:'Unit Test 2 — All Subjects', meta:'Begins · Class IX · See datesheet' },
+      { d:'2026-6-18', type:'duty',    title:'Unit Test 2 — Invigilation', meta:'1st period · Hall A · Room duty' },
+      { d:'2026-6-22', type:'duty',    title:'Submit Unit Test 2 Marks', meta:'Deadline · Upload to gradebook' },
+      { d:'2026-6-24', type:'event',   title:'Inter-House Athletics Meet', meta:'Full day · Main Ground · Timekeeping duty' },
+      { d:'2026-6-29', type:'meeting', title:'Term 1 Review Meeting', meta:'3:00 PM · Conference Room · All faculty' },
+      // Sep half-yearly invigilation (sidebar)
+      { d:'2026-8-14', type:'duty', title:'Invigilation: English', meta:'9:00 AM – 12:00 PM · Hall A' },
+      { d:'2026-8-16', type:'duty', title:'Invigilation: Mathematics', meta:'9:00 AM – 12:00 PM · Hall B · Chief' },
+      { d:'2026-8-18', type:'duty', title:'Invigilation: Science', meta:'9:00 AM – 12:00 PM · Hall A' },
+      { d:'2026-8-21', type:'duty', title:'Invigilation: Social Science', meta:'9:00 AM – 12:00 PM · Hall C' },
+      { d:'2026-8-23', type:'duty', title:'Invigilation: Hindi', meta:'9:00 AM – 12:00 PM · Hall A' },
+    ];
+
+    const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const DOW = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const TODAY = new Date(2026, 5, 16);
+    let viewY = 2026, viewM = 5; // June 2026
+
+    function keyOf(y,m,d){ return `${y}-${m}-${d}`; }
+    function evFor(y,m,d){ return EVENTS.filter(e=>e.d===keyOf(y,m,d) && filters[e.type]); }
+
+    // ── legend ──
+    function renderLegend(){
+      const el = document.getElementById('legend');
+      el.innerHTML = Object.keys(TYPES).map(k=>{
+        const t = TYPES[k];
+        return `<div class="legend-chip ${filters[k]?'':'off'}" onclick="toggleFilter('${k}')">
+          <span class="swatch" style="background:${t.color}"></span>${t.label}</div>`;
+      }).join('');
+    }
+    function toggleFilter(k){ filters[k]=!filters[k]; renderLegend(); renderGrid(); }
+
+    // ── grid ──
+    function renderGrid(){
+      document.getElementById('calMonthName').textContent = MONTHS[viewM];
+      document.getElementById('calYear').textContent = viewY;
+      const grid = document.getElementById('calGrid');
+      const first = new Date(viewY, viewM, 1).getDay();
+      const daysIn = new Date(viewY, viewM+1, 0).getDate();
+      const prevDays = new Date(viewY, viewM, 0).getDate();
+      let cells = [];
+      for(let i=first-1;i>=0;i--) cells.push({d:prevDays-i, muted:true, mo:viewM-1});
+      for(let d=1;d<=daysIn;d++) cells.push({d, muted:false, mo:viewM});
+      while(cells.length%7!==0) cells.push({d:cells.length-(first+daysIn)+1, muted:true, mo:viewM+1});
+
+      grid.innerHTML = cells.map((c,i)=>{
+        const dow = i%7;
+        let y=viewY, m=c.mo;
+        if(m<0){m=11;y--;} if(m>11){m=0;y++;}
+        const evs = c.muted ? [] : evFor(viewY, viewM, c.d);
+        const isToday = !c.muted && y===TODAY.getFullYear() && viewM===TODAY.getMonth() && c.d===TODAY.getDate();
+        const isHolidayBg = evs.some(e=>e.type==='holiday');
+        let pills = evs.slice(0,3).map(e=>`<div class="ev-pill" style="background:${hexA(TYPES[e.type].color,0.1)};color:${TYPES[e.type].color}"><span class="pdot" style="background:${TYPES[e.type].color}"></span>${e.title}</div>`).join('');
+        if(evs.length>3) pills += `<div class="ev-more">+${evs.length-3} more</div>`;
+        const cls = ['cal-cell', c.muted?'muted':'', dow===0?'sunday':'', isToday?'today':'', (isHolidayBg&&!c.muted)?'holiday-bg':''].filter(Boolean).join(' ');
+        const click = c.muted ? '' : `onclick="openDay(${c.d})"`;
+        return `<div class="${cls}" ${click}><span class="cell-num">${c.d}</span>${pills}</div>`;
+      }).join('');
+    }
+    function hexA(hex,a){ const n=parseInt(hex.slice(1),16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
+
+    function changeMonth(delta){ viewM+=delta; if(viewM<0){viewM=11;viewY--;} if(viewM>11){viewM=0;viewY++;} renderGrid(); }
+    function goToday(){ viewY=TODAY.getFullYear(); viewM=TODAY.getMonth(); renderGrid(); }
+
+    // ── upcoming sidebar ──
+    function renderUpcoming(){
+      const el = document.getElementById('upcomingList');
+      const todayStr = TODAY.getTime();
+      const list = EVENTS
+        .map(e=>{ const [y,m,d]=e.d.split('-').map(Number); return {...e, _dt:new Date(y,m,d)}; })
+        .filter(e=>e._dt.getTime()>=todayStr && !(e.type==='duty' && e.d.startsWith('2026-8')))
+        .sort((a,b)=>a._dt-b._dt).slice(0,6);
+      el.innerHTML = list.map(e=>{
+        const t=TYPES[e.type];
+        return `<div class="up-item">
+          <div class="up-date"><div class="d">${e._dt.getDate()}</div><div class="m">${MONTHS_SHORT[e._dt.getMonth()]}</div></div>
+          <div class="up-info" style="border-color:${t.color}">
+            <div class="up-title">${e.title}</div>
+            <div class="up-meta"><span class="up-type" style="background:${hexA(t.color,0.13)};color:${t.color}">${t.label}</span>${e.meta.split('·')[0].trim()}</div>
+          </div>
+        </div>`;
+      }).join('') || '<div style="font-size:12.5px;color:var(--muted);">No upcoming events.</div>';
+    }
+
+    // ── invigilation datesheet sidebar ──
+    function renderExams(){
+      const el = document.getElementById('examList');
+      const exams = EVENTS.filter(e=>e.type==='duty' && e.d.startsWith('2026-8'))
+        .map(e=>{ const [y,m,d]=e.d.split('-').map(Number); return {...e, _dt:new Date(y,m,d)}; })
+        .sort((a,b)=>a._dt-b._dt);
+      el.innerHTML = exams.map(e=>`
+        <div class="exam-row">
+          <span class="subj">${e.title.replace('Invigilation: ','')}</span>
+          <span class="when">${DOW[e._dt.getDay()].slice(0,3)}, ${e._dt.getDate()} ${MONTHS_SHORT[e._dt.getMonth()]} · 9 AM</span>
+        </div>`).join('');
+    }
+
+    // ── day modal ──
+    function openDay(d){
+      const evs = evFor(viewY, viewM, d);
+      const dt = new Date(viewY, viewM, d);
+      document.getElementById('mhDay').textContent = DOW[dt.getDay()];
+      document.getElementById('mhDate').textContent = `${d} ${MONTHS[viewM]} ${viewY}`;
+      const body = document.getElementById('modalBody');
+      if(!evs.length){ body.innerHTML = '<div class="modal-empty">No scheduled events on this day.</div>'; }
+      else {
+        body.innerHTML = evs.map(e=>{ const t=TYPES[e.type];
+          return `<div class="modal-ev">
+            <div class="bar" style="background:${t.color}"></div>
+            <div><div class="me-title">${e.title}</div>
+            <div class="me-meta"><span class="up-type" style="background:${hexA(t.color,0.13)};color:${t.color}">${t.label}</span> &nbsp;${e.meta}</div></div>
+          </div>`;
+        }).join('');
+      }
+      document.getElementById('modalOverlay').classList.add('open');
+    }
+    function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+    // init
+    renderLegend(); renderGrid(); renderUpcoming(); renderExams();
+  </script>
+
+<div class="sb-backdrop" id="sbBackdrop" onclick="closeSidebar()"></div>
+<script>
+function openSidebar(){document.querySelector('.sidebar').classList.add('open');document.getElementById('sbBackdrop').classList.add('show');}
+function closeSidebar(){document.querySelector('.sidebar').classList.remove('open');document.getElementById('sbBackdrop').classList.remove('show');}
+document.querySelectorAll('.nav-item').forEach(el=>el.addEventListener('click',closeSidebar));
+</script>
+</body>
+</html>

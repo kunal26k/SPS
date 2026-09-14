@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sharda Public School — Learn • Excel • Perform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --forest:       #1b4d30;
+      --forest-mid:   #286640;
+      --forest-light: #3d8f5a;
+      --forest-pale:  #e8f4ec;
+      --navy:         #162840;
+      --navy-mid:     #1e3a5c;
+      --amber:        #c8831a;
+      --amber-light:  #e8a030;
+      --sky:          #2f7ea8;
+      --snow:         #f5f8fa;
+      --warm:         #faf9f6;
+      --cream:        #f2ede4;
+      --text:         #1a2418;
+      --muted:        #52645a;
+      --border:       #dce8e0;
+      --nav-h:        76px;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--warm); color: var(--text); overflow-x: hidden; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h);
+      display: flex; align-items: center;
+      padding: 0 48px;
+      transition: background 0.35s, box-shadow 0.35s;
+    }
+    nav.scrolled {
+      background: rgba(22, 40, 64, 0.98);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.25);
+      backdrop-filter: blur(12px);
+    }
+    nav.top { background: transparent; }
+
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+    .nav-logo img { height: 46px; filter: brightness(0) invert(1); }
+    .nav-brand { line-height: 1; }
+    .nav-brand .name { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: #fff; letter-spacing: 0.01em; display: block; margin: 0; padding: 0; }
+    .nav-brand .motto { font-size: 9.5px; color: var(--amber-light); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2px; margin-left: -1px; display: block; }
+
+    .nav-center { flex: 1; display: flex; justify-content: center; }
+    .nav-links { display: flex; gap: 4px; list-style: none; position: relative; }
+    .nav-links > li { position: relative; }
+    .nav-links > li > a {
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+      padding: 8px 14px; border-radius: 4px;
+      display: block; transition: color 0.2s, background 0.2s;
+    }
+    .nav-links > li > a:hover, .nav-links > li.active > a { color: #fff; background: rgba(255,255,255,0.1); }
+
+    /* Dropdown */
+    .dropdown {
+      position: absolute; top: calc(100% + 8px); left: 0;
+      background: var(--navy); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; min-width: 210px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+      opacity: 0; pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 300;
+    }
+    .nav-links > li:hover .dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .dropdown a {
+      display: block; padding: 10px 18px;
+      color: rgba(255,255,255,0.75); font-size: 13px; text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.15s, background 0.15s;
+    }
+    .dropdown a:last-child { border-bottom: none; }
+    .dropdown a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+
+    .nav-right { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+    .nav-portal {
+      color: rgba(255,255,255,0.7); font-size: 12.5px; text-decoration: none;
+      padding: 7px 14px; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .nav-portal:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
+    .nav-apply {
+      background: var(--amber); color: #fff;
+      padding: 9px 20px; border-radius: 4px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+    }
+    .nav-apply:hover { background: var(--amber-light); }
+
+    /* ─── HERO ─── */
+    .hero {
+      height: 100vh; min-height: 640px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: flex-end;
+      background: var(--navy);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #0d1f33 0%, #162840 30%, #1b4d30 75%, #0f2a1a 100%);
+    }
+    /* Stars layer */
+    .hero-stars {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+      background-size: 200px 200px, 100px 100px, 60px 60px;
+      background-position: 0 0, 50px 50px, 25px 75px;
+      animation: starPulse 8s ease-in-out infinite alternate;
+      opacity: 0.35;
+    }
+    @keyframes starPulse { from {opacity:0.2} to {opacity:0.45} }
+
+    /* Mountain layers */
+    .hero-mtn { position: absolute; bottom: 0; left: 0; right: 0; }
+
+    /* Gradient overlay bottom */
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(22,40,64,0.85) 0%, rgba(22,40,64,0.3) 40%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 10;
+      padding: 0 80px 96px;
+      max-width: 860px;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow span {
+      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+      font-weight: 600; color: var(--amber-light);
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; display: block; height: 1px; background: var(--amber-light); opacity: 0.5;
+    }
+    .hero-eyebrow::before { width: 28px; }
+    .hero-eyebrow::after { width: 28px; }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 600; line-height: 1.04;
+      color: #fff; margin-bottom: 22px;
+      text-wrap: pretty;
+    }
+    .hero h1 em { font-style: italic; color: #a8d8b8; }
+    .hero-desc {
+      font-size: 17px; color: rgba(255,255,255,0.68);
+      line-height: 1.7; max-width: 540px; margin-bottom: 42px;
+    }
+    .hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--amber); color: #fff;
+      padding: 14px 30px; border-radius: 3px;
+      font-size: 13.5px; font-weight: 600; text-decoration: none;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      transition: all 0.2s; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--amber-light); transform: translateY(-1px); }
+    .btn-outline {
+      color: rgba(255,255,255,0.85); border: 1.5px solid rgba(255,255,255,0.35);
+      padding: 13px 28px; border-radius: 3px;
+      font-size: 13.5px; font-weight: 500; text-decoration: none;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      transition: all 0.2s; display: inline-block;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.8); color: #fff; }
+
+    /* Hero scroll indicator */
+    .hero-scroll-cue {
+      position: absolute; bottom: 32px; right: 80px; z-index: 10;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.35); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px; height: 48px; background: rgba(255,255,255,0.2);
+      position: relative; overflow: hidden;
+    }
+    .scroll-line::after {
+      content: ''; position: absolute; top: -100%; left: 0; right: 0;
+      height: 100%; background: rgba(255,255,255,0.6);
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+    @keyframes scrollDrop { from {top:-100%} to {top:100%} }
+
+    /* ─── MISSION PILLARS ─── */
+    .pillars {
+      background: var(--forest);
+      display: grid; grid-template-columns: repeat(3, 1fr);
+    }
+    .pillar {
+      padding: 52px 44px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.25s;
+    }
+    .pillar:last-child { border-right: none; }
+    .pillar:hover { background: rgba(255,255,255,0.05); }
+    .pillar-icon {
+      width: 44px; height: 44px; margin-bottom: 18px;
+      opacity: 0.7;
+    }
+    .pillar h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 600; color: #fff;
+      margin-bottom: 10px;
+    }
+    .pillar p { font-size: 14px; color: rgba(255,255,255,0.58); line-height: 1.7; }
+    .pillar-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--amber-light); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; margin-top: 18px;
+      transition: gap 0.2s;
+    }
+    .pillar-link:hover { gap: 10px; }
+
+    /* ─── SECTION COMMONS ─── */
+    .section-label {
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.24em;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .section-label.green { color: var(--forest-mid); }
+    .section-label.navy { color: var(--navy-mid); }
+    .section-label.amber { color: var(--amber); }
+    .section-label.white { color: rgba(255,255,255,0.45); }
+
+    h2.sh {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 600; line-height: 1.14; color: var(--navy);
+      text-wrap: pretty;
+    }
+    h2.sh em { font-style: italic; color: var(--forest-mid); }
+    h2.sh.light { color: #fff; }
+    h2.sh.light em { color: #a8d8b8; }
+
+    .rule {
+      display: block; width: 40px; height: 2px; margin: 18px 0 20px;
+      background: linear-gradient(90deg, var(--forest), var(--amber));
+    }
+    .lead {
+      font-size: 16px; color: var(--muted); line-height: 1.75;
+    }
+    .lead.light { color: rgba(255,255,255,0.6); }
+
+    /* ─── GLANCE STATS ─── */
+    .glance { background: var(--cream); padding: 72px 80px; }
+    .glance-inner {
+      display: grid; grid-template-columns: 1fr 3fr; gap: 80px; align-items: start;
+    }
+    .glance-intro .rule { margin-top: 16px; }
+    .glance-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    }
+    .gstat {
+      padding: 28px 32px;
+      border-right: 1px solid rgba(22,40,64,0.1);
+      border-bottom: 1px solid rgba(22,40,64,0.1);
+    }
+    .gstat:nth-child(n+5) { border-bottom: none; }
+    .gstat:nth-child(4n) { border-right: none; }
+    .gstat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px; font-weight: 700; line-height: 1;
+      color: var(--navy); letter-spacing: -0.01em;
+    }
+    .gstat-num sup { font-size: 26px; vertical-align: top; margin-top: 8px; }
+    .gstat-label { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+    /* ─── ABOUT / WHY SPS ─── */
+    .about { padding: 96px 80px; background: var(--warm); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; margin-top: 56px; }
+    .about-visual {
+      position: relative;
+    }
+    .about-img-wrap {
+      aspect-ratio: 5/6;
+      background: linear-gradient(145deg, var(--navy) 0%, var(--forest) 100%);
+      border-radius: 2px; overflow: hidden; position: relative;
+    }
+    .mountain-scene {
+      position: absolute; inset: 0;
+    }
+    .about-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(22,40,64,0.92), transparent);
+      padding: 48px 28px 24px;
+    }
+    .about-caption p {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 18px; color: rgba(255,255,255,0.9); line-height: 1.5;
+    }
+    .about-pull {
+      position: absolute; top: -20px; right: -20px;
+      background: var(--amber); padding: 20px 22px;
+      box-shadow: 0 8px 32px rgba(200,131,26,0.35);
+    }
+    .about-pull .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px; font-weight: 700; color: #fff; line-height: 1;
+    }
+    .about-pull .lbl { font-size: 11px; color: rgba(255,255,255,0.8); letter-spacing: 0.1em; margin-top: 2px; }
+
+    .about-text h2 { margin-bottom: 4px; }
+    .about-text p { font-size: 15.5px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .about-pillars { display: flex; flex-direction: column; gap: 2px; margin-top: 28px; }
+    .ap {
+      display: flex; gap: 18px; align-items: flex-start; padding: 18px 20px;
+      background: var(--forest-pale); border-left: 3px solid var(--forest-mid);
+    }
+    .ap-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .ap h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+    .ap p { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+
+    /* ─── ACADEMICS ─── */
+    .academics { padding: 96px 80px; background: var(--snow); }
+    .ac-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; }
+    .ac-link { font-size: 13px; font-weight: 600; color: var(--forest-mid); text-decoration: none; letter-spacing: 0.06em; display: flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+    .ac-link:hover { gap: 10px; }
+    .ac-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .ac-card {
+      background: #fff; padding: 44px 36px;
+      position: relative; overflow: hidden;
+      transition: background 0.25s;
+    }
+    .ac-card:hover { background: var(--forest); }
+    .ac-card:hover .ac-num { color: rgba(255,255,255,0.08); }
+    .ac-card:hover h3 { color: #fff; }
+    .ac-card:hover p { color: rgba(255,255,255,0.6); }
+    .ac-card:hover .ac-tag { background: rgba(255,255,255,0.12); color: #fff; }
+    .ac-card:hover .ac-arrow { opacity: 1; }
+    .ac-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px; font-weight: 700; color: #f0f0f0;
+      line-height: 1; margin-bottom: 10px;
+      transition: color 0.25s;
+    }
+    .ac-card h3 { font-size: 19px; font-weight: 600; color: var(--navy); margin-bottom: 10px; transition: color 0.25s; }
+    .ac-card p { font-size: 13.5px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; transition: color 0.25s; }
+    .ac-tag {
+      display: inline-block; padding: 4px 12px;
+      background: var(--forest-pale); color: var(--forest);
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; border-radius: 2px;
+      text-transform: uppercase; transition: all 0.25s;
+    }
+    .ac-arrow { position: absolute; bottom: 36px; right: 32px; color: rgba(255,255,255,0.5); font-size: 24px; opacity: 0; transition: opacity 0.25s; }
+
+    /* ─── MEET A STUDENT ─── */
+    .spotlight { padding: 96px 80px; background: var(--navy); }
+    .spotlight-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; }
+    .spotlight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .sp-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 2px; overflow: hidden;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .sp-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.16); }
+    .sp-avatar {
+      aspect-ratio: 3/2;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .sp-body { padding: 24px; }
+    .sp-class { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber-light); margin-bottom: 6px; }
+    .sp-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #fff; font-weight: 600; margin-bottom: 8px; }
+    .sp-card p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+    .sp-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--amber-light); text-decoration: none; letter-spacing: 0.06em; transition: gap 0.2s; }
+    .sp-link:hover { gap: 10px; }
+
+    /* ─── EVENTS STRIP ─── */
+    .events-strip { background: var(--cream); padding: 0 80px; }
+    .events-inner { display: flex; align-items: stretch; }
+    .events-hd {
+      width: 260px; padding: 44px 0; flex-shrink: 0;
+      border-right: 1px solid rgba(22,40,64,0.12);
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding-right: 48px;
+    }
+    .events-hd h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--navy); font-weight: 600; }
+    .view-all { font-size: 12px; font-weight: 600; color: var(--forest-mid); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+    .view-all:hover { gap: 10px; }
+    .events-list { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); }
+    .ev-item {
+      padding: 32px 28px;
+      border-right: 1px solid rgba(22,40,64,0.08);
+      transition: background 0.2s;
+    }
+    .ev-item:last-child { border-right: none; }
+    .ev-item:hover { background: rgba(22,40,64,0.03); }
+    .ev-date { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 500; color: var(--amber); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .ev-item h4 { font-size: 14px; font-weight: 600; color: var(--navy); line-height: 1.4; margin-bottom: 6px; }
+    .ev-item span { font-size: 12px; color: var(--muted); }
+
+    /* ─── PRINCIPAL ─── */
+    .principal { padding: 96px 80px; background: var(--forest); }
+    .principal-inner { display: grid; grid-template-columns: 400px 1fr; gap: 96px; align-items: center; }
+    .principal-portrait {
+      position: relative;
+    }
+    .portrait-card {
+      aspect-ratio: 4/5;
+      background: linear-gradient(145deg, var(--navy-mid), var(--navy));
+      overflow: hidden; position: relative;
+      display: flex; align-items: flex-end;
+    }
+    .portrait-bg {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .portrait-info {
+      position: relative; z-index: 2; padding: 28px;
+      background: linear-gradient(to top, rgba(22,40,64,0.95), transparent);
+      width: 100%;
+    }
+    .portrait-info h4 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #fff; font-weight: 600; }
+    .portrait-info span { font-size: 12px; color: var(--amber-light); letter-spacing: 0.08em; }
+    .portrait-accent {
+      position: absolute; bottom: -16px; left: -16px;
+      width: 80px; height: 80px; background: var(--amber);
+    }
+
+    .principal-quote blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(24px, 2.5vw, 34px); font-style: italic; font-weight: 500;
+      color: #fff; line-height: 1.45; margin-bottom: 28px;
+    }
+    .open-q {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 100px; color: rgba(255,255,255,0.12);
+      line-height: 0.6; display: block; margin-bottom: 8px;
+    }
+    .principal-body { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 32px; }
+    .sig { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; color: var(--amber-light); }
+
+    /* ─── NEWS ─── */
+    .news { padding: 96px 80px; background: var(--warm); }
+    .news-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2px; background: var(--border); margin-top: 56px; }
+    .news-featured {
+      background: #fff; overflow: hidden; position: relative;
+      display: flex; flex-direction: column;
+    }
+    .nf-thumb {
+      aspect-ratio: 16/8; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nf-body { padding: 36px; flex: 1; display: flex; flex-direction: column; }
+    .n-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--forest-mid); margin-bottom: 10px; }
+    .news-featured h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--navy); line-height: 1.25; margin-bottom: 12px; }
+    .news-featured p { font-size: 14px; color: var(--muted); line-height: 1.7; flex: 1; }
+    .n-date { font-size: 11.5px; color: #aaa; margin-top: 20px; }
+    .news-sidebar { background: #fff; display: flex; flex-direction: column; gap: 1px; }
+    .ns-item {
+      background: #fff; padding: 24px 28px; border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .ns-item:last-child { border-bottom: none; }
+    .ns-item:hover { background: var(--snow); }
+    .ns-item h4 { font-size: 15px; font-weight: 600; color: var(--navy); line-height: 1.35; margin-bottom: 8px; }
+    .ns-item p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .ns-item .n-date { margin-top: 10px; }
+
+    /* ─── GALLERY ─── */
+    .gallery { background: var(--navy); padding: 96px 80px 0; }
+    .gallery-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+    .gallery-mosaic {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 280px 220px;
+      gap: 3px;
+    }
+    .gi {
+      position: relative; overflow: hidden; cursor: pointer;
+    }
+    .gi:first-child { grid-row: 1 / 3; }
+    .gi-bg { width: 100%; height: 100%; transition: transform 0.5s ease; }
+    .gi:hover .gi-bg { transform: scale(1.06); }
+    .gi-label {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 50%);
+      display: flex; align-items: flex-end; padding: 18px 20px;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gi:hover .gi-label { opacity: 1; }
+    .gi-label span { font-size: 13px; color: #fff; font-weight: 500; }
+
+    /* ─── ADMISSIONS ─── */
+    .admissions { padding: 96px 80px; background: var(--snow); }
+    .adm-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 96px; align-items: start; }
+    .adm-steps { display: flex; flex-direction: column; gap: 0; }
+    .adm-step {
+      display: flex; gap: 24px; padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .adm-step:first-child { padding-top: 0; }
+    .adm-step:last-child { border-bottom: none; }
+    .adm-step-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px; font-weight: 700; color: var(--border);
+      line-height: 1; flex-shrink: 0; width: 48px;
+      transition: color 0.2s;
+    }
+    .adm-step:hover .adm-step-n { color: var(--forest-light); }
+    .adm-step-body h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .adm-step-body p { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+    .adm-info { display: flex; flex-direction: column; gap: 28px; }
+    .adm-card {
+      background: var(--forest); color: #fff; padding: 40px;
+      border-radius: 2px;
+    }
+    .adm-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 12px; }
+    .adm-card p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 24px; }
+    .adm-actions { display: flex; gap: 12px; }
+    .adm-cta {
+      background: var(--amber); color: #fff; padding: 12px 24px;
+      font-size: 13px; font-weight: 700; text-decoration: none;
+      letter-spacing: 0.05em; text-transform: uppercase; border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .adm-cta:hover { background: var(--amber-light); }
+    .adm-cta.ghost {
+      background: transparent; border: 1.5px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.8);
+    }
+    .adm-cta.ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+
+    .adm-dates { background: #fff; border: 1px solid var(--border); padding: 28px; }
+    .adm-dates h4 { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); margin-bottom: 16px; }
+    .adm-date-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .adm-date-row:last-child { border-bottom: none; }
+    .adm-date-row span { font-size: 13.5px; color: var(--text); }
+    .adm-date-row em { font-size: 12px; color: var(--amber); font-weight: 600; font-style: normal; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials { padding: 96px 80px; background: var(--cream); }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; }
+    .testi {
+      background: #fff; padding: 40px 32px;
+      border-top: 3px solid var(--forest-mid);
+    }
+    .testi-stars { color: var(--amber); font-size: 14px; margin-bottom: 16px; }
+    .testi p {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 18px; color: var(--navy); line-height: 1.65;
+      margin-bottom: 24px;
+    }
+    .testi-footer { display: flex; align-items: center; gap: 14px; }
+    .testi-av {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .testi-meta h5 { font-size: 14px; font-weight: 600; color: var(--navy); }
+    .testi-meta span { font-size: 12px; color: var(--muted); }
+
+    /* ─── COMMUNITY PORTALS ─── */
+    .community { background: var(--navy); padding: 72px 80px; }
+    .community-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 44px; }
+    .portal {
+      background: rgba(255,255,255,0.04);
+      padding: 44px 36px;
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: background 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .portal::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .portal.p1::before { background: var(--forest-light); }
+    .portal.p2::before { background: var(--amber); }
+    .portal.p3::before { background: var(--sky); }
+    .portal:hover { background: rgba(255,255,255,0.07); }
+    .portal:hover::before { transform: scaleX(1); }
+    .portal h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: #fff; font-weight: 600; margin-bottom: 10px; }
+    .portal p { font-size: 13.5px; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 22px; }
+    .portal-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: gap 0.2s; }
+    .portal.p1 .portal-link { color: var(--forest-light); }
+    .portal.p2 .portal-link { color: var(--amber-light); }
+    .portal.p3 .portal-link { color: #7ec8e8; }
+    .portal-link:hover { gap: 10px; }
+    .portal-new-tag { display:inline-block; font-size:9px; font-weight:800; letter-spacing:0.1em; background:var(--amber); color:#fff; padding:2px 8px; border-radius:10px; margin-left:8px; vertical-align:middle; }
+
+    /* ─── CONTACT ─── */
+    .contact { padding: 96px 80px; background: var(--warm); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 56px; }
+    .contact-item { display: flex; gap: 18px; align-items: flex-start; margin-bottom: 28px; }
+    .ci-icon {
+      width: 46px; height: 46px; background: var(--forest-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0; border-radius: 2px;
+    }
+    .ci-text h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); margin-bottom: 4px; }
+    .ci-text p { font-size: 14.5px; color: var(--muted); line-height: 1.6; }
+    .map-box {
+      background: var(--snow); border: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 14px; padding: 56px; text-align: center;
+    }
+    .map-box p { font-size: 14px; color: var(--muted); }
+    .map-box .loc { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--navy); font-weight: 600; }
+
+    /* ─── FOOTER ─── */
+    footer { background: #0e1e2e; padding: 64px 80px 32px; }
+    .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 28px; }
+    .footer-brand img { height: 50px; filter: brightness(0) invert(1); margin-bottom: 16px; display: block; }
+    .footer-brand p { font-size: 13.5px; color: rgba(255,255,255,0.38); line-height: 1.7; }
+    .footer-col h5 { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.55); font-size: 13.5px; text-decoration: none; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--amber-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-size: 11.5px; color: rgba(255,255,255,0.25); }
+    .footer-motto { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: rgba(255,255,255,0.2); }
+
+    /* ─── ENTRY ANIMATIONS ─── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ─── RESPONSIVE ─── */
+    .nav-burger{display:none;width:34px;height:34px;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:none;border:none;cursor:pointer;flex-shrink:0;}
+    .nav-burger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;}
+    @media (max-width: 1024px) {
+      nav { padding: 0 24px; }
+      .nav-burger { display: flex; }
+      .nav-center { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--navy); padding: 8px 24px 20px; box-shadow: 0 16px 32px rgba(0,0,0,0.35); }
+      .nav-center.open { display: flex; }
+      .nav-links { flex-direction: column; gap: 0; width: 100%; }
+      .nav-links > li > a { padding: 14px 4px; }
+      section, .about, .academics, .news, .gallery, .admissions, .testimonials, .community, .contact, .glance, .spotlight, .events-strip, .principal {
+        padding-left: 28px; padding-right: 28px;
+      }
+      .hero-content { padding: 0 28px 80px; }
+      .about-grid, .principal-inner, .contact-grid, .adm-grid, .glance-inner { grid-template-columns: 1fr; gap: 40px; }
+      .ac-grid, .testi-grid, .community-grid { grid-template-columns: 1fr; gap: 2px; }
+      .glance-stats { grid-template-columns: repeat(2, 1fr); }
+      .spotlight-grid { grid-template-columns: 1fr; gap: 16px; }
+      .gallery-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gi:first-child { grid-row: auto; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .events-inner { flex-direction: column; }
+      .events-hd { width: 100%; border-right: none; border-bottom: 1px solid rgba(22,40,64,0.12); padding-right: 0; padding-bottom: 24px; }
+      .events-list { grid-template-columns: 1fr 1fr; }
+      .news-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ═══ -->
+  <nav class="top" id="main-nav">
+    <a href="Home.html#home" class="nav-logo">
+      <img src="uploads/SPS-crest.png" alt="Sharda Public School" />
+      <div class="nav-brand">
+        <span class="name">Sharda Public School</span>
+        <span class="motto">Learn • Excel • Perform</span>
+      </div>
+    </a>
+    <div class="nav-center">
+      <ul class="nav-links">
+        <li class="active"><a href="Home.html#home">Home</a></li>
+        <li><a href="Academics.html">Academics</a></li>
+        <li><a href="Admissions.html">Admissions</a></li>
+        <li><a href="About.html">About</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+    </div>
+<a href="#admissions" class="nav-apply">Apply Now</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-stars"></div>
+
+    <!-- Mountain ranges -->
+    <svg class="hero-mtn" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMax slice" style="position:absolute;bottom:0;left:0;right:0;height:60%;">
+      <!-- Far range (snow-capped Himalayas) -->
+      <g opacity="0.06">
+        <polygon points="0,560 0,250 100,100 200,200 340,50 480,160 600,30 740,150 870,60 1000,170 1130,80 1260,180 1380,100 1440,140 1440,560" fill="white"/>
+      </g>
+      <!-- Snow caps -->
+      <polygon points="340,50 295,155 385,155" fill="rgba(255,255,255,0.22)"/>
+      <polygon points="600,30 548,140 652,140" fill="rgba(255,255,255,0.28)"/>
+      <polygon points="870,60 822,160 918,160" fill="rgba(255,255,255,0.20)"/>
+      <polygon points="1130,80 1084,175 1176,175" fill="rgba(255,255,255,0.18)"/>
+      <!-- Mid range -->
+      <polygon points="0,560 0,340 80,220 200,300 340,200 480,280 620,190 760,280 900,200 1040,290 1180,210 1320,300 1440,230 1440,560" fill="rgba(27,77,48,0.4)"/>
+      <!-- Close range -->
+      <polygon points="0,560 0,400 100,300 240,380 380,290 520,370 660,275 800,360 940,280 1080,375 1220,295 1360,375 1440,310 1440,560" fill="rgba(27,77,48,0.65)"/>
+    </svg>
+
+    <!-- Deodar forest layer -->
+    <svg style="position:absolute;bottom:0;left:0;right:0;height:210px;pointer-events:none;" viewBox="0 0 1440 210" preserveAspectRatio="xMidYMax slice">
+      <g fill="rgba(20,60,35,0.95)">
+        <!-- repeating deodar silhouettes -->
+        <polygon points="40,210 40,158 26,158 40,128 54,158 40,158"/>
+        <polygon points="40,158 40,112 20,112 40,78 60,112 40,112"/>
+        <polygon points="40,112 40,64 16,64 40,24 64,64 40,64"/>
+        <rect x="35" y="204" width="10" height="8"/>
+
+        <polygon points="110,210 110,162 98,162 110,134 122,162 110,162"/>
+        <polygon points="110,162 110,118 92,118 110,82 128,118 110,118"/>
+        <polygon points="110,118 110,70 88,70 110,30 132,70 110,70"/>
+        <rect x="105" y="205" width="10" height="7"/>
+
+        <polygon points="185,210 185,155 168,155 185,118 202,155 185,155"/>
+        <polygon points="185,155 185,104 162,104 185,62 208,104 185,104"/>
+        <polygon points="185,104 185,50 158,50 185,8 212,50 185,50"/>
+        <rect x="179" y="204" width="12" height="8"/>
+
+        <polygon points="265,210 265,163 252,163 265,135 278,163 265,163"/>
+        <polygon points="265,163 265,119 246,119 265,84 284,119 265,119"/>
+        <polygon points="265,119 265,72 242,72 265,32 288,72 265,72"/>
+        <rect x="260" y="205" width="10" height="7"/>
+
+        <polygon points="345,210 345,156 329,156 345,120 361,156 345,156"/>
+        <polygon points="345,156 345,106 322,106 345,64 368,106 345,106"/>
+        <polygon points="345,106 345,52 318,52 345,10 372,52 345,52"/>
+        <rect x="339" y="204" width="12" height="8"/>
+
+        <polygon points="430,210 430,165 417,165 430,138 443,165 430,165"/>
+        <polygon points="430,165 430,122 412,122 430,88 448,122 430,122"/>
+        <polygon points="430,122 430,76 408,76 430,36 452,76 430,76"/>
+        <rect x="425" y="205" width="10" height="7"/>
+
+        <polygon points="520,210 520,157 504,157 520,121 536,157 520,157"/>
+        <polygon points="520,157 520,107 498,107 520,65 542,107 520,107"/>
+        <polygon points="520,107 520,53 494,53 520,11 546,53 520,53"/>
+        <rect x="514" y="204" width="12" height="8"/>
+
+        <polygon points="608,210 608,163 595,163 608,136 621,163 608,163"/>
+        <polygon points="608,163 608,120 590,120 608,86 626,120 608,120"/>
+        <polygon points="608,120 608,74 586,74 608,34 630,74 608,74"/>
+        <rect x="603" y="205" width="10" height="7"/>
+
+        <polygon points="696,210 696,156 680,156 696,120 712,156 696,156"/>
+        <polygon points="696,156 696,106 674,106 696,64 718,106 696,106"/>
+        <polygon points="696,106 696,52 670,52 696,10 722,52 696,52"/>
+        <rect x="690" y="204" width="12" height="8"/>
+
+        <polygon points="786,210 786,164 773,164 786,137 799,164 786,164"/>
+        <polygon points="786,164 786,121 768,121 786,87 804,121 786,121"/>
+        <polygon points="786,121 786,75 764,75 786,35 808,75 786,75"/>
+        <rect x="781" y="205" width="10" height="7"/>
+
+        <polygon points="874,210 874,157 858,157 874,121 890,157 874,157"/>
+        <polygon points="874,157 874,107 852,107 874,65 896,107 874,107"/>
+        <polygon points="874,107 874,53 848,53 874,11 900,53 874,53"/>
+        <rect x="868" y="204" width="12" height="8"/>
+
+        <polygon points="964,210 964,163 951,163 964,136 977,163 964,163"/>
+        <polygon points="964,163 964,120 946,120 964,86 982,120 964,120"/>
+        <polygon points="964,120 964,74 942,74 964,34 986,74 964,74"/>
+        <rect x="959" y="205" width="10" height="7"/>
+
+        <polygon points="1054,210 1054,156 1038,156 1054,120 1070,156 1054,156"/>
+        <polygon points="1054,156 1054,106 1032,106 1054,64 1076,106 1054,106"/>
+        <polygon points="1054,106 1054,52 1028,52 1054,10 1080,52 1054,52"/>
+        <rect x="1048" y="204" width="12" height="8"/>
+
+        <polygon points="1144,210 1144,164 1131,164 1144,137 1157,164 1144,164"/>
+        <polygon points="1144,164 1144,121 1126,121 1144,87 1162,121 1144,121"/>
+        <polygon points="1144,121 1144,75 1122,75 1144,35 1166,75 1144,75"/>
+        <rect x="1139" y="205" width="10" height="7"/>
+
+        <polygon points="1234,210 1234,157 1218,157 1234,121 1250,157 1234,157"/>
+        <polygon points="1234,157 1234,107 1212,107 1234,65 1256,107 1234,107"/>
+        <polygon points="1234,107 1234,53 1208,53 1234,11 1260,53 1234,53"/>
+        <rect x="1228" y="204" width="12" height="8"/>
+
+        <polygon points="1320,210 1320,163 1307,163 1320,136 1333,163 1320,163"/>
+        <polygon points="1320,163 1320,120 1302,120 1320,86 1338,120 1320,120"/>
+        <polygon points="1320,120 1320,74 1298,74 1320,34 1342,74 1320,74"/>
+        <rect x="1315" y="205" width="10" height="7"/>
+
+        <polygon points="1400,210 1400,157 1386,157 1400,128 1414,157 1400,157"/>
+        <polygon points="1400,157 1400,112 1382,112 1400,78 1418,112 1400,112"/>
+        <polygon points="1400,112 1400,66 1378,66 1400,28 1422,66 1400,66"/>
+        <rect x="1395" y="205" width="10" height="7"/>
+      </g>
+    </svg>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span>Almora, Uttarakhand &nbsp;·&nbsp; CBSE Affiliated &nbsp;·&nbsp; K–XII</span>
+      </div>
+      <h1 class="reveal">Where the <em>Himalayas</em><br>Shape Young Minds</h1>
+      <p class="hero-desc reveal delay-1">Nestled in the Deodar forests of Almora, Sharda Public School brings together world-class educators and a singular natural setting to offer an education unlike any other in India.</p>
+      <div class="hero-actions reveal delay-2">
+        <a href="#admissions" class="btn-primary">Apply for 2025–26</a>
+        <a href="#about" class="btn-outline">Discover SPS</a>
+      </div>
+    </div>
+    <div class="hero-scroll-cue">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ═══ MISSION PILLARS ═══ -->
+  <div class="pillars">
+    <div class="pillar reveal">
+      <svg class="pillar-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="10" width="28" height="24" rx="1" stroke="white" stroke-width="1.5"/>
+        <line x1="14" y1="18" x2="30" y2="18" stroke="white" stroke-width="1.5"/>
+        <line x1="14" y1="24" x2="26" y2="24" stroke="white" stroke-width="1.5"/>
+        <line x1="14" y1="30" x2="22" y2="30" stroke="white" stroke-width="1.5"/>
+      </svg>
+      <h3>Academic Excellence</h3>
+      <p>A rigorous CBSE curriculum from Kindergarten through Class XII, enriched by faculty drawn from India and across the world.</p>
+      <a href="#academics" class="pillar-link">Explore Academics →</a>
+    </div>
+    <div class="pillar reveal delay-2">
+      <svg class="pillar-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="22,6 28,16 40,18 31,27 33,39 22,33 11,39 13,27 4,18 16,16" stroke="white" stroke-width="1.5" fill="none"/>
+      </svg>
+      <h3>Character Development</h3>
+      <p>Beyond academics — leadership, resilience, integrity, and a service ethic forged through mountain living and community engagement.</p>
+      <a href="#about" class="pillar-link">Our Values →</a>
+    </div>
+    <div class="pillar reveal delay-4">
+      <svg class="pillar-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="20" r="12" stroke="white" stroke-width="1.5"/>
+        <line x1="22" y1="8" x2="22" y2="4" stroke="white" stroke-width="1.5"/>
+        <line x1="34" y1="20" x2="38" y2="20" stroke="white" stroke-width="1.5"/>
+        <line x1="22" y1="32" x2="22" y2="36" stroke="white" stroke-width="1.5"/>
+        <line x1="10" y1="20" x2="6" y2="20" stroke="white" stroke-width="1.5"/>
+        <polygon points="16,38 22,32 28,38" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="1"/>
+      </svg>
+      <h3>Himalayan Perspective</h3>
+      <p>A unique educational setting where snow-capped peaks, ancient Deodar forests, and the culture of Kumaon are part of the curriculum.</p>
+      <a href="#academics" class="pillar-link">Himalayan Education →</a>
+    </div>
+  </div>
+
+  <!-- ═══ GLANCE ═══ -->
+  <div class="glance">
+    <div class="glance-inner">
+      <div class="glance-intro reveal">
+        <div class="section-label green">SPS At a Glance</div>
+        <h2 class="sh">By the <em>Numbers</em></h2>
+        <span class="rule"></span>
+        <p class="lead">A thriving school community set against one of the most spectacular backdrops in all of India.</p>
+      </div>
+      <div class="glance-stats reveal delay-2">
+        <div class="gstat">
+          <div class="gstat-num">1200<sup>+</sup></div>
+          <div class="gstat-label">Students enrolled across all grades</div>
+        </div>
+        <div class="gstat">
+          <div class="gstat-num">80<sup>+</sup></div>
+          <div class="gstat-label">Faculty members — including international educators</div>
+        </div>
+        <div class="gstat">
+          <div class="gstat-num">35<sup>+</sup></div>
+          <div class="gstat-label">Alumni who qualified for IIT</div>
+        </div>
+        <div class="gstat">
+          <div class="gstat-num">K–XII</div>
+          <div class="gstat-label">Complete schooling from Kindergarten to Class XII</div>
+        </div>
+        <div class="gstat">
+          <div class="gstat-num">100<sup>%</sup></div>
+          <div class="gstat-label">CBSE board pass rate, consistently</div>
+        </div>
+        <div class="gstat">
+          <div class="gstat-num">6500<sup>+</sup></div>
+          <div class="gstat-label">Feet above sea level — the campus altitude</div>
+        </div>
+        <div class="gstat">
+          <div class="gstat-num">18<sup>+</sup></div>
+          <div class="gstat-label">Sports, arts & co-curricular programs</div>
+        </div>
+        <div class="gstat">
+          <div class="gstat-num">30<sup>+</sup></div>
+          <div class="gstat-label">States across India our students hail from</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-img-wrap">
+          <!-- Mountain scene SVG -->
+          <svg class="mountain-scene" viewBox="0 0 460 560" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0d1f33"/>
+                <stop offset="60%" stop-color="#1b3d50"/>
+                <stop offset="100%" stop-color="#1b4d30"/>
+              </linearGradient>
+            </defs>
+            <rect width="460" height="560" fill="url(#skyGrad)"/>
+            <!-- Stars -->
+            <circle cx="80" cy="40" r="1" fill="white" opacity="0.6"/>
+            <circle cx="150" cy="80" r="1.2" fill="white" opacity="0.5"/>
+            <circle cx="230" cy="25" r="0.8" fill="white" opacity="0.7"/>
+            <circle cx="310" cy="60" r="1" fill="white" opacity="0.5"/>
+            <circle cx="400" cy="35" r="1.2" fill="white" opacity="0.6"/>
+            <circle cx="50" cy="120" r="0.8" fill="white" opacity="0.4"/>
+            <circle cx="380" cy="100" r="1" fill="white" opacity="0.5"/>
+            <!-- Back mountains with snow -->
+            <polygon points="0,560 0,230 60,100 120,180 200,60 270,160 360,40 430,140 460,100 460,560" fill="rgba(255,255,255,0.05)"/>
+            <polygon points="200,60 158,160 242,160" fill="rgba(255,255,255,0.22)"/>
+            <polygon points="360,40 318,135 402,135" fill="rgba(255,255,255,0.26)"/>
+            <!-- Mid mountains -->
+            <polygon points="0,560 0,310 80,210 160,280 250,190 340,270 420,200 460,230 460,560" fill="rgba(27,77,48,0.5)"/>
+            <!-- Front mountains -->
+            <polygon points="0,560 0,390 80,290 170,370 270,270 360,370 460,300 460,560" fill="rgba(27,77,48,0.8)"/>
+            <!-- Deodar trees -->
+            <g fill="rgba(15,45,25,0.95)">
+              <polygon points="40,560 40,508 28,508 40,478 52,508 40,508"/>
+              <polygon points="40,508 40,466 24,466 40,430 56,466 40,466"/>
+              <polygon points="40,466 40,420 18,420 40,378 62,420 40,420"/>
+              <polygon points="100,560 100,510 88,510 100,480 112,510 100,510"/>
+              <polygon points="100,510 100,468 84,468 100,432 116,468 100,468"/>
+              <polygon points="100,468 100,422 78,422 100,380 122,422 100,422"/>
+              <polygon points="165,560 165,505 150,505 165,472 180,505 165,505"/>
+              <polygon points="165,505 165,460 144,460 165,420 186,460 165,460"/>
+              <polygon points="165,460 165,412 140,412 165,370 190,412 165,412"/>
+              <polygon points="230,560 230,508 218,508 230,478 242,508 230,508"/>
+              <polygon points="230,508 230,466 214,466 230,430 246,466 230,466"/>
+              <polygon points="230,466 230,420 208,420 230,378 252,420 230,420"/>
+              <polygon points="295,560 295,505 280,505 295,472 310,505 295,505"/>
+              <polygon points="295,505 295,460 274,460 295,420 316,460 295,460"/>
+              <polygon points="295,460 295,412 270,412 295,370 320,412 295,412"/>
+              <polygon points="360,560 360,508 348,508 360,478 372,508 360,508"/>
+              <polygon points="360,508 360,466 344,466 360,430 376,466 360,466"/>
+              <polygon points="360,466 360,420 338,420 360,378 382,420 360,420"/>
+              <polygon points="420,560 420,510 408,510 420,480 432,510 420,510"/>
+              <polygon points="420,510 420,468 404,468 420,432 436,468 420,468"/>
+              <polygon points="420,468 420,422 400,422 420,382 440,422 420,422"/>
+            </g>
+            <!-- School building -->
+            <rect x="155" y="400" width="150" height="90" fill="rgba(255,255,255,0.06)"/>
+            <polygon points="155,400 230,362 305,400" fill="rgba(255,255,255,0.08)"/>
+            <rect x="205" y="440" width="50" height="50" fill="rgba(255,255,255,0.04)"/>
+            <rect x="165" y="415" width="30" height="25" fill="rgba(255,255,255,0.07)"/>
+            <rect x="265" y="415" width="30" height="25" fill="rgba(255,255,255,0.07)"/>
+            <!-- Moon -->
+            <circle cx="380" cy="90" r="20" fill="rgba(255,255,255,0.08)"/>
+            <circle cx="372" cy="85" r="20" fill="rgba(13,31,51,0.7)"/>
+          </svg>
+          <div class="about-caption">
+            <p>"Set among the Deodars, where every morning begins with the sight of snow-capped Himalayan peaks"</p>
+          </div>
+        </div>
+        <div class="about-pull">
+          <div class="num">Est.</div>
+          <div class="lbl">Almora</div>
+        </div>
+      </div>
+      <div class="about-text reveal delay-2">
+        <div class="section-label green">Our Story</div>
+        <h2 class="sh">A School Unlike<br><em>Any Other</em></h2>
+        <span class="rule"></span>
+        <p>Sharda Public School stands in the foothills of Almora, Uttarakhand — at the edge of the Kumaon Himalaya, where ancient Deodar forests meet some of the world's most spectacular mountain views.</p>
+        <p>We offer a complete education from Kindergarten through Class XII under the CBSE curriculum, supported by a faculty of dedicated educators drawn from across India and the world. Our students arrive from dozens of states; they leave as scholars, athletes, artists, and above all, thoughtful human beings.</p>
+        <p>Many of our alumni have gone on to the IITs and the nation's most prestigious universities — carrying the spirit of the mountains into every endeavour.</p>
+        <div class="about-pillars">
+          <div class="ap">
+            <div class="ap-icon">🏔️</div>
+            <div>
+              <h4>Himalayan Campus</h4>
+              <p>Deodar forests, snow-capped peaks, and the Kumaon sky — nature itself is part of the education at SPS.</p>
+            </div>
+          </div>
+          <div class="ap">
+            <div class="ap-icon">🌍</div>
+            <div>
+              <h4>International Faculty</h4>
+              <p>Educators who bring global methods and world perspectives into every classroom.</p>
+            </div>
+          </div>
+          <div class="ap">
+            <div class="ap-icon">🎓</div>
+            <div>
+              <h4>Proven Alumni Excellence</h4>
+              <p>Decades of graduates at India's finest institutions — IIT, NIT, AIIMS, and beyond.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ACADEMICS ═══ -->
+  <section class="academics" id="academics">
+    <div class="ac-top">
+      <div>
+        <div class="section-label navy">Programs & Curriculum</div>
+        <h2 class="sh reveal">An Education for <em>Every Stage</em></h2>
+      </div>
+      <a href="#academics" class="ac-link">View All Programs →</a>
+    </div>
+    <div class="ac-grid">
+      <div class="ac-card reveal">
+        <div class="ac-num">01</div>
+        <h3>Elementary School</h3>
+        <p>Classes I–V. Activity-based learning building curiosity, language, numeracy, and love of discovery. Bilingual foundation in Hindi and English.</p>
+        <span class="ac-tag">Grades I – V</span>
+        <span class="ac-arrow">→</span>
+      </div>
+      <div class="ac-card reveal delay-1">
+        <div class="ac-num">02</div>
+        <h3>Middle School</h3>
+        <p>Classes VI–VIII. Structured subject specialization with dedicated science labs, mathematics enrichment, and social science foundation.</p>
+        <span class="ac-tag">Grades VI – VIII</span>
+        <span class="ac-arrow">→</span>
+      </div>
+      <div class="ac-card reveal delay-2">
+        <div class="ac-num">03</div>
+        <h3>Secondary School</h3>
+        <p>Classes IX–X. Comprehensive CBSE board preparation, skill development, and holistic examination training.</p>
+        <span class="ac-tag">Grades IX – X</span>
+        <span class="ac-arrow">→</span>
+      </div>
+      <div class="ac-card reveal">
+        <div class="ac-num">04</div>
+        <h3>Senior Secondary</h3>
+        <p>Classes XI–XII with Science streams. Dedicated JEE/NEET coaching, mentoring, and college preparation support.</p>
+        <span class="ac-tag">Grades XI – XII</span>
+        <span class="ac-arrow">→</span>
+      </div>
+      <div class="ac-card reveal delay-1">
+        <div class="ac-num">05</div>
+        <h3>Sports & Arts</h3>
+        <p>Cricket, football, athletics, yoga, trekking. Music, drama, visual arts, debate — every student finds their calling beyond the classroom.</p>
+        <span class="ac-tag">All Grades</span>
+        <span class="ac-arrow">→</span>
+      </div>
+      <div class="ac-card reveal delay-2">
+        <div class="ac-num">06</div>
+        <h3>Himalayan Education</h3>
+        <p>SPS's signature program — field ecology, geology, forest walks, astronomy sessions under Kumaon's extraordinary night sky.</p>
+        <span class="ac-tag">Signature Program</span>
+        <span class="ac-arrow">→</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MEET A STUDENT ═══ -->
+  <section class="spotlight" id="community-voices">
+    <div class="spotlight-head">
+      <div>
+        <div class="section-label white">Community Voices</div>
+        <h2 class="sh light reveal">Meet the <em>SPS Community</em></h2>
+      </div>
+      <a href="#testimonials" style="color:var(--amber-light);font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;">More Voices →</a>
+    </div>
+    <div class="spotlight-grid">
+      <div class="sp-card reveal">
+        <div class="sp-avatar" style="background:linear-gradient(135deg,#1b4d30,#162840);">
+          <svg width="64" height="80" viewBox="0 0 64 80" fill="none" style="opacity:0.25">
+            <circle cx="32" cy="24" r="16" fill="white"/>
+            <ellipse cx="32" cy="68" rx="22" ry="14" fill="white"/>
+          </svg>
+        </div>
+        <div class="sp-body">
+          <div class="sp-class">Class of 2023 · IIT Roorkee</div>
+          <h3>Aryan Bisht</h3>
+          <p>Growing up at SPS meant growing up with the mountains. The school gave me not just a top-tier science education, but a perspective — about what matters, what endures.</p>
+          <a href="#testimonials" class="sp-link">Read More →</a>
+        </div>
+      </div>
+      <div class="sp-card reveal delay-2">
+        <div class="sp-avatar" style="background:linear-gradient(135deg,#162840,#1b3d50);">
+          <svg width="64" height="80" viewBox="0 0 64 80" fill="none" style="opacity:0.25">
+            <circle cx="32" cy="24" r="16" fill="white"/>
+            <ellipse cx="32" cy="68" rx="22" ry="14" fill="white"/>
+          </svg>
+        </div>
+        <div class="sp-body">
+          <div class="sp-class">Class IX · Current Student</div>
+          <h3>Priya Pant</h3>
+          <p>I came from Delhi and was nervous about a school in the mountains. Now I cannot imagine a better place to learn — or a better view from a classroom window.</p>
+          <a href="#testimonials" class="sp-link">Read More →</a>
+        </div>
+      </div>
+      <div class="sp-card reveal delay-4">
+        <div class="sp-avatar" style="background:linear-gradient(135deg,#2a1a0e,#5c3d20);">
+          <svg width="64" height="80" viewBox="0 0 64 80" fill="none" style="opacity:0.25">
+            <circle cx="32" cy="24" r="16" fill="white"/>
+            <ellipse cx="32" cy="68" rx="22" ry="14" fill="white"/>
+          </svg>
+        </div>
+        <div class="sp-body">
+          <div class="sp-class">Physics Faculty · From Scotland</div>
+          <h3>Mr. Alistair Reid</h3>
+          <p>I have taught in schools across three continents. The hunger to learn that SPS students carry — in these extraordinary surroundings — is unlike anything I have encountered.</p>
+          <a href="#testimonials" class="sp-link">Read More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EVENTS STRIP ═══ -->
+  <div class="events-strip" id="events">
+    <div class="events-inner">
+      <div class="events-hd">
+        <div>
+          <div class="section-label navy">School Calendar</div>
+          <h3>Upcoming Events</h3>
+        </div>
+        <a href="#news" class="view-all">Full Calendar →</a>
+      </div>
+      <div class="events-list">
+        <div class="ev-item">
+          <div class="ev-date">May 12, 2025</div>
+          <h4>Annual Science & Nature Fest</h4>
+          <span>All day · Main Campus</span>
+        </div>
+        <div class="ev-item">
+          <div class="ev-date">May 20, 2025</div>
+          <h4>Class X Board Results Day</h4>
+          <span>11:00 AM · Assembly Hall</span>
+        </div>
+        <div class="ev-item">
+          <div class="ev-date">Jun 3, 2025</div>
+          <h4>Admissions Open Day</h4>
+          <span>10:00 AM – 3:00 PM</span>
+        </div>
+        <div class="ev-item">
+          <div class="ev-date">Jun 16, 2025</div>
+          <h4>Summer Trek — Pindari Glacier</h4>
+          <span>Grades VII – X</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PRINCIPAL ═══ -->
+  <section class="principal" id="principal">
+    <div class="principal-inner">
+      <div class="principal-portrait reveal">
+        <div class="portrait-card">
+          <div class="portrait-bg">
+            <svg width="100%" height="100%" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.2">
+              <polygon points="0,500 0,200 80,80 180,160 260,50 340,150 400,90 400,500" fill="white" opacity="0.06"/>
+              <polygon points="260,50 225,140 295,140" fill="white" opacity="0.2"/>
+              <g fill="rgba(27,77,48,0.5)">
+                <polygon points="30,500 30,440 18,440 30,412 42,440 30,440"/>
+                <polygon points="30,440 30,395 12,395 30,358 48,395 30,395"/>
+                <polygon points="100,500 100,445 88,445 100,418 112,445 100,445"/>
+                <polygon points="100,445 100,400 82,400 100,363 118,400 100,400"/>
+                <polygon points="175,500 175,438 160,438 175,408 190,438 175,438"/>
+                <polygon points="175,438 175,390 154,390 175,352 196,390 175,390"/>
+                <polygon points="250,500 250,440 238,440 250,412 262,440 250,440"/>
+                <polygon points="250,440 250,395 232,395 250,358 268,395 250,395"/>
+                <polygon points="320,500 320,438 308,438 320,410 332,438 320,438"/>
+                <polygon points="320,438 320,393 302,393 320,356 338,393 320,393"/>
+                <polygon points="385,500 385,442 373,442 385,414 397,442 385,442"/>
+                <polygon points="385,442 385,397 367,397 385,360 403,397 385,397"/>
+              </g>
+            </svg>
+          </div>
+          <div class="portrait-info">
+            <h4>The Principal</h4>
+            <span>Sharda Public School, Almora</span>
+          </div>
+        </div>
+        <div class="portrait-accent"></div>
+      </div>
+      <div class="principal-quote reveal delay-2">
+        <div class="section-label white">Principal's Message</div>
+        <span class="open-q">"</span>
+        <blockquote>Education at its finest is not merely the transfer of knowledge — it is the awakening of a young person's full potential.</blockquote>
+        <p class="principal-body">At Sharda Public School, we believe that the greatest classroom in the world surrounds our campus — the ancient Deodar forests, the silence of the high peaks, the clarity of the Kumaon sky. These are not distractions from learning; they are learning itself.<br><br>Our faculty, drawn from across the world, come here not for comfort but for purpose. And our students — curious, resilient, extraordinary young people — rise to meet that purpose every single day. The results speak for themselves: in board marks, in IIT ranks, and above all in the kind of people our graduates become.</p>
+        <div class="sig">— The Principal, Sharda Public School</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ NEWS ═══ -->
+  <section class="news" id="news">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;">
+      <div>
+        <div class="section-label green">Latest from SPS</div>
+        <h2 class="sh reveal">News & <em>Events</em></h2>
+      </div>
+      <a href="#news" style="font-size:12px;font-weight:700;color:var(--forest-mid);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;">All News →</a>
+    </div>
+    <div class="news-layout">
+      <div class="news-featured">
+        <div class="nf-thumb" style="background:linear-gradient(145deg,#1b4d30,#162840);">
+          <svg width="100%" height="100%" viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;" preserveAspectRatio="xMidYMid slice">
+            <polygon points="0,260 0,90 70,20 150,70 240,5 320,65 420,10 500,60 600,15 640,40 640,260" fill="rgba(255,255,255,0.04)"/>
+            <polygon points="240,5 200,75 280,75" fill="rgba(255,255,255,0.18)"/>
+            <polygon points="420,10 376,80 464,80" fill="rgba(255,255,255,0.22)"/>
+            <polygon points="0,260 0,165 70,110 150,155 230,100 320,158 420,105 520,162 600,115 640,140 640,260" fill="rgba(27,77,48,0.55)"/>
+            <g fill="rgba(15,40,25,0.9)">
+              <polygon points="40,260 40,222 30,222 40,200 50,222 40,222"/>
+              <polygon points="40,222 40,192 26,192 40,168 54,192 40,192"/>
+              <polygon points="100,260 100,224 89,224 100,202 111,224 100,224"/>
+              <polygon points="100,224 100,194 86,194 100,170 114,194 100,194"/>
+              <polygon points="165,260 165,220 152,220 165,196 178,220 165,220"/>
+              <polygon points="165,220 165,188 148,188 165,162 182,188 165,188"/>
+              <polygon points="230,260 230,222 220,222 230,200 240,222 230,222"/>
+              <polygon points="230,222 230,192 216,192 230,168 244,192 230,192"/>
+              <polygon points="295,260 295,220 284,220 295,198 306,220 295,220"/>
+              <polygon points="295,220 295,190 280,190 295,166 310,190 295,190"/>
+              <polygon points="360,260 360,222 349,222 360,200 371,222 360,222"/>
+              <polygon points="360,222 360,192 346,192 360,168 374,192 360,192"/>
+              <polygon points="420,260 420,220 408,220 420,196 432,220 420,220"/>
+              <polygon points="420,220 420,188 404,188 420,162 436,188 420,188"/>
+              <polygon points="480,260 480,222 470,222 480,200 490,222 480,222"/>
+              <polygon points="480,222 480,192 466,192 480,168 494,192 480,192"/>
+              <polygon points="540,260 540,220 528,220 540,196 552,220 540,220"/>
+              <polygon points="540,220 540,188 524,188 540,162 556,188 540,188"/>
+              <polygon points="600,260 600,222 590,222 600,200 610,222 600,222"/>
+              <polygon points="600,222 600,192 586,192 600,168 614,192 600,192"/>
+            </g>
+          </svg>
+        </div>
+        <div class="nf-body">
+          <div class="n-cat">Annual Events</div>
+          <h3>Annual Science & Nature Fest 2025 — Celebrating Himalayan Ecology</h3>
+          <p>Students from Classes VI–XII presented original research projects on Himalayan biodiversity, glacier monitoring, and sustainable mountain living at this year's flagship event. Over 40 projects were exhibited before faculty, parents, and invited scientists from Kumaon University.</p>
+          <div class="n-date">March 15, 2025</div>
+        </div>
+      </div>
+      <div class="news-sidebar">
+        <div class="ns-item">
+          <div class="n-cat">Admissions</div>
+          <h4>Admissions Now Open for Academic Year 2025–26</h4>
+          <p>Applications accepted for Classes I through XI. Entrance assessments scheduled through June.</p>
+          <div class="n-date">April 1, 2025</div>
+        </div>
+        <div class="ns-item">
+          <div class="n-cat">Achievement</div>
+          <h4>Four SPS Students Qualify for JEE Advanced 2025</h4>
+          <p>Carrying forward SPS's proud IIT tradition — the Class of 2025 delivers outstanding board results.</p>
+          <div class="n-date">February 22, 2025</div>
+        </div>
+        <div class="ns-item">
+          <div class="n-cat">Campus</div>
+          <h4>New Science Block Inaugurated — Fully Equipped Labs for Physics, Chemistry & Biology</h4>
+          <p>The new block features dedicated smart labs and a nature observation deck overlooking the valley.</p>
+          <div class="n-date">January 10, 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GALLERY ═══ -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-head">
+      <div>
+        <div class="section-label white">Visual Stories</div>
+        <h2 class="sh light reveal">Life at <em>Sharda</em></h2>
+      </div>
+      <a href="#gallery" style="font-size:12px;font-weight:700;color:var(--amber-light);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;">View Gallery →</a>
+    </div>
+    <div class="gallery-mosaic">
+      <!-- Item 1: Large -->
+      <div class="gi">
+        <div class="gi-bg" style="height:100%;background:linear-gradient(145deg,#1b4d30 0%,#0d2a1a 100%);display:flex;align-items:center;justify-content:center;">
+          <svg width="55%" viewBox="0 0 340 460" xmlns="http://www.w3.org/2000/svg" style="opacity:0.25;">
+            <polygon points="0,460 0,160 50,60 110,120 170,20 230,110 290,40 340,90 340,460" fill="white" opacity="0.08"/>
+            <polygon points="170,20 138,110 202,110" fill="white" opacity="0.25"/>
+            <polygon points="290,40 258,120 322,120" fill="white" opacity="0.2"/>
+            <g fill="rgba(255,255,255,0.15)">
+              <polygon points="30,460 30,405 18,405 30,378 42,405 30,405"/>
+              <polygon points="30,405 30,358 14,358 30,320 46,358 30,358"/>
+              <polygon points="80,460 80,408 68,408 80,382 92,408 80,408"/>
+              <polygon points="80,408 80,362 64,362 80,324 96,362 80,362"/>
+              <polygon points="135,460 135,404 120,404 135,374 150,404 135,404"/>
+              <polygon points="135,404 135,355 114,355 135,316 156,355 135,355"/>
+              <polygon points="190,460 190,407 178,407 190,380 202,407 190,407"/>
+              <polygon points="190,407 190,361 174,361 190,324 206,361 190,361"/>
+              <polygon points="245,460 245,404 233,404 245,378 257,404 245,404"/>
+              <polygon points="245,404 245,358 230,358 245,322 260,358 245,358"/>
+              <polygon points="300,460 300,406 288,406 300,380 312,406 300,406"/>
+              <polygon points="300,406 300,360 284,360 300,323 316,360 300,360"/>
+            </g>
+          </svg>
+        </div>
+        <div class="gi-label"><span>Himalayan panorama from the SPS campus</span></div>
+      </div>
+      <!-- Item 2 -->
+      <div class="gi">
+        <div class="gi-bg" style="height:100%;background:linear-gradient(145deg,#162840 0%,#1e3a5c 100%);display:flex;align-items:center;justify-content:center;">
+          <svg width="50%" viewBox="0 0 100 80" fill="none" style="opacity:0.2;">
+            <rect x="5" y="10" width="90" height="60" rx="2" fill="white"/>
+            <rect x="10" y="16" width="35" height="25" rx="1" fill="rgba(0,0,0,0.2)"/>
+            <rect x="52" y="16" width="38" height="5" rx="1" fill="rgba(0,0,0,0.15)"/>
+            <rect x="52" y="25" width="30" height="3" rx="1" fill="rgba(0,0,0,0.1)"/>
+            <rect x="52" y="32" width="34" height="3" rx="1" fill="rgba(0,0,0,0.1)"/>
+          </svg>
+        </div>
+        <div class="gi-label"><span>Smart classrooms with mountain views</span></div>
+      </div>
+      <!-- Item 3 -->
+      <div class="gi">
+        <div class="gi-bg" style="height:100%;background:linear-gradient(145deg,#2a1500,#6b3d12);display:flex;align-items:center;justify-content:center;">
+          <svg width="50%" viewBox="0 0 100 80" fill="none" style="opacity:0.2;">
+            <circle cx="50" cy="32" r="22" fill="white"/>
+            <polygon points="38,24 38,40 62,32" fill="rgba(0,0,0,0.3)"/>
+          </svg>
+        </div>
+        <div class="gi-label"><span>Cultural performance & school theatre</span></div>
+      </div>
+      <!-- Item 4 -->
+      <div class="gi">
+        <div class="gi-bg" style="height:100%;background:linear-gradient(145deg,#1a3d1a,#2d6b2d);display:flex;align-items:center;justify-content:center;">
+          <svg width="50%" viewBox="0 0 100 80" fill="none" style="opacity:0.2;">
+            <rect x="10" y="20" width="80" height="50" rx="1" fill="white"/>
+            <circle cx="30" cy="40" r="10" fill="rgba(0,0,0,0.2)"/>
+            <rect x="48" y="28" width="36" height="5" rx="1" fill="rgba(0,0,0,0.15)"/>
+            <rect x="48" y="37" width="28" height="3" rx="1" fill="rgba(0,0,0,0.1)"/>
+          </svg>
+        </div>
+        <div class="gi-label"><span>Science labs & hands-on experiments</span></div>
+      </div>
+      <!-- Item 5 -->
+      <div class="gi">
+        <div class="gi-bg" style="height:100%;background:linear-gradient(145deg,#1a2040,#2f4080);display:flex;align-items:center;justify-content:center;">
+          <svg width="50%" viewBox="0 0 100 80" fill="none" style="opacity:0.2;">
+            <circle cx="25" cy="30" r="14" fill="white"/>
+            <circle cx="55" cy="35" r="10" fill="white"/>
+            <circle cx="78" cy="28" r="8" fill="white"/>
+          </svg>
+        </div>
+        <div class="gi-label"><span>Annual Sports Day celebrations</span></div>
+      </div>
+      <!-- Item 6 -->
+      <div class="gi">
+        <div class="gi-bg" style="height:100%;background:linear-gradient(145deg,#1a3d35,#2a6055);display:flex;align-items:center;justify-content:center;">
+          <svg width="50%" viewBox="0 0 100 80" fill="none" style="opacity:0.2;">
+            <polygon points="15,70 50,10 85,70" fill="none" stroke="white" stroke-width="3"/>
+            <line x1="50" y1="10" x2="50" y2="70" stroke="white" stroke-width="1.5"/>
+            <line x1="27" y1="45" x2="73" y2="45" stroke="white" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="gi-label"><span>Himalayan trekking — our outdoor classroom</span></div>
+      </div>
+      <!-- Item 7 -->
+      <div class="gi">
+        <div class="gi-bg" style="height:100%;background:linear-gradient(145deg,#2b1a3d,#4a2a6b);display:flex;align-items:center;justify-content:center;">
+          <svg width="50%" viewBox="0 0 100 80" fill="none" style="opacity:0.2;">
+            <rect x="20" y="25" width="60" height="40" rx="1" fill="white"/>
+            <polygon points="20,25 50,8 80,25" fill="white" opacity="0.5"/>
+            <rect x="40" y="42" width="20" height="23" fill="rgba(0,0,0,0.3)"/>
+          </svg>
+        </div>
+        <div class="gi-label"><span>Morning assembly — the SPS tradition</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ADMISSIONS ═══ -->
+  <section class="admissions" id="admissions">
+    <div class="adm-grid">
+      <div>
+        <div class="section-label navy">Admissions 2025–26</div>
+        <h2 class="sh reveal">Join the <em>Sharda</em><br>Family</h2>
+        <span class="rule"></span>
+        <p class="lead reveal delay-1">Applications are open for the academic year 2025–26. We welcome students from Class I through Class XI who are curious, motivated, and ready to grow in the shadow of the Himalayas.</p>
+        <div style="margin-top:32px;" class="reveal delay-2">
+          <div class="adm-dates">
+            <h4>Key Dates</h4>
+            <div class="adm-date-row">
+              <span>Applications Open</span>
+              <em>April 1, 2025</em>
+            </div>
+            <div class="adm-date-row">
+              <span>Entrance Assessment</span>
+              <em>May – June 2025</em>
+            </div>
+            <div class="adm-date-row">
+              <span>Offer Letters Issued</span>
+              <em>June 15, 2025</em>
+            </div>
+            <div class="adm-date-row">
+              <span>Enrollment Deadline</span>
+              <em>July 1, 2025</em>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="adm-info">
+        <div class="adm-steps reveal">
+          <div class="adm-step">
+            <div class="adm-step-n">01</div>
+            <div class="adm-step-body">
+              <h4>Submit Your Application</h4>
+              <p>Complete the online application form with student details, academic records, and the grade sought.</p>
+            </div>
+          </div>
+          <div class="adm-step">
+            <div class="adm-step-n">02</div>
+            <div class="adm-step-body">
+              <h4>Entrance Assessment</h4>
+              <p>Attend a written examination and personal interaction session at our Almora campus.</p>
+            </div>
+          </div>
+          <div class="adm-step">
+            <div class="adm-step-n">03</div>
+            <div class="adm-step-body">
+              <h4>Receive Your Offer Letter</h4>
+              <p>Successful candidates are informed within 7 working days of the assessment date.</p>
+            </div>
+          </div>
+          <div class="adm-step">
+            <div class="adm-step-n">04</div>
+            <div class="adm-step-body">
+              <h4>Enrollment & Orientation</h4>
+              <p>Complete fee payment and document verification. Welcome to the SPS family!</p>
+            </div>
+          </div>
+        </div>
+        <div class="adm-card reveal delay-2">
+          <h3>Ready to Apply?</h3>
+          <p>Take the first step toward an extraordinary education in the heart of the Kumaon Himalaya.</p>
+          <div class="adm-actions">
+            <a href="#contact" class="adm-cta">Apply Online</a>
+            <a href="#contact" class="adm-cta ghost">Download Prospectus</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TESTIMONIALS ═══ -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-label navy">Voices of SPS</div>
+    <h2 class="sh reveal">What Our Community <em>Says</em></h2>
+    <div class="testi-grid">
+      <div class="testi reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Sharda Public School didn't just prepare me for IIT — it taught me how to think. The faculty, the environment, the mountains… there is no place quite like it."</p>
+        <div class="testi-footer">
+          <div class="testi-av" style="background:var(--forest-mid);">R</div>
+          <div class="testi-meta">
+            <h5>Rahul Joshi</h5>
+            <span>IIT Bombay · Class of 2022</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi reveal delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <p>"As a parent, I could not have chosen better. My daughter has blossomed — academically and as a person. The values SPS instills are for life."</p>
+        <div class="testi-footer">
+          <div class="testi-av" style="background:var(--navy-mid);">P</div>
+          <div class="testi-meta">
+            <h5>Priya Mehta</h5>
+            <span>Parent · Class VII student</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi reveal delay-4">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Teaching at SPS has been the most rewarding experience of my career. The children here have a hunger to learn that is absolutely infectious."</p>
+        <div class="testi-footer">
+          <div class="testi-av" style="background:var(--amber);">M</div>
+          <div class="testi-meta">
+            <h5>Ms. Margaret Davies</h5>
+            <span>English Faculty · from Wales</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COMMUNITY PORTALS ═══ -->
+  <section class="community" id="community">
+    <div class="section-label white">Our Community</div>
+    <h2 class="sh light reveal">One School, Many <em>Worlds</em></h2>
+    <div class="community-grid">
+      <div class="portal p1 reveal">
+        <h3>Students</h3>
+        <p>Join live classes, submit assignments, view results & attendance, and enroll in elective courses — all from one place.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+          <a href="Student Portal.html" class="portal-link" style="font-size:13px;font-weight:600;text-transform:none;letter-spacing:0;">📺 Live &amp; Video Classes <span class="portal-new-tag">NEW</span></a>
+          <a href="Student Portal.html" class="portal-link" style="font-size:13px;font-weight:600;text-transform:none;letter-spacing:0;">📝 Assignments &amp; Submissions <span class="portal-new-tag">NEW</span></a>
+          <a href="Student Portal.html" class="portal-link" style="font-size:13px;font-weight:600;text-transform:none;letter-spacing:0;">📊 Results &amp; Attendance <span class="portal-new-tag">NEW</span></a>
+          <a href="Student Portal.html" class="portal-link" style="font-size:13px;font-weight:600;text-transform:none;letter-spacing:0;">➕ Enroll in Courses <span class="portal-new-tag">NEW</span></a>
+        </div>
+        <a href="Student Portal.html" class="portal-link" style="margin-top:20px;">Open Student Portal →</a>
+      </div>
+      <div class="portal p2 reveal delay-2">
+        <h3>Parents</h3>
+        <p>Track your child's results, assignments, attendance, and fees. Get notified when assignments are submitted or graded.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+          <a href="Parent Portal.html" class="portal-link" style="font-size:13px;font-weight:600;text-transform:none;letter-spacing:0;">📊 View Child's Results <span class="portal-new-tag">NEW</span></a>
+          <a href="Parent Portal.html" class="portal-link" style="font-size:13px;font-weight:600;text-transform:none;letter-spacing:0;">💳 Canteen Wallet &amp; Rewards <span class="portal-new-tag">NEW</span></a>
+        </div>
+        <a href="Parent Portal.html" class="portal-link" style="margin-top:20px;">Open Parent Portal →</a>
+      </div>
+      <div class="portal p3 reveal delay-4">
+        <h3>Faculty</h3>
+        <p>Create and grade assignments, schedule live classes, track student performance, and communicate with parents.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+          <a href="Teacher Portal.html" class="portal-link" style="font-size:13px;font-weight:600;text-transform:none;letter-spacing:0;">✏️ Create &amp; Grade Assignments <span class="portal-new-tag">NEW</span></a>
+          <a href="Teacher Portal.html" class="portal-link" style="font-size:13px;font-weight:600;text-transform:none;letter-spacing:0;">📊 Class Analytics <span class="portal-new-tag">NEW</span></a>
+        </div>
+        <a href="Teacher Portal.html" class="portal-link" style="margin-top:20px;">Teacher Portal →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT (teaser → About) ═══ -->
+  <section class="contact" id="contact">
+    <div class="section-label green">Get in Touch</div>
+    <h2 class="sh reveal">Visit Us in <em>Almora</em></h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item reveal">
+          <div class="ci-icon">📍</div>
+          <div class="ci-text">
+            <h4>Address</h4>
+            <p>Sharda Public School<br>Deodar Estate, Bright End Corner Road<br>Almora — 263601, Uttarakhand, India</p>
+          </div>
+        </div>
+        <div class="contact-item reveal delay-1">
+          <div class="ci-icon">📞</div>
+          <div class="ci-text">
+            <h4>Phone</h4>
+            <p>+91 5962 231 100<br>Mon–Sat, 8:30 AM – 4:30 PM IST</p>
+          </div>
+        </div>
+        <div class="contact-item reveal delay-2">
+          <div class="ci-icon">✉️</div>
+          <div class="ci-text">
+            <h4>Email</h4>
+            <p>admissions@shardaschool.in<br>office@shardaschool.in</p>
+          </div>
+        </div>
+        <div class="contact-item reveal delay-3">
+          <div class="ci-icon">🏫</div>
+          <div class="ci-text">
+            <h4>More on the About page</h4>
+            <p>Principal's office, admissions process, help desk, feedback &amp; testimonials — all on one page.<br><a href="About.html" style="color:var(--forest-mid);font-weight:600;text-decoration:none;">Visit About →</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="map-box reveal delay-2">
+        <svg width="60" height="70" viewBox="0 0 60 70" fill="none">
+          <path d="M30 5C18.95 5 10 13.95 10 25C10 40 30 65 30 65C30 65 50 40 50 25C50 13.95 41.05 5 30 5Z" stroke="#1b4d30" stroke-width="2.5" fill="rgba(27,77,48,0.08)"/>
+          <circle cx="30" cy="25" r="7" fill="#1b4d30" opacity="0.5"/>
+        </svg>
+        <div class="loc">Almora, Uttarakhand</div>
+        <p>Nestled in the foothills of the Kumaon Himalaya,<br>surrounded by ancient Deodar forests.</p>
+        <a href="About.html#contact" style="margin-top:8px;font-size:12px;font-weight:700;color:var(--forest-mid);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;">Full contact &amp; directions →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="uploads/SPS-crest.png" alt="Sharda Public School" />
+        <p>Sharda Public School stands in the ancient Deodar forests of Almora, Uttarakhand — a school of excellence, character, and Himalayan spirit.</p>
+        <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,0.25);">CBSE Affiliated · Almora, Uttarakhand, India</p>
+      </div>
+      <div class="footer-col">
+        <h5>Academics</h5>
+        <ul>
+          <li><a href="#academics">Elementary School</a></li>
+          <li><a href="#academics">Middle School</a></li>
+          <li><a href="#academics">Secondary</a></li>
+          <li><a href="#academics">Senior Secondary</a></li>
+          <li><a href="#academics">Himalayan Education</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>About SPS</h5>
+        <ul>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#principal">Principal's Message</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#news">News & Events</a></li>
+          <li><a href="#testimonials">Alumni</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Admissions</h5>
+        <ul>
+          <li><a href="#admissions">How to Apply</a></li>
+          <li><a href="#admissions">Key Dates</a></li>
+          <li><a href="#admissions">Scholarships</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="#admissions">Prospectus</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Sharda Public School, Almora, Uttarakhand. All rights reserved.</p>
+      <div class="footer-motto">Learn • Excel • Perform</div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll behavior
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.classList.remove('top');
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+        nav.classList.add('top');
+      }
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Hero animations fire immediately
+    document.querySelectorAll('.hero .reveal').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 200);
+    });
+
+    (function(){var b=document.querySelector('.nav-burger'),c=document.querySelector('.nav-center');if(b&&c){b.addEventListener('click',function(){c.classList.toggle('open');});c.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){c.classList.remove('open');});});}
+var pd=document.querySelector('.portal-dd');if(pd){var toggle=pd.querySelector('.nav-portal');toggle.addEventListener('click',function(e){if(window.matchMedia('(hover: none)').matches){e.preventDefault();pd.classList.toggle('open');}});}
+})();
+  </script>
+<div class="vw-switch" id="vwSwitch">
+  <button data-vw="desktop" class="active">Desktop</button>
+  <button data-vw="tablet">Tablet</button>
+  <button data-vw="mobile">Mobile</button>
+</div>
+<style>
+.vw-switch{position:fixed;bottom:16px;right:16px;z-index:9999;display:flex;gap:4px;background:#0e1d31;border-radius:30px;padding:4px;box-shadow:0 8px 24px rgba(0,0,0,0.3);font-family:'DM Sans',sans-serif;}
+.vw-switch button{border:none;background:none;color:rgba(255,255,255,0.65);font-size:11px;font-weight:600;padding:8px 14px;border-radius:22px;cursor:pointer;transition:all .2s;}
+.vw-switch button.active{background:#c8831a;color:#fff;}
+.vw-overlay{position:fixed;inset:0;background:#1a2418;z-index:10000;display:flex;flex-direction:column;align-items:center;padding:24px 0;overflow:auto;}
+.vw-overlay .vw-bar{color:#fff;font-size:13px;margin-bottom:14px;display:flex;align-items:center;gap:14px;}
+.vw-overlay .vw-bar button{background:rgba(255,255,255,0.12);border:none;color:#fff;padding:7px 16px;border-radius:20px;font-size:12px;cursor:pointer;}
+.vw-overlay iframe{border:10px solid #111;border-radius:22px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+</style>
+<script>
+(function(){
+  var sw=document.getElementById('vwSwitch');
+  if(/(^|[?&])vwpreview=1/.test(location.search)){sw.style.display='none';return;}
+  var sizes={tablet:820,mobile:390};
+  function openPreview(mode){
+    var overlay=document.createElement('div');overlay.className='vw-overlay';overlay.id='vwOverlay';
+    var bar=document.createElement('div');bar.className='vw-bar';
+    bar.innerHTML='<span>Previewing at '+sizes[mode]+'px ('+mode+')</span>';
+    var closeBtn=document.createElement('button');closeBtn.textContent='\u2715 Exit preview';
+    closeBtn.onclick=function(){overlay.remove();sw.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.dataset.vw==='desktop');});};
+    bar.appendChild(closeBtn);
+    var frame=document.createElement('iframe');
+    var sep=location.href.indexOf('?')===-1?'?':'&';frame.src=location.href+sep+'vwpreview=1';
+    frame.style.width=sizes[mode]+'px';
+    frame.style.height=(mode==='mobile'?'760px':'1000px');
+    overlay.appendChild(bar);overlay.appendChild(frame);
+    document.body.appendChild(overlay);
+  }
+  sw.addEventListener('click',function(e){
+    var btn=e.target.closest('button');if(!btn)return;
+    sw.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    var mode=btn.dataset.vw;
+    var existing=document.getElementById('vwOverlay');if(existing)existing.remove();
+    if(mode!=='desktop')openPreview(mode);
+  });
+})();
+</script>
+</body>
+</html>

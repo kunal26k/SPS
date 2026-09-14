@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Student Portal · Sharda Public School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest:#1b4d30; --forest-mid:#286640; --forest-light:#3d8f5a; --forest-pale:#e8f4ec;
+      --navy:#162840; --navy-mid:#1e3a5c; --amber:#c8831a; --amber-light:#e8a030;
+      --sky:#2f7ea8; --sky-light:#e8f4fb; --red:#c0392b; --red-pale:#fdf0ef; --red-dark:#962b1f;
+      --warm:#faf9f6; --snow:#f5f8fa; --cream:#f2ede4; --border:#dce8e0;
+      --text:#1a2418; --muted:#52645a; --sidebar-w:260px;
+    }
+    html { font-size:16px; }
+    body { font-family:'DM Sans',sans-serif; background:var(--snow); color:var(--text); display:flex; min-height:100vh; overflow-x:hidden; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { width:var(--sidebar-w); background:var(--navy); min-height:100vh; display:flex; flex-direction:column; position:fixed; top:0; left:0; z-index:100; overflow-y:auto; }
+    .sidebar-logo { padding:24px 20px 20px; border-bottom:1px solid rgba(255,255,255,0.07); display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .sidebar-logo .crest { width:38px; height:38px; border-radius:50%; background:var(--forest); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-weight:700; color:#fff; font-size:17px; }
+    .sidebar-logo-text .name { font-family:'Cormorant Garamond',serif; font-size:15px; font-weight:600; color:#fff; }
+    .sidebar-logo-text .sub { font-size:10px; color:rgba(255,255,255,0.4); margin-top:1px; letter-spacing:0.1em; }
+    .sidebar-user { padding:20px; border-bottom:1px solid rgba(255,255,255,0.07); display:flex; align-items:center; gap:12px; }
+    .user-av { width:40px; height:40px; border-radius:50%; background:var(--forest); display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; color:#fff; flex-shrink:0; }
+    .user-info .name { font-size:13.5px; font-weight:600; color:#fff; }
+    .user-info .role { font-size:11px; color:rgba(255,255,255,0.45); margin-top:1px; }
+    .user-badge { margin-left:auto; background:var(--amber); color:#fff; font-size:9px; font-weight:700; padding:3px 8px; border-radius:20px; letter-spacing:0.08em; }
+    .sidebar-nav { padding:16px 0; flex:1; }
+    .nav-section { padding:12px 20px 4px; font-size:9.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.25); }
+    .nav-item { display:flex; align-items:center; gap:12px; padding:11px 20px; cursor:pointer; color:rgba(255,255,255,0.6); font-size:13.5px; font-weight:500; transition:all 0.2s; border-left:3px solid transparent; text-decoration:none; }
+    .nav-item:hover { color:#fff; background:rgba(255,255,255,0.05); }
+    .nav-item.active { color:#fff; background:rgba(255,255,255,0.08); border-left-color:var(--amber-light); }
+    .nav-item .ni-icon { font-size:16px; width:20px; text-align:center; flex-shrink:0; }
+    .nav-item .ni-badge { margin-left:auto; background:var(--amber); color:#fff; font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px; }
+    .sidebar-footer { padding:16px 20px; border-top:1px solid rgba(255,255,255,0.07); }
+    .sidebar-footer a { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.4); font-size:13px; text-decoration:none; transition:color 0.2s; }
+    .sidebar-footer a:hover { color:rgba(255,255,255,0.8); }
+
+    /* ── MAIN ── */
+    .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; min-height:100vh; }
+    .topbar { background:#fff; border-bottom:1px solid var(--border); padding:0 36px; height:64px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:50; }
+    .topbar-left { display:flex; align-items:center; gap:12px; }
+    .topbar-title { font-size:17px; font-weight:600; color:var(--navy); }
+    .topbar-breadcrumb { font-size:12px; color:var(--muted); }
+    .topbar-breadcrumb span { color:var(--forest-mid); }
+    .topbar-right { display:flex; align-items:center; gap:16px; }
+    .tb-notif { width:36px; height:36px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer; position:relative; transition:background 0.2s; }
+    .tb-notif:hover { background:var(--snow); }
+    .tb-notif .dot { position:absolute; top:6px; right:6px; width:7px; height:7px; background:var(--red); border-radius:50%; border:1.5px solid #fff; }
+    .tb-date { font-size:12px; color:var(--muted); }
+
+    .content { padding:32px 36px; flex:1; max-width:920px; }
+    .page-title { font-family:'Cormorant Garamond',serif; font-size:34px; font-weight:600; color:var(--navy); }
+    .page-sub { font-size:13px; color:var(--muted); margin-top:4px; margin-bottom:26px; }
+
+    /* ── CARDS ── */
+    .card { background:#fff; border:1px solid var(--border); border-radius:10px; margin-bottom:22px; overflow:hidden; }
+    .card-head { padding:18px 24px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
+    .card-head .ch-icon { width:36px; height:36px; border-radius:9px; background:var(--forest-pale); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+    .card-head h2 { font-size:15.5px; font-weight:700; color:var(--navy); }
+    .card-head p { font-size:11.5px; color:var(--muted); margin-top:1px; }
+    .card-body { padding:22px 24px; }
+
+    /* profile row */
+    .profile-row { display:flex; align-items:center; gap:16px; }
+    .profile-av { width:60px; height:60px; border-radius:50%; background:var(--forest); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:700; color:#fff; flex-shrink:0; }
+    .profile-meta .pm-name { font-size:17px; font-weight:600; color:var(--navy); }
+    .profile-meta .pm-detail { font-size:12.5px; color:var(--muted); margin-top:2px; }
+    .profile-meta .pm-id { font-size:11px; color:var(--muted); margin-top:6px; display:inline-flex; align-items:center; gap:6px; background:var(--snow); padding:3px 10px; border-radius:20px; border:1px solid var(--border); }
+
+    /* form */
+    .field { margin-bottom:16px; }
+    .field:last-child { margin-bottom:0; }
+    .field label { display:block; font-size:12px; font-weight:600; color:var(--navy); margin-bottom:6px; }
+    .field input { width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:7px; font-family:inherit; font-size:13.5px; color:var(--text); outline:none; transition:border-color 0.2s; background:#fff; }
+    .field input:focus { border-color:var(--forest-light); }
+    .field input:disabled { background:var(--snow); color:var(--muted); }
+    .field .hint { font-size:11px; color:var(--muted); margin-top:5px; }
+    .field-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-actions { margin-top:20px; display:flex; gap:10px; align-items:center; }
+
+    .btn { padding:10px 20px; border-radius:7px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; border:1.5px solid transparent; transition:all 0.2s; letter-spacing:0.02em; }
+    .btn-primary { background:var(--forest); color:#fff; }
+    .btn-primary:hover { background:var(--forest-mid); }
+    .btn-ghost { background:#fff; color:var(--navy); border-color:var(--border); }
+    .btn-ghost:hover { background:var(--snow); }
+    .btn-danger { background:#fff; color:var(--red); border-color:#f0cfca; }
+    .btn-danger:hover { background:var(--red-pale); }
+    .save-flash { font-size:12.5px; font-weight:600; color:var(--forest-mid); opacity:0; transition:opacity 0.3s; display:flex; align-items:center; gap:6px; }
+    .save-flash.show { opacity:1; }
+
+    /* ── NOTIFICATION TOGGLES ── */
+    .notif-row { display:flex; align-items:center; gap:14px; padding:15px 0; border-top:1px solid var(--border); }
+    .notif-row:first-child { border-top:none; padding-top:2px; }
+    .notif-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .notif-info { flex:1; }
+    .notif-info .ni-title { font-size:13.5px; font-weight:600; color:var(--navy); }
+    .notif-info .ni-desc { font-size:11.5px; color:var(--muted); margin-top:2px; }
+    .notif-controls { display:flex; gap:18px; align-items:center; }
+    .toggle-wrap { display:flex; flex-direction:column; align-items:center; gap:5px; }
+    .toggle-wrap .tw-label { font-size:9px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); }
+    .switch { position:relative; width:42px; height:23px; cursor:pointer; }
+    .switch input { opacity:0; width:0; height:0; }
+    .switch .slider { position:absolute; inset:0; background:#c9d4cd; border-radius:23px; transition:0.25s; }
+    .switch .slider::before { content:''; position:absolute; height:17px; width:17px; left:3px; top:3px; background:#fff; border-radius:50%; transition:0.25s; box-shadow:0 1px 3px rgba(0,0,0,0.2); }
+    .switch input:checked + .slider { background:var(--forest); }
+    .switch input:checked + .slider::before { transform:translateX(19px); }
+
+    /* danger zone */
+    .danger-card { border-color:#f0cfca; }
+    .danger-card .card-head { border-bottom-color:#f5ddd9; }
+    .danger-card .ch-icon { background:var(--red-pale); }
+    .logout-row { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .logout-row .lr-text .t { font-size:13.5px; font-weight:600; color:var(--navy); }
+    .logout-row .lr-text .d { font-size:11.5px; color:var(--muted); margin-top:2px; }
+
+    /* ── MODAL ── */
+    .modal-overlay { position:fixed; inset:0; background:rgba(22,40,64,0.45); display:none; align-items:center; justify-content:center; z-index:200; padding:20px; }
+    .modal-overlay.open { display:flex; }
+    .modal { background:#fff; border-radius:12px; width:100%; max-width:380px; padding:28px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+    .modal .m-icon { width:54px; height:54px; border-radius:50%; background:var(--red-pale); display:flex; align-items:center; justify-content:center; font-size:24px; margin:0 auto 14px; }
+    .modal h3 { font-family:'Cormorant Garamond',serif; font-size:23px; font-weight:600; color:var(--navy); }
+    .modal p { font-size:13px; color:var(--muted); margin-top:8px; line-height:1.5; }
+    .modal-actions { display:flex; gap:10px; margin-top:22px; }
+    .modal-actions .btn { flex:1; }
+
+    /* toast */
+    .toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--navy); color:#fff; padding:13px 22px; border-radius:9px; font-size:13px; font-weight:600; box-shadow:0 8px 28px rgba(0,0,0,0.25); opacity:0; pointer-events:none; transition:all 0.3s; z-index:300; display:flex; align-items:center; gap:9px; }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    @media (max-width:680px){ .field-grid{ grid-template-columns:1fr; } }
+  
+.sb-burger{display:none;width:38px;height:38px;border:1px solid var(--border);border-radius:4px;background:#fff;align-items:center;justify-content:center;font-size:17px;cursor:pointer;flex-shrink:0;color:var(--navy);}
+.sb-backdrop{display:none;position:fixed;inset:0;background:rgba(16,29,49,0.45);z-index:99;}
+.sb-backdrop.show{display:block;}
+@media (max-width:1080px){
+  .sidebar{transform:translateX(-100%);transition:transform .28s ease;}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0!important;}
+  .sb-burger{display:flex;}
+  .dash-grid,.analytics-grid,.att-top,.sal-top,.comm-grid,.role-grid,.content-grid,.leave-grid,.form-grid,.results-summary,.att-grid,.brk-grid,.pay-detail-grid,.enroll-grid,.live-grid,.class-strength,.fee-stats,.summary-row,.att-summary-strip,.pipeline-strip{grid-template-columns:repeat(2,1fr)!important;}
+  [style*="grid-template-columns:repeat(4"],[style*="grid-template-columns:repeat(5"],[style*="grid-template-columns:repeat(6"]{grid-template-columns:repeat(2,1fr)!important;}
+}
+@media (max-width:680px){
+  .topbar{padding:0 16px;}
+  .content{padding:20px 16px;}
+  .dash-grid,.analytics-grid,.att-top,.sal-top,.comm-grid,.role-grid,.content-grid,.leave-grid,.form-grid,.results-summary,.att-grid,.brk-grid,.pay-detail-grid,.enroll-grid,.live-grid,.class-strength,.fee-stats,.summary-row,.att-summary-strip,.pipeline-strip,.modal-grid{grid-template-columns:1fr!important;}
+  [style*="grid-template-columns"]{grid-template-columns:1fr!important;}
+  .schedule-table,.asgn-table,.student-list,.sr-table,.subject-table{overflow-x:auto;}
+  .st-header,.st-row{min-width:560px;}
+  .at-head,.at-row{min-width:640px;}
+  .student-row{min-width:520px;}
+  .sr-head,.sr-row{min-width:480px;}
+  .leave-card,.q-card{grid-template-columns:36px 1fr!important;}
+  .punch-row,.leave-grid{grid-template-columns:1fr!important;}
+}
+</style>
+</head>
+<body>
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <a href="Student Portal.html" class="sidebar-logo">
+      <div class="crest">S</div>
+      <div class="sidebar-logo-text">
+        <div class="name">Sharda Public School</div>
+        <div class="sub">Student Portal</div>
+      </div>
+    </a>
+    <div class="sidebar-user">
+      <div class="user-av">A</div>
+      <div class="user-info">
+        <div class="name">Aryan Bisht</div>
+        <div class="role">Class IX-A · Class Representative</div>
+      </div>
+      <span class="user-badge">CR</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Overview</div>
+      <a class="nav-item" href="Student Portal.html"><span class="ni-icon">🏠</span> Dashboard</a>
+      <div class="nav-section">Learning</div>
+      <a class="nav-item" href="Student Portal.html"><span class="ni-icon">📺</span> Live & Video Classes <span class="ni-badge">2 LIVE</span></a>
+      <a class="nav-item" href="Student Portal.html"><span class="ni-icon">➕</span> Enroll in Courses</a>
+      <div class="nav-section">Academic Records</div>
+      <a class="nav-item" href="Student Portal.html"><span class="ni-icon">📊</span> Results</a>
+      <a class="nav-item" href="Student Portal.html"><span class="ni-icon">📅</span> Attendance</a>
+      <a class="nav-item" href="Student Portal.html"><span class="ni-icon">📝</span> Assignments <span class="ni-badge">3 DUE</span></a>
+      <div class="nav-section">More</div>
+      <a class="nav-item" href="Student Portal.html"><span class="ni-icon">📚</span> Library</a>
+      <a class="nav-item" href="Student Portal - Messages.html"><span class="ni-icon">💬</span> Messages <span class="ni-badge">5</span></a>
+      <a class="nav-item" href="Student Portal - Calendar.html"><span class="ni-icon">🗓️</span> School Calendar</a>
+      <div class="nav-item active"><span class="ni-icon">⚙️</span> Settings</div>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="SPS Website WIP.html">← Back to School Website</a>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left"><button class="sb-burger" onclick="openSidebar()" aria-label="Menu">☰</button>
+        <div class="topbar-title">Settings</div>
+        <div class="topbar-breadcrumb">SPS Portal › <span>Settings</span></div>
+      </div>
+      <div class="topbar-right">
+        <div class="tb-date">Tue, 16 Jun 2026</div>
+        <div class="tb-notif">🔔<div class="dot"></div></div>
+        <div class="tb-notif">👤</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="page-title">Settings</div>
+      <div class="page-sub">Manage your account, login details and notification preferences.</div>
+
+      <!-- PROFILE -->
+      <div class="card">
+        <div class="card-head">
+          <div class="ch-icon">👤</div>
+          <div><h2>Profile</h2><p>Your account information</p></div>
+        </div>
+        <div class="card-body">
+          <div class="profile-row">
+            <div class="profile-av">A</div>
+            <div class="profile-meta">
+              <div class="pm-name">Aryan Bisht</div>
+              <div class="pm-detail">Class IX-A · Class Representative</div>
+              <span class="pm-id">🆔 Roll No: SPS-2026-0914</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="card">
+        <div class="card-head">
+          <div class="ch-icon">✉️</div>
+          <div><h2>Email Address</h2><p>Used for login and school notifications</p></div>
+        </div>
+        <div class="card-body">
+          <form onsubmit="saveEmail(event)">
+            <div class="field">
+              <label>Current Email</label>
+              <input type="email" value="aryan.bisht@sps.edu.in" disabled />
+            </div>
+            <div class="field">
+              <label>New Email Address</label>
+              <input type="email" id="newEmail" placeholder="Enter new email address" required />
+              <div class="hint">A verification link will be sent to the new address.</div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Update Email</button>
+              <span class="save-flash" id="emailFlash">✓ Verification email sent</span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="card">
+        <div class="card-head">
+          <div class="ch-icon">🔒</div>
+          <div><h2>Change Password</h2><p>Keep your account secure</p></div>
+        </div>
+        <div class="card-body">
+          <form onsubmit="savePassword(event)">
+            <div class="field">
+              <label>Current Password</label>
+              <input type="password" id="curPw" placeholder="Enter current password" required />
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label>New Password</label>
+                <input type="password" id="newPw" placeholder="At least 8 characters" minlength="8" required />
+              </div>
+              <div class="field">
+                <label>Confirm New Password</label>
+                <input type="password" id="confirmPw" placeholder="Re-enter new password" minlength="8" required />
+              </div>
+            </div>
+            <div class="hint" id="pwHint" style="color:var(--red);display:none;">Passwords do not match.</div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Update Password</button>
+              <span class="save-flash" id="pwFlash">✓ Password updated</span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- NOTIFICATIONS -->
+      <div class="card">
+        <div class="card-head">
+          <div class="ch-icon">🔔</div>
+          <div><h2>Notifications</h2><p>Choose what updates you receive, by email and in-app</p></div>
+        </div>
+        <div class="card-body" id="notifBody"></div>
+      </div>
+
+      <!-- DANGER / LOGOUT -->
+      <div class="card danger-card">
+        <div class="card-head">
+          <div class="ch-icon">🚪</div>
+          <div><h2>Account</h2><p>Sign out of the student portal</p></div>
+        </div>
+        <div class="card-body">
+          <div class="logout-row">
+            <div class="lr-text">
+              <div class="t">Log out</div>
+              <div class="d">You'll be signed out on this device and returned to the login page.</div>
+            </div>
+            <button class="btn btn-danger" onclick="openLogout()">Log Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout modal -->
+  <div class="modal-overlay" id="logoutModal" onclick="if(event.target===this)closeLogout()">
+    <div class="modal">
+      <div class="m-icon">🚪</div>
+      <h3>Log out?</h3>
+      <p>Are you sure you want to sign out of the SPS Student Portal?</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeLogout()">Cancel</button>
+        <button class="btn btn-danger" onclick="doLogout()">Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ── notification modules ──
+    const NOTIF = [
+      { id:'assignments', icon:'📝', bg:'#fdf3e3', title:'Assignments', desc:'New tasks, due-date reminders & graded work', email:true, push:true },
+      { id:'classes',     icon:'📺', bg:'#e8f4fb', title:'Classes',     desc:'Live class alerts, schedule changes & recordings', email:false, push:true },
+      { id:'attendance',  icon:'📅', bg:'#e8f4ec', title:'Attendance',  desc:'Daily attendance marks & shortage warnings', email:true, push:true },
+      { id:'results',     icon:'📊', bg:'#f1e9f1', title:'Results',     desc:'Exam results & report card publication', email:true, push:true },
+      { id:'messages',    icon:'💬', bg:'#e9f1ee', title:'Messages',    desc:'New messages from teachers & group chats', email:false, push:true },
+      { id:'calendar',    icon:'🗓️', bg:'#fbeae7', title:'Events & Holidays', desc:'School events, holidays & exam date updates', email:true, push:false },
+    ];
+
+    function renderNotif(){
+      const body = document.getElementById('notifBody');
+      body.innerHTML = NOTIF.map(n=>`
+        <div class="notif-row">
+          <div class="notif-icon" style="background:${n.bg}">${n.icon}</div>
+          <div class="notif-info">
+            <div class="ni-title">${n.title}</div>
+            <div class="ni-desc">${n.desc}</div>
+          </div>
+          <div class="notif-controls">
+            <div class="toggle-wrap">
+              <span class="tw-label">Email</span>
+              <label class="switch"><input type="checkbox" ${n.email?'checked':''} onchange="toggleNotif('${n.id}','email',this.checked)"><span class="slider"></span></label>
+            </div>
+            <div class="toggle-wrap">
+              <span class="tw-label">In-App</span>
+              <label class="switch"><input type="checkbox" ${n.push?'checked':''} onchange="toggleNotif('${n.id}','push',this.checked)"><span class="slider"></span></label>
+            </div>
+          </div>
+        </div>`).join('');
+    }
+    function toggleNotif(id, channel, val){
+      const n = NOTIF.find(x=>x.id===id); n[channel]=val;
+      toast(`${n.title} ${channel==='email'?'email':'in-app'} alerts ${val?'on':'off'}`);
+    }
+
+    // ── forms ──
+    function flash(id){ const el=document.getElementById(id); el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),2600); }
+    function saveEmail(e){ e.preventDefault(); flash('emailFlash'); toast('Verification link sent to new email'); e.target.reset(); }
+    function savePassword(e){
+      e.preventDefault();
+      const np=document.getElementById('newPw').value, cp=document.getElementById('confirmPw').value;
+      const hint=document.getElementById('pwHint');
+      if(np!==cp){ hint.style.display='block'; return; }
+      hint.style.display='none'; flash('pwFlash'); toast('Password updated successfully'); e.target.reset();
+    }
+
+    // ── logout ──
+    function openLogout(){ document.getElementById('logoutModal').classList.add('open'); }
+    function closeLogout(){ document.getElementById('logoutModal').classList.remove('open'); }
+    function doLogout(){ closeLogout(); toast('Logging out…'); setTimeout(()=>{ window.location.href='SPS Website WIP.html'; }, 1100); }
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLogout(); });
+
+    // ── toast ──
+    let toastT;
+    function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2400); }
+
+    renderNotif();
+  </script>
+
+<div class="sb-backdrop" id="sbBackdrop" onclick="closeSidebar()"></div>
+<script>
+function openSidebar(){document.querySelector('.sidebar').classList.add('open');document.getElementById('sbBackdrop').classList.add('show');}
+function closeSidebar(){document.querySelector('.sidebar').classList.remove('open');document.getElementById('sbBackdrop').classList.remove('show');}
+document.querySelectorAll('.nav-item').forEach(el=>el.addEventListener('click',closeSidebar));
+</script>
+</body>
+</html>
