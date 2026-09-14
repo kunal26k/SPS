@@ -43,3 +43,7 @@ Thumbs.db
 # TypeScript / Next.js generated
 *.tsbuildinfo
 next-env.d.ts
+
+# Static export and hosted preview (rebuild with the commands in README)
+/out/
+/preview/
