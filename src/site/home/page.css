@@ -546,10 +546,38 @@
 
     /* Mobile fixes (stitched site): the design's pillar row never stacked. */
     .adm-grid > *, .contact-grid > *, .about-grid > * { min-width: 0; }
-    @media (max-width: 760px) {
+    @media (max-width: 640px) {
       .pillars { grid-template-columns: 1fr; }
       .adm-date-row { flex-wrap: wrap; gap: 2px 12px; }
       .adm-actions { flex-wrap: wrap; }
       .ci-text { min-width: 0; }
       .ci-text p { overflow-wrap: anywhere; }
+    }
+
+    /* ─── Tablet (641–1024px): two- and three-column layouts instead of one long column ─── */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .pillars { grid-template-columns: repeat(3, 1fr); }
+      .pillar { padding: 40px 28px; }
+      .glance-stats { grid-template-columns: repeat(4, 1fr); }
+      .about-grid { grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+      .ac-grid { grid-template-columns: repeat(2, 1fr); }
+      .spotlight-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+      .principal-inner { grid-template-columns: 260px 1fr; gap: 44px; }
+      .news-layout { grid-template-columns: 1.4fr 1fr; }
+      .gallery-mosaic { grid-template-columns: repeat(3, 1fr); }
+      .adm-grid { grid-template-columns: 1fr 1.4fr; gap: 40px; }
+      .testi-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .testi-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+      .contact-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (min-width: 641px) and (max-width: 820px) {
+      .principal-inner { grid-template-columns: 220px 1fr; gap: 32px; }
+    }
+
+    /* ─── Phone (≤640px) ─── */
+    @media (max-width: 640px) {
+      section:not(.hero), .glance, .events-strip { padding-top: 64px; padding-bottom: 64px; }
+      .hero h1 { font-size: clamp(38px, 11vw, 52px); }
+      .hero-content { padding-bottom: 72px; }
+      .principal-portrait { max-width: 320px; }
     }

@@ -64,3 +64,8 @@
   .site-nav .nav-brand { display: none; }
   .site-footer .footer-top { grid-template-columns: 1fr; }
 }
+
+/* ─── Tablet (641–980px): nav stays in the menu; footer uses three link columns under the brand. ─── */
+@media (min-width: 641px) and (max-width: 980px) {
+  .site-footer .footer-top { grid-template-columns: repeat(3, 1fr); }
+}

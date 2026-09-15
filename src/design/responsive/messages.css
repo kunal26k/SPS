@@ -1,0 +1,21 @@
+/* Messages (student and teacher). */
+.messenger > * { min-width: 0; }
+/* The closed info pane is a 0px column whose 1px border pushed the page 1px wide. */
+.messenger:not(.info-open) .info-pane { border-left-width: 0; }
+
+/* Tablet: a narrower conversation list leaves the chat readable. */
+@media (min-width: 681px) and (max-width: 900px) {
+  .messenger, .messenger.info-open { grid-template-columns: 260px 1fr 0; }
+}
+
+/* Phone: conversation list on top (scrolls), open chat below. */
+@media (max-width: 680px) {
+  .main { height: auto; min-height: 100vh; }
+  .messenger, .messenger.info-open { grid-template-columns: 1fr; grid-template-rows: auto minmax(72vh, 1fr); }
+  .conv-pane { max-height: 40vh; border-right: none; border-bottom: 1px solid var(--border); }
+  .info-pane { display: none !important; }
+  .chat-head { padding: 10px 14px; }
+  .chat-body { padding: 16px 14px; }
+  .composer { padding: 10px 12px; }
+  .composer-note { padding-left: 0; }
+}

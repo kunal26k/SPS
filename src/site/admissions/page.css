@@ -218,3 +218,20 @@
 .vw-overlay iframe{border:10px solid #111;border-radius:22px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
     @media (max-width: 980px) { .after-grid.process-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 560px) { .after-grid.process-grid { grid-template-columns: 1fr; } }
+
+    /* ─── Tablet (641–980px): two-column grids instead of one long column ─── */
+    @media (min-width: 641px) and (max-width: 980px) {
+      .why-pillars, .age-notes, .fees-grid, .after-grid, .tour-list { grid-template-columns: repeat(2, 1fr); }
+      .why-pillars > :last-child:nth-child(odd), .age-notes > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+      .assess-row { grid-template-columns: 180px 1fr; gap: 24px; }
+      .assess-row > .meta { grid-column: 2; }
+      .checklist { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    /* ─── Phone (≤640px) ─── */
+    @media (max-width: 640px) {
+      section { padding-top: 64px; padding-bottom: 64px; }
+      .age-table-wrap { overflow-x: auto; }
+      .age-table { min-width: 640px; }
+      .pwelcome, .checklist { padding: 28px 22px; }
+    }

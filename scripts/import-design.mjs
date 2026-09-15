@@ -6,7 +6,8 @@
 // kept verbatim and rendered server-side, so the page behaves exactly like the
 // design file. Links between screens are rewritten to app routes, uploads/ to
 // /uploads/, and the design tool's Desktop/Tablet/Mobile preview switcher is
-// removed. Re-run after every design export.
+// removed. Responsive layers from src/design/responsive/ are added after each
+// screen's CSS. Re-run after every design export.
 
 import { copyFileSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -33,6 +34,20 @@ export const screens = [
   { file: "Admin Portal.html", route: "/admin-portal", group: "Admin Portal", label: "Dashboard" },
   { file: "Feature Documentation.html", route: "/feature-documentation", group: "Docs", label: "Feature Documentation" },
 ];
+
+// Responsive layers (src/design/responsive/*.css) added after a screen's own CSS.
+const portalScreens = (route) => /^\/(student|teacher|parent|admin)-portal/.test(route);
+function responsiveFor(route) {
+  const files = [];
+  if (portalScreens(route)) files.push("portal.css");
+  if (route.endsWith("/calendar")) files.push("calendar.css");
+  if (route.endsWith("/messages")) files.push("messages.css");
+  if (route === "/admin-portal") files.push("admin-portal.css");
+  if (route === "/feature-documentation") files.push("feature-documentation.css");
+  return files
+    .map((f) => `<style data-responsive="${f}">\n${readFileSync(join(root, "src", "design", "responsive", f), "utf8")}</style>`)
+    .join("\n");
+}
 
 const linkTargets = new Map([
   ...screens.map((s) => [s.file, s.route]),
@@ -69,7 +84,7 @@ function stripPreviewSwitcher(html) {
     .replace(/<style>\s*<\/style>/g, "");
 }
 
-function convert(file) {
+function convert(file, route) {
   const src = readFileSync(join(designDir, file), "utf8");
   const title = (src.match(/<title>([\s\S]*?)<\/title>/) || [])[1]?.trim() ?? "Sharda Public School";
   const head = (src.match(/<head>([\s\S]*?)<\/head>/) || [])[1] ?? "";
@@ -79,7 +94,7 @@ function convert(file) {
   const fontLinks = [...head.matchAll(/<link[^>]*rel="stylesheet"[^>]*>|<link[^>]*href="https:\/\/fonts\.googleapis\.com\/css2[^>]*>/g)].map((m) => m[0]);
   const styles = [...head.matchAll(/<style[^>]*>[\s\S]*?<\/style>/g)].map((m) => m[0]);
 
-  const html = rewriteLinks(stripPreviewSwitcher([...new Set(fontLinks), ...styles, body].join("\n")));
+  const html = rewriteLinks(stripPreviewSwitcher([...new Set(fontLinks), ...styles, responsiveFor(route), body].join("\n")));
   return { title, html };
 }
 
@@ -88,7 +103,7 @@ mkdirSync(outDir, { recursive: true });
 
 const index = [];
 for (const s of screens) {
-  const { title, html } = convert(s.file);
+  const { title, html } = convert(s.file, s.route);
   const id = s.route.slice(1).replaceAll("/", "--");
   writeFileSync(
     join(outDir, `${id}.ts`),

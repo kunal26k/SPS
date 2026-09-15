@@ -270,3 +270,21 @@
       .results-table-wrap { overflow-x: auto; padding: 24px 20px; }
       .results-table { min-width: 560px; }
     }
+
+    /* ─── Tablet (641–980px): two-column grids instead of one long column ─── */
+    @media (min-width: 641px) and (max-width: 980px) {
+      .pg-grid, .pillars, .arts-grid, .sup-grid, .ev-grid, .streams, .stat-strip, .dest-strip { grid-template-columns: repeat(2, 1fr); }
+      .pg-grid > :last-child:nth-child(odd), .streams > :last-child:nth-child(odd), .ev-grid > :last-child:nth-child(odd), .arts-grid > :last-child:nth-child(odd), .sup-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+      .subj-grid { grid-template-columns: repeat(2, 1fr); }
+      .ncf-row { grid-template-columns: 200px 1fr; gap: 28px; }
+      .sig-row { grid-template-columns: 64px 1fr; gap: 20px; }
+      .sig-row > :nth-child(3) { grid-column: 2; }
+      .visit-box { grid-template-columns: 1fr 1fr; gap: 32px; padding: 40px; }
+    }
+
+    /* ─── Phone (≤640px) ─── */
+    @media (max-width: 640px) {
+      section { padding-top: 64px; padding-bottom: 64px; }
+      .visit-box, .pull-quote, .integrity { padding: 32px 24px; }
+      .sig-row { grid-template-columns: 1fr; }
+    }

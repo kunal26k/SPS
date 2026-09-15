@@ -1,0 +1,10 @@
+/* Admin Portal: the dashboard banner and its stat tiles. */
+@media (max-width: 900px) {
+  .pay-banner { grid-template-columns: 1fr; flex-direction: column; align-items: stretch; gap: 20px; }
+}
+@media (max-width: 680px) {
+  .pay-banner { padding: 24px 20px; }
+  .pay-banner h2 { font-size: 26px; }
+  .pay-meta { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pay-meta > div { padding: 12px; min-width: 0; }
+}
