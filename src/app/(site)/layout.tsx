@@ -1,4 +1,5 @@
 import "@/site/shell.css";
+import "@/site/accordion.css";
 
 // The public website: Home, Academics, Admissions and About share these fonts, nav and footer.
 export default function SiteLayout({ children }: { children: React.ReactNode }) {

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { AccordionSection } from "@/components/accordion-section";
 import { FeedbackForm } from "@/components/feedback-form";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
-// Shell CSS is imported here, not in the root layout, so it never styles the imported design screens.
+// About-only tokens and base styles; the shared nav and footer come from src/site/shell.css.
 import "./site-shell.css";
 import "./about.css";
 import { school } from "@/site/school";
@@ -105,7 +106,7 @@ export default function AboutPage() {
         </header>
 
         {/* ═══ SCHOOL CONTACT ═══ */}
-        <section className="contact-section" id="contact">
+        <AccordionSection id="contact" className="contact-section" defaultOpen>
           <div className="sec-head-row">
             <div>
               <div className="sec-eyebrow">School Contact</div>
@@ -206,10 +207,10 @@ export default function AboutPage() {
               </div>
             </aside>
           </div>
-        </section>
+        </AccordionSection>
 
         {/* ═══ PRINCIPAL ═══ */}
-        <section className="principal-section" id="principal">
+        <AccordionSection id="principal" className="principal-section">
           <div className="sec-head-row">
             <div>
               <div className="sec-eyebrow">Principal&apos;s Office</div>
@@ -263,10 +264,10 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </section>
+        </AccordionSection>
 
         {/* ═══ ADMISSIONS ═══ */}
-        <section className="adm-section" id="admissions">
+        <AccordionSection id="admissions" className="adm-section">
           <div className="sec-head-row">
             <div>
               <div className="sec-eyebrow">How to Get Admission</div>
@@ -308,10 +309,10 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
-        </section>
+        </AccordionSection>
 
         {/* ═══ HELP & FEEDBACK ═══ */}
-        <section className="twocol-section" id="help">
+        <AccordionSection id="help" className="twocol-section">
           <div className="twocol">
             <div className="help-card">
               <div className="sec-eyebrow">Help &amp; Support</div>
@@ -355,10 +356,10 @@ export default function AboutPage() {
               <FeedbackForm />
             </div>
           </div>
-        </section>
+        </AccordionSection>
 
         {/* ═══ TESTIMONIALS ═══ */}
-        <section className="testi-section" id="testimonials">
+        <AccordionSection id="testimonials" className="testi-section">
           <div className="sec-head-row">
             <div>
               <div className="sec-eyebrow">Testimonials</div>
@@ -386,7 +387,7 @@ export default function AboutPage() {
               </article>
             ))}
           </div>
-        </section>
+        </AccordionSection>
 
         {/* ═══ CTA STRIP ═══ */}
         <div className="cta-strip">
