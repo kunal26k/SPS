@@ -1,5 +1,4 @@
-// Public website bundle for static hosting (GitHub Pages): the flattened preview
-// minus the portal screens.
+// Public website bundle for static hosting (GitHub Pages): the flattened preview.
 //
 //   pnpm export:preview && node scripts/export-site.mjs   → site-dist/
 

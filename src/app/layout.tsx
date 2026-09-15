@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   icons: { icon: "/uploads/SPS-crest.png" },
 };
 
-// Fonts are loaded per area: the website in (site)/layout.tsx, portal screens by their own markup.
+// Fonts, nav and footer for the website are loaded in (site)/layout.tsx.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">

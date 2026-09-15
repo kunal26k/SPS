@@ -4,7 +4,7 @@
 //
 //   STATIC_EXPORT=1 pnpm build && node scripts/flatten-export.mjs
 //
-// - every page moves to the top level: student-portal/calendar.html → student-portal-calendar.html
+// - every page moves to the top level: a/b.html → a-b.html
 // - links to app routes become those .html files
 // - /_next/, /uploads/ and /SPS-crest.png become relative
 // - RSC .txt payloads are dropped (no client-side navigation is used)
@@ -26,7 +26,7 @@ const walk = (dir) =>
 
 const pages = walk(src)
   .filter((p) => p.endsWith(".html"))
-  .map((p) => relative(src, p).replace(/\.html$/, "")); // "index", "about", "student-portal/calendar", "404"
+  .map((p) => relative(src, p).replace(/\.html$/, "")); // "index", "about", "academics", "404"
 
 const flatName = (page) => `${page.replaceAll("/", "-")}.html`;
 const routes = pages
@@ -46,7 +46,7 @@ function rewriteMarkup(chunk) {
 function rewriteHtml(html) {
   // React's flight payload: its text rows carry length prefixes, so editing inside
   // them corrupts hydration. Only the asset hints (JSON rows, never inside the
-  // screens' text rows) get their /_next/ made relative.
+  // pages' text rows) get their /_next/ made relative.
   return html
     .split(/(<script>self\.__next_f\.push[\s\S]*?<\/script>)/)
     .map((part, i) => (i % 2 ? part.replaceAll('\\"/_next/', '\\"_next/') : rewriteMarkup(part)))
@@ -72,12 +72,12 @@ for (const f of walk(join(dest, "_next"))) {
   }
 }
 
-// Only the uploads the screens actually reference.
+// Only the uploads the pages actually reference.
 const allHtml = readdirSync(dest).filter((f) => f.endsWith(".html")).map((f) => readFileSync(join(dest, f), "utf8")).join("");
 mkdirSync(join(dest, "uploads"));
 for (const f of readdirSync(join(src, "uploads"))) {
   if (allHtml.includes(`uploads/${f}`)) cpSync(join(src, "uploads", f), join(dest, "uploads", f));
 }
-cpSync(join(src, "SPS-crest.png"), join(dest, "SPS-crest.png"));
+
 
 console.log(`preview/: ${pages.length} pages, ${walk(dest).length} files`);
