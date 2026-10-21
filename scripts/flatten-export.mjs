@@ -6,7 +6,7 @@
 //
 // - every page moves to the top level: a/b.html → a-b.html
 // - links to app routes become those .html files
-// - /_next/, /uploads/ and /SPS-crest.png become relative
+// - /_next/, /uploads/, /photos/ and /SPS-crest.png become relative
 // - RSC .txt payloads are dropped (no client-side navigation is used)
 
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
@@ -33,7 +33,7 @@ const routes = pages
   .filter((p) => p !== "index" && p !== "404" && p !== "_not-found")
   .sort((a, b) => b.length - a.length);
 
-const staticRefs = /(["'(=]|\\")\/(_next\/|uploads\/|SPS-crest\.png)/g;
+const staticRefs = /(["'(=]|\\")\/(_next\/|uploads\/|photos\/|SPS-crest\.png)/g;
 
 function rewriteMarkup(chunk) {
   let out = chunk.replace(staticRefs, "$1$2");
@@ -72,11 +72,14 @@ for (const f of walk(join(dest, "_next"))) {
   }
 }
 
-// Only the uploads the pages actually reference.
+// Only the uploads and photos the pages actually reference.
 const allHtml = readdirSync(dest).filter((f) => f.endsWith(".html")).map((f) => readFileSync(join(dest, f), "utf8")).join("");
-mkdirSync(join(dest, "uploads"));
-for (const f of readdirSync(join(src, "uploads"))) {
-  if (allHtml.includes(`uploads/${f}`)) cpSync(join(src, "uploads", f), join(dest, "uploads", f));
+for (const dir of ["uploads", "photos"]) {
+  if (!existsSync(join(src, dir))) continue;
+  mkdirSync(join(dest, dir));
+  for (const f of readdirSync(join(src, dir))) {
+    if (allHtml.includes(`${dir}/${f}`)) cpSync(join(src, dir, f), join(dest, dir, f));
+  }
 }
 
 
