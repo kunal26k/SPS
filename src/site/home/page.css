@@ -271,15 +271,31 @@
     .ac-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
     .ac-card {
       background: #fff; padding: 44px 36px;
-      position: relative; overflow: hidden;
+      position: relative; overflow: hidden; isolation: isolate;
       transition: background 0.25s;
     }
-    .ac-card:hover { background: var(--forest); }
-    .ac-card:hover .ac-num { color: rgba(255,255,255,0.08); }
-    .ac-card:hover h3 { color: #fff; }
-    .ac-card:hover p { color: rgba(255,255,255,0.6); }
-    .ac-card:hover .ac-tag { background: rgba(255,255,255,0.12); color: #fff; }
-    .ac-card:hover .ac-arrow { opacity: 1; }
+    /* Hover photo: fades in and eases from a gentle zoom behind the card text. Stack: photo (0) < scrim (1) < content (2). */
+    .ac-photo {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0; pointer-events: none;
+      opacity: 0; transform: scale(1.08); will-change: opacity, transform;
+      transition: opacity 0.5s ease, transform 1.2s cubic-bezier(.2,.7,.2,1);
+    }
+    .ac-card::after {
+      content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(to top, rgba(13,31,51,.92) 0%, rgba(13,31,51,.72) 45%, rgba(27,77,48,.55) 100%);
+      opacity: 0; transition: opacity 0.5s ease;
+    }
+    .ac-card > .ac-num, .ac-card > h3, .ac-card > p, .ac-card > .ac-tag { position: relative; z-index: 2; }
+    .ac-card > .ac-arrow { z-index: 2; }
+    .ac-card:hover .ac-photo, .ac-card:focus-within .ac-photo { opacity: 1; transform: scale(1); }
+    .ac-card:hover::after, .ac-card:focus-within::after { opacity: 1; }
+    .ac-card:hover, .ac-card:focus-within { background: var(--forest); }
+    .ac-card:hover .ac-num, .ac-card:focus-within .ac-num { color: rgba(255,255,255,0.08); }
+    .ac-card:hover h3, .ac-card:focus-within h3 { color: #fff; }
+    .ac-card:hover p, .ac-card:focus-within p { color: rgba(255,255,255,0.82); }
+    .ac-card:hover .ac-tag, .ac-card:focus-within .ac-tag { background: rgba(255,255,255,0.12); color: #fff; }
+    .ac-card:hover .ac-arrow, .ac-card:focus-within .ac-arrow { opacity: 1; }
     .ac-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 64px; font-weight: 700; color: #f0f0f0;
@@ -295,6 +311,9 @@
       text-transform: uppercase; transition: all 0.25s;
     }
     .ac-arrow { position: absolute; bottom: 36px; right: 32px; color: rgba(255,255,255,0.5); font-size: 24px; opacity: 0; transition: opacity 0.25s; }
+    @media (prefers-reduced-motion: reduce) {
+      .ac-photo, .ac-card:hover .ac-photo, .ac-card:focus-within .ac-photo { transform: none; transition: opacity 0.3s ease; }
+    }
 
     /* ─── MEET A STUDENT ─── */
     .spotlight { padding: 96px 80px; background: var(--navy); }
