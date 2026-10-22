@@ -3,6 +3,6 @@ export const siteLinks = [
   { href: "/", label: "Home" },
   { href: "/academics", label: "Academics" },
   { href: "/admissions", label: "Admissions" },
-  { href: "/about", label: "About" },
   { href: "/events-gallery", label: "Events & Gallery" },
+  { href: "/about", label: "About" },
 ];
