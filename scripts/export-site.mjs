@@ -11,7 +11,7 @@ const src = join(root, "preview");
 const dest = join(root, "site-dist");
 if (!existsSync(src)) throw new Error("preview/ not found — run pnpm export:preview first");
 
-const website = ["index.html", "about.html", "academics.html", "admissions.html", "404.html"];
+const website = ["index.html", "about.html", "academics.html", "admissions.html", "events-gallery.html", "404.html"];
 
 rmSync(dest, { recursive: true, force: true });
 cpSync(src, dest, { recursive: true });

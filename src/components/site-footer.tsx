@@ -32,9 +32,6 @@ export function SiteFooter() {
                 <a href={l.href}>{l.label}</a>
               </li>
             ))}
-            <li>
-              <a href="/#gallery">Gallery</a>
-            </li>
           </ul>
         </div>
         <div className="footer-col">

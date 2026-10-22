@@ -4,4 +4,5 @@ export const siteLinks = [
   { href: "/academics", label: "Academics" },
   { href: "/admissions", label: "Admissions" },
   { href: "/about", label: "About" },
+  { href: "/events-gallery", label: "Events & Gallery" },
 ];

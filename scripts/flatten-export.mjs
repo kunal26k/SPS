@@ -78,9 +78,15 @@ for (const dir of ["uploads", "photos"]) {
   if (!existsSync(join(src, dir))) continue;
   mkdirSync(join(dest, dir));
   for (const f of readdirSync(join(src, dir))) {
+    if (statSync(join(src, dir, f)).isDirectory()) continue; // photos/events/ is copied whole below
     if (allHtml.includes(`${dir}/${f}`)) cpSync(join(src, dir, f), join(dest, dir, f));
   }
 }
 
+// Event album photos are referenced from JS data (not just HTML), so copy the whole folder.
+if (existsSync(join(src, "photos", "events"))) {
+  mkdirSync(join(dest, "photos"), { recursive: true });
+  cpSync(join(src, "photos", "events"), join(dest, "photos", "events"), { recursive: true });
+}
 
 console.log(`preview/: ${pages.length} pages, ${walk(dest).length} files`);
