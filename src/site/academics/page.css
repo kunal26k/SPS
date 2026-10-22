@@ -25,6 +25,15 @@
     .page-head .anchors a { font-size: 12px; padding: 7px 14px; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: rgba(255,255,255,0.75); text-decoration: none; transition: all 0.2s; }
     .page-head .anchors a:hover { color: #fff; border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.05); }
 
+    /* Banner photo (public/photos/banner-*.jpg): the header's gradient stays as the loading fallback;
+       a navy-to-forest scrim keeps the white type legible over the photograph. */
+    .page-head .head-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .page-head::before { z-index: 1; background-image: linear-gradient(90deg, rgba(22,40,64,0.94) 0%, rgba(22,40,64,0.84) 38%, rgba(22,40,64,0.5) 72%, rgba(27,77,48,0.38) 100%), radial-gradient(circle at 20% 30%, rgba(232,160,48,0.12), transparent 40%), radial-gradient(circle at 80% 70%, rgba(61,143,90,0.18), transparent 50%); }
+    .page-head > *:not(.head-photo) { position: relative; z-index: 2; }
+    @media (max-width: 1024px) {
+      .page-head::before { background-image: linear-gradient(180deg, rgba(22,40,64,0.82) 0%, rgba(22,40,64,0.7) 100%); }
+    }
+
     /* SECTION SCAFFOLD */
     section { padding: 96px 80px; }
     .sec-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; }
@@ -37,6 +46,8 @@
     .pg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
     .pg-card { background: #fff; padding: 44px 36px; transition: transform 0.25s; }
     .pg-card:hover { transform: translateY(-3px); }
+    /* 16:9 photo flush with the card's top edge: bleeds through the card's 44px / 36px padding. */
+    .pg-card .card-photo { display: block; width: calc(100% + 72px); max-width: none; height: auto; aspect-ratio: 16 / 9; object-fit: cover; margin: -44px -36px 28px; background: var(--cream); }
     .pg-num { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; color: var(--amber); margin-bottom: 8px; letter-spacing: 0.15em; }
     .pg-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
     .pg-card .grades { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--forest); margin-bottom: 18px; }
@@ -230,7 +241,7 @@
 
     /* FAQ */
     .faq-section { background: var(--snow); }
-    .faq-list { max-width: 880px; margin: 0 auto; }
+    .faq-list { max-width: 880px; margin: 0; }
     .faq-item { border-bottom: 1px solid var(--border); }
     .faq-item summary { padding: 22px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 24px; font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--navy); }
     .faq-item summary::-webkit-details-marker { display: none; }

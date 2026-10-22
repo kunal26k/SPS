@@ -97,6 +97,8 @@ export default function AboutPage() {
       <main className="about">
         {/* ═══ PAGE HEAD ═══ */}
         <header className="page-head">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="head-photo" src="/photos/banner-about.jpg" alt="" fetchPriority="high" />
           <div className="crumb">Home / About</div>
           <h1>A school of excellence in the Deodar forests of Almora.</h1>
           <p className="lede">
@@ -205,6 +207,15 @@ export default function AboutPage() {
                   <div className="v">Dugalkhola · VI–XII</div>
                 </div>
               </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="map-photo"
+                src="/photos/about-hills.jpg"
+                width={1200}
+                height={800}
+                alt="The school campus with the Kumaon hills behind"
+                loading="lazy"
+              />
             </aside>
           </div>
         </AccordionSection>
