@@ -54,12 +54,6 @@ const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
 const tint = (cat: string) => ({ "--c": CATS[cat] ?? FALLBACK_COLOUR }) as CSSProperties;
 
-function waHref(a: Album) {
-  const page = typeof window === "undefined" ? "" : window.location.href.split("#")[0];
-  const text = `${a.title} – Sharda Public School photos: ${page}#${a.id}`;
-  return `https://wa.me/?text=${encodeURIComponent(text)}`;
-}
-
 const FOCUSABLE = 'a[href], button:not([disabled]), select, input, [tabindex]:not([tabindex="-1"])';
 /** Keeps Tab inside a modal dialog. */
 function trapTab(e: KeyboardEvent, root: HTMLElement | null) {
@@ -382,11 +376,6 @@ export function EventsGallery({ albums }: { albums: Album[] }) {
           <div className="album-bd">
             <div className="album-intro">
               <p>{album.desc}</p>
-              <div className="a-actions">
-                <a className="btn wa" href={waHref(album)} target="_blank" rel="noopener">
-                  Share on WhatsApp
-                </a>
-              </div>
             </div>
             <div className="pgrid">
               {photos.slice(0, shown).map((p, i) => (
@@ -414,9 +403,6 @@ export function EventsGallery({ albums }: { albums: Album[] }) {
               {album.title} · {lb + 1} / {photos.length}
             </span>
             <div>
-              <a className="lb-btn" href={waHref(album)} target="_blank" rel="noopener">
-                Share
-              </a>
               <a className="lb-btn" href={current.src} download={`sps-${album.id}-${String(lb + 1).padStart(2, "0")}.jpg`}>
                 Download
               </a>

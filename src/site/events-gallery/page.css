@@ -82,9 +82,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--warm); color: var(-
 .eg-page .album-bd { max-width: 1280px; margin: 0 auto; padding: 32px 80px 80px; box-sizing: content-box; }
 .eg-page .album-intro { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
 .eg-page .album-intro p { font-size: 16px; line-height: 1.7; color: var(--text); max-width: 600px; }
-.eg-page .a-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.eg-page .btn.wa { background: #1f7a4a; }
-.eg-page .btn.wa:hover { background: #18633c; }
 .eg-page .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 600; background: var(--navy); color: #fff; padding: 14px 20px; border-radius: 6px; font-size: 15px; box-shadow: 0 12px 32px rgba(0,0,0,.3); display: none; max-width: calc(100% - 32px); }
 .eg-page .toast.show { display: block; }
 .eg-page .pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
@@ -128,8 +125,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--warm); color: var(-
 .eg-page .cover .ph:first-child { grid-row: auto; }
 .eg-page .badge { display: none; }
 .eg-page .count { bottom: 6px; right: 6px; left: 6px; text-align: center; font-size: 11.5px; }
-.eg-page .a-actions { width: 100%; }
-.eg-page .a-actions .btn { flex: 1; }
 .eg-page .month-hd h2 { font-size: 26px; }
 .eg-page .pgrid { grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .eg-page .album-title h2 { font-size: 22px; }
