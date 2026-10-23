@@ -46,6 +46,11 @@
 .crow .val { font-size: 15px; color: var(--text); line-height: 1.6; }
 .crow .val a { color: var(--navy); text-decoration: none; border-bottom: 1px solid var(--border); }
 .crow .val a:hover { color: var(--amber); border-color: var(--amber); }
+/* Touch widths: phone and email links get a 36px tap row; the underline is drawn 6px up so it stays under the text. */
+@media (max-width: 899.98px), (pointer: coarse) {
+  .crow .val a { --ul: var(--border); display: inline-block; padding: 6px 0; border-bottom: 0; background: linear-gradient(var(--ul), var(--ul)) left calc(100% - 6px) / 100% 1px no-repeat; }
+  .crow .val a:hover { --ul: var(--amber); }
+}
 .crow .val .strong { font-weight: 600; color: var(--navy); display: block; margin-bottom: 2px; }
 .crow .val small { color: var(--muted); font-size: 12.5px; display: block; margin-top: 4px; }
 

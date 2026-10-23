@@ -347,7 +347,7 @@
       padding-right: 48px;
     }
     .events-hd h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--navy); font-weight: 600; }
-    .view-all { font-size: 12px; font-weight: 600; color: var(--forest-mid); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+    .view-all { align-self: flex-start; font-size: 12px; font-weight: 600; color: var(--forest-mid); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; transition: gap 0.2s; }
     .view-all:hover { gap: 10px; }
     .events-list { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); }
     .ev-item {
@@ -593,4 +593,10 @@
       .adm-actions { flex-wrap: wrap; }
       .ci-text { min-width: 0; }
       .ci-text p { overflow-wrap: anywhere; }
+    }
+
+    /* Touch widths: inline text CTAs get a 36px+ tap row without changing how they look. */
+    @media (max-width: 899.98px), (pointer: coarse) {
+      .pillar-link { margin-top: 8px; padding: 10px 0; }
+      .ac-link, .view-all, .gallery-link { padding: 10px 0; }
     }
