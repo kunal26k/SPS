@@ -1,8 +1,8 @@
 "use client";
 
-// Events & Gallery: month-by-month albums with filters, an album overlay and a lightbox.
-// Ported from design/Events & Gallery.html. Anything that depends on "today", localStorage or the URL
-// hash is applied after mount, so the server HTML (every album, all filters at "All") matches the first render.
+// Events & Gallery: month-by-month albums, an album overlay and a lightbox. There are no filters and nothing
+// is stored on the visitor's device. Anything that depends on "today" or the URL hash is applied after mount,
+// so the server HTML (every album) matches the first render.
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent, TouchEvent as ReactTouchEvent } from "react";
 
@@ -12,7 +12,6 @@ export type Album = {
   title: string;
   cat: string;
   date: string; // YYYY-MM-DD
-  classes: "all" | [number, number];
   desc: string;
   photos: Photo[];
 };
@@ -24,9 +23,7 @@ const CATS: Record<string, string> = {
   Community: "#e3d8cf",
   "Campus Life": "#dde4d6",
 };
-const CAT_ORDER = ["Academic", "Sports", "Cultural", "Community", "Campus Life"];
 const FALLBACK_COLOUR = "#cfd9d2";
-const CLASSES = ["Nursery–KG", "Class 1", "Class 2", "Class 3", "Class 4", "Class 5", "Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"];
 // Academic-year order (Apr → Mar), as in the design.
 const MFULL = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
 const CAL_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -38,7 +35,6 @@ const UPCOMING: [string, string][] = [
 ];
 const SESSION = "2026–27";
 const PAGE = 48;
-const STORAGE_KEY = "sps-gallery-class";
 const NEW_WITHIN_DAYS = 14;
 
 type Ymd = { y: number; m: number; d: number }; // m is 1-12
@@ -56,16 +52,6 @@ const fmtDate = (s: string) => {
 };
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
-function inClass(a: Album, cls: number) {
-  return a.classes === "all" || (cls >= a.classes[0] && cls <= a.classes[1]);
-}
-function classLabel(a: Album) {
-  if (a.classes === "all") return "All classes";
-  const [from, to] = a.classes;
-  if (from === to) return CLASSES[from];
-  if (from === 0) return `${CLASSES[0]} to ${CLASSES[to]}`;
-  return `${CLASSES[from]}–${CLASSES[to].replace("Class ", "")}`;
-}
 const tint = (cat: string) => ({ "--c": CATS[cat] ?? FALLBACK_COLOUR }) as CSSProperties;
 
 function waHref(a: Album) {
@@ -97,9 +83,6 @@ function trapTab(e: KeyboardEvent, root: HTMLElement | null) {
 }
 
 export function EventsGallery({ albums }: { albums: Album[] }) {
-  const [cls, setCls] = useState<number | null>(null); // index into CLASSES; null = all classes
-  const [cat, setCat] = useState("All");
-  const [q, setQ] = useState("");
   const [today, setToday] = useState<Ymd | null>(null);
   const [openId, setOpenId] = useState<string | null>(null);
   const [shown, setShown] = useState(PAGE);
@@ -122,17 +105,10 @@ export function EventsGallery({ albums }: { albums: Album[] }) {
     toastTimer.current = setTimeout(() => setToast(null), 2800);
   }, []);
 
-  // After mount: today's date, the remembered class and a deep link (#album-id).
+  // After mount: today's date and a deep link (#album-id).
   useEffect(() => {
     const now = new Date();
     setToday({ y: now.getFullYear(), m: now.getMonth() + 1, d: now.getDate() });
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      const i = saved ? CLASSES.indexOf(saved) : -1;
-      if (i > -1) setCls(i);
-    } catch {
-      /* storage unavailable */
-    }
     const id = decodeURIComponent(window.location.hash.slice(1));
     if (id) {
       if (albums.some((a) => a.id === id)) {
@@ -145,42 +121,18 @@ export function EventsGallery({ albums }: { albums: Album[] }) {
     return () => clearTimeout(toastTimer.current);
   }, [albums, showToast]);
 
-  const chooseClass = (value: string) => {
-    const i = CLASSES.indexOf(value);
-    setCls(i > -1 ? i : null);
-    try {
-      localStorage.setItem(STORAGE_KEY, i > -1 ? value : "All");
-    } catch {
-      /* storage unavailable */
-    }
-  };
-
-  // Stats and category list come from the data.
   const totalPhotos = useMemo(() => albums.reduce((n, a) => n + a.photos.length, 0), [albums]);
-  const categories = useMemo(() => {
-    const present = new Set(albums.map((a) => a.cat));
-    const known = CAT_ORDER.filter((c) => present.has(c));
-    const extra = Array.from(present).filter((c) => !CAT_ORDER.includes(c));
-    return [...known, ...extra];
-  }, [albums]);
-
-  // Class-filtered base (chip counts), then category + search.
-  const base = useMemo(() => albums.filter((a) => cls === null || inClass(a, cls)), [albums, cls]);
-  const list = useMemo(() => {
-    const needle = q.trim().toLowerCase();
-    return base.filter((a) => (cat === "All" || a.cat === cat) && (!needle || a.title.toLowerCase().includes(needle)));
-  }, [base, cat, q]);
 
   // Month sections, newest first; albums newest first within a month.
   const byMonth = useMemo(() => {
     const map = new Map<number, Album[]>();
-    for (const a of list) {
+    for (const a of albums) {
       const m = acadMonth(parseDate(a.date).m);
       map.set(m, [...(map.get(m) ?? []), a]);
     }
     for (const arr of map.values()) arr.sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0));
     return map;
-  }, [list]);
+  }, [albums]);
   const monthOrder = useMemo(() => Array.from(byMonth.keys()).sort((a, b) => b - a), [byMonth]);
 
   const upcoming = useMemo(() => {
@@ -293,13 +245,7 @@ export function EventsGallery({ albums }: { albums: Album[] }) {
 
   const jumpToMonth = (m: number) => {
     const el = document.getElementById(`eg-m-${m}`);
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 160, behavior: "smooth" });
-  };
-
-  const clearFilters = () => {
-    setCat("All");
-    setQ("");
-    chooseClass("All");
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 104, behavior: "smooth" });
   };
 
   const onAlbumKey = (e: ReactKeyboardEvent) => {
@@ -320,8 +266,7 @@ export function EventsGallery({ albums }: { albums: Album[] }) {
               A year of <em>moments</em> at SPS
             </h1>
             <p>
-              Assemblies, matches, lab sessions and everyday school life, organised by month. Choose your child&apos;s
-              class to see the albums for their class.
+              Assemblies, matches, lab sessions and everyday school life, organised by month.
             </p>
           </div>
           <div className="eg-stats">
@@ -357,54 +302,6 @@ export function EventsGallery({ albums }: { albums: Album[] }) {
         </div>
       )}
 
-      <div className="toolbar">
-        <div className="toolbar-in">
-          <div className="finder">
-            <label htmlFor="eg-cls">Show albums for</label>
-            <select className="sel sel-lg" id="eg-cls" value={cls === null ? "All" : CLASSES[cls]} onChange={(e) => chooseClass(e.target.value)}>
-              <option value="All">All classes</option>
-              {CLASSES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="eg-session">in</label>
-            <select className="sel sel-lg" id="eg-session" aria-label="Academic year" defaultValue={SESSION}>
-              <option value={SESSION}>{SESSION} academic year</option>
-            </select>
-          </div>
-          <input
-            className="search"
-            id="eg-q"
-            type="search"
-            placeholder="Search, e.g. Yoga"
-            aria-label="Search albums"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
-          <div className="chips">
-            {["All", ...categories].map((name) => {
-              const count = name === "All" ? base.length : base.filter((a) => a.cat === name).length;
-              return (
-                <button type="button" key={name} className={cat === name ? "chip on" : "chip"} aria-pressed={cat === name} onClick={() => setCat(name)}>
-                  {name}
-                  <i>{count}</i>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-        {cls !== null && (
-          <div className="finder-note">
-            Showing only albums for <b>{CLASSES[cls]}</b>. Your choice is remembered on this device.
-            <button type="button" onClick={() => chooseClass("All")}>
-              Show all classes
-            </button>
-          </div>
-        )}
-      </div>
-
       <div className="main">
         <aside className="rail" aria-label="Months">
           <h6>{SESSION}</h6>
@@ -419,17 +316,7 @@ export function EventsGallery({ albums }: { albums: Album[] }) {
           })}
         </aside>
         <div>
-          {list.length === 0 ? (
-            <div className="empty">
-              No albums match these filters.
-              <div className="more" style={{ marginTop: 16 }}>
-                <button type="button" className="btn ghost" onClick={clearFilters}>
-                  Clear filters
-                </button>
-              </div>
-            </div>
-          ) : (
-            monthOrder.map((m) => {
+          {monthOrder.map((m) => {
               const items = byMonth.get(m) ?? [];
               const photoCount = items.reduce((n, a) => n + a.photos.length, 0);
               const year = parseDate(items[0].date).y;
@@ -465,9 +352,7 @@ export function EventsGallery({ albums }: { albums: Album[] }) {
                           </span>
                           <h3>{a.title}</h3>
                           <div className="card-meta">
-                            <span>
-                              {a.cat} · {classLabel(a)}
-                            </span>
+                            <span>{a.cat}</span>
                           </div>
                         </div>
                       </button>
@@ -475,8 +360,7 @@ export function EventsGallery({ albums }: { albums: Album[] }) {
                   </div>
                 </section>
               );
-            })
-          )}
+            })}
         </div>
       </div>
 

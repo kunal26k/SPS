@@ -5,10 +5,6 @@
       "title": "Hindi Kavya Path",
       "cat": "Cultural",
       "date": "2026-09-12",
-      "classes": [
-        6,
-        12
-      ],
       "desc": "Students took the stage to recite Hindi poetry in front of an audience of classmates and teachers.",
       "photos": [
         {
@@ -81,7 +77,6 @@
       "title": "Yoga Session",
       "cat": "Sports",
       "date": "2026-09-12",
-      "classes": "all",
       "desc": "Students practise yoga on mats in a bright hall, moving through backbends, balances and stretches.",
       "photos": [
         {
@@ -196,7 +191,6 @@
       "title": "Taekwondo",
       "cat": "Sports",
       "date": "2026-09-14",
-      "classes": "all",
       "desc": "Students in white uniforms and coloured belts practise sparring and kicks, with a group photo at the end.",
       "photos": [
         {
@@ -318,10 +312,6 @@
       "title": "Road Safety Talk",
       "cat": "Community",
       "date": "2026-09-14",
-      "classes": [
-        6,
-        12
-      ],
       "desc": "A police officer spoke to students beside display boards of traffic signs, with the hall full of listeners.",
       "photos": [
         {
@@ -401,10 +391,6 @@
       "title": "Primary Students in the Hall",
       "cat": "Campus Life",
       "date": "2026-09-14",
-      "classes": [
-        1,
-        5
-      ],
       "desc": "Younger students in school uniform stand in rows in a bright hall, following hand and arm movements together.",
       "photos": [
         {
@@ -442,10 +428,6 @@
       "title": "Chemistry Lab Session",
       "cat": "Academic",
       "date": "2026-09-14",
-      "classes": [
-        9,
-        12
-      ],
       "desc": "Senior students in lab coats and gloves carry out a chemistry experiment at the science lab sink.",
       "photos": [
         {
@@ -553,7 +535,6 @@
       "title": "Football & Hockey",
       "cat": "Sports",
       "date": "2026-09-14",
-      "classes": "all",
       "desc": "Students play football and hockey on the school playground, with cones and small goals set out for the session.",
       "photos": [
         {
@@ -661,7 +642,6 @@
       "title": "Swimming",
       "cat": "Sports",
       "date": "2026-09-15",
-      "classes": "all",
       "desc": "Young swimmers practise in the indoor pool with kickboards and arm bands, ending with a group photo.",
       "photos": [
         {
@@ -776,10 +756,6 @@
       "title": "Pre-Primary Classrooms",
       "cat": "Campus Life",
       "date": "2026-09-15",
-      "classes": [
-        0,
-        0
-      ],
       "desc": "Young children learn at colourful tables in bright pre-primary classrooms, with their teachers close by.",
       "photos": [
         {
@@ -908,10 +884,6 @@
       "title": "Primary Classrooms",
       "cat": "Campus Life",
       "date": "2026-09-12",
-      "classes": [
-        1,
-        5
-      ],
       "desc": "Primary students at work in sunny classrooms, writing, drawing and learning at their desks.",
       "photos": [
         {
@@ -1012,10 +984,6 @@
       "title": "Middle & Senior Classrooms",
       "cat": "Campus Life",
       "date": "2026-09-12",
-      "classes": [
-        6,
-        12
-      ],
       "desc": "Middle and senior students in their classrooms, cheerful and busy with lessons and classwork.",
       "photos": [
         {
@@ -1151,7 +1119,6 @@
       "title": "Library & Computer Lab",
       "cat": "Campus Life",
       "date": "2026-09-14",
-      "classes": "all",
       "desc": "The school library with its wooden tables and glass-fronted bookcases, and students at work in the computer lab.",
       "photos": [
         {
@@ -1238,7 +1205,6 @@
       "title": "Dining Hall & Kitchen",
       "cat": "Campus Life",
       "date": "2026-09-14",
-      "classes": "all",
       "desc": "Lunchtime in the dining hall, with long steel tables and hill views, and the kitchen team at work.",
       "photos": [
         {
@@ -1367,7 +1333,6 @@
       "title": "Art & Craft",
       "cat": "Campus Life",
       "date": "2026-09-12",
-      "classes": "all",
       "desc": "Students colouring and drawing at their desks, with markers, colouring books and finished artwork.",
       "photos": [
         {
@@ -1419,7 +1384,6 @@
       "title": "Our Campus",
       "cat": "Campus Life",
       "date": "2026-09-14",
-      "classes": "all",
       "desc": "The school buildings on the hillside, with the playground in front and the mountains beyond.",
       "photos": [
         {

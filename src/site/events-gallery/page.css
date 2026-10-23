@@ -30,27 +30,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--warm); color: var(-
 .eg-page .up-date small { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-top: 2px; }
 .eg-page .up-item span { font-size: 13.5px; font-weight: 500; }
 
-.eg-page .toolbar { position: sticky; top: var(--nav-h); z-index: 100; background: #fff; border-bottom: 1px solid var(--border); padding: 0 80px; }
-.eg-page .toolbar-in { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 16px 0; }
-.eg-page .finder { display: flex; align-items: center; gap: 8px 10px; flex-wrap: wrap; flex: 1; min-width: 0; }
-.eg-page .finder label { font-size: 15px; font-weight: 500; color: var(--muted); }
-.eg-page .sel-lg { height: 44px; font-size: 15px; font-weight: 600; color: var(--navy); padding: 0 12px; border-color: #b9cbbf; }
-.eg-page .chips { display: flex; gap: 8px; flex-wrap: wrap; flex-basis: 100%; min-width: 0; }
-.eg-page .chip { border: 1px solid var(--border); background: #fff; color: var(--text); font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: 999px; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; min-height: 40px; }
-.eg-page .chip i { font-style: normal; font-size: 12px; color: var(--muted); }
-.eg-page .chip:hover { border-color: var(--forest-mid); }
-.eg-page .chip.on { background: var(--forest); border-color: var(--forest); color: #fff; }
-.eg-page .chip.on i { color: rgba(255,255,255,.75); }
-.eg-page .tools { display: flex; gap: 8px; align-items: center; }
-.eg-page .sel, .eg-page .search { height: 44px; border: 1px solid #b9cbbf; border-radius: 6px; background: #fff; font: inherit; font-size: 15px; color: var(--text); padding: 0 12px; }
-.eg-page .sel { cursor: pointer; }
-.eg-page .search { width: 280px; }
-.eg-page .sel:focus, .eg-page .search:focus { outline: 2px solid var(--forest-mid); outline-offset: -1px; }
-.eg-page .chip:focus-visible, .eg-page .rail button:focus-visible, .eg-page .btn:focus-visible, .eg-page .back:focus-visible, .eg-page .lb-btn:focus-visible { outline: 2px solid var(--forest-mid); outline-offset: 2px; }
+.eg-page .rail button:focus-visible, .eg-page .btn:focus-visible, .eg-page .back:focus-visible, .eg-page .lb-btn:focus-visible { outline: 2px solid var(--forest-mid); outline-offset: 2px; }
 .eg-page .back:focus-visible, .eg-page .lb-btn:focus-visible { outline-color: var(--amber-light); }
 
 .eg-page .main { max-width: 1280px; margin: 0 auto; padding: 40px 80px 80px; display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 48px; box-sizing: content-box; }
-.eg-page .rail { position: sticky; top: calc(var(--nav-h) + 96px); align-self: start; display: flex; flex-direction: column; gap: 2px; }
+.eg-page .rail { position: sticky; top: calc(var(--nav-h) + 28px); align-self: start; display: flex; flex-direction: column; gap: 2px; }
 .eg-page .rail h6 { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
 .eg-page .rail button { background: none; border: none; text-align: left; font-size: 13.5px; color: var(--muted); padding: 6px 10px; border-left: 2px solid var(--border); cursor: pointer; display: flex; justify-content: space-between; gap: 8px; }
 .eg-page .rail button:hover { color: var(--text); }
@@ -58,7 +42,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--warm); color: var(-
 .eg-page .rail button:disabled { opacity: .35; cursor: default; }
 .eg-page .rail small { font-size: 11px; }
 
-.eg-page .month { margin-bottom: 48px; scroll-margin-top: calc(var(--nav-h) + 96px); }
+.eg-page .month { margin-bottom: 48px; scroll-margin-top: calc(var(--nav-h) + 28px); }
 .eg-page .month-hd { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
 .eg-page .month-hd h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; color: var(--navy); }
 .eg-page .month-hd span { font-size: 13px; color: var(--muted); }
@@ -78,10 +62,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--warm); color: var(-
 .eg-page .card h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; line-height: 1.15; color: var(--navy); }
 .eg-page .card-meta { font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 12px; }
 .eg-page .new { background: var(--amber); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .04em; padding: 2px 7px; border-radius: 3px; }
-.eg-page .finder-note { max-width: 1280px; margin: 0 auto; padding: 0 0 14px; font-size: 14px; color: var(--muted); }
-.eg-page .finder-note b { color: var(--forest); }
-.eg-page .finder-note button { background: none; border: none; color: var(--forest-mid); font: inherit; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0 4px; }
-.eg-page .empty { padding: 64px 0; text-align: center; color: var(--muted); font-size: 15px; }
 .eg-page .more { display: flex; justify-content: center; margin-top: 8px; }
 .eg-page .btn { background: var(--forest); color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; min-height: 44px; }
 .eg-page .btn:hover { background: var(--forest-mid); }
@@ -126,29 +106,19 @@ body { font-family: 'DM Sans', sans-serif; background: var(--warm); color: var(-
 .eg-page .lb-nav { font-size: 28px; width: 56px; height: 56px; }
 
 @media (max-width: 1024px) {
-.eg-page .eg-hero, .eg-page .upcoming, .eg-page .toolbar, .eg-page .album-hd { padding-left: 24px; padding-right: 24px; }
+.eg-page .eg-hero, .eg-page .upcoming, .eg-page .album-hd { padding-left: 24px; padding-right: 24px; }
 .eg-page .eg-hero { padding-top: calc(var(--nav-h) + 32px); padding-bottom: 32px; }
 .eg-page .eg-hero-in { grid-template-columns: 1fr; gap: 24px; }
 .eg-page .main { grid-template-columns: 1fr; padding: 32px 24px 64px; gap: 0; }
 .eg-page .album-bd { padding: 24px 24px 64px; }
 .eg-page .rail { display: none; }
-.eg-page .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; flex-basis: 100%; margin: 0 -24px; padding: 0 24px; }
-.eg-page .chips::-webkit-scrollbar { display: none; }
-.eg-page .search { flex: 1; width: auto; min-width: 200px; }
-.eg-page .finder { flex: 1 1 100%; flex-wrap: nowrap; }
-.eg-page .finder .sel-lg { flex: 1; min-width: 0; }
-.eg-page .finder label[for="eg-session"] { display: none; }
 }
 @media (max-width: 600px) {
-.eg-page .eg-hero, .eg-page .upcoming, .eg-page .toolbar, .eg-page .album-hd { padding-left: 16px; padding-right: 16px; }
-.eg-page .chips { margin: 0 -16px; padding: 0 16px; }
+.eg-page .eg-hero, .eg-page .upcoming, .eg-page .album-hd { padding-left: 16px; padding-right: 16px; }
 .eg-page .main { padding: 24px 16px 48px; }
 .eg-page .album-bd { padding: 16px 16px 48px; }
 .eg-page .eg-stats { gap: 24px; }
 .eg-page .eg-stats b { font-size: 32px; }
-.eg-page .finder .sel-lg { flex: 1; min-width: 0; }
-.eg-page .finder label[for="eg-session"] { display: none; }
-.eg-page .search { flex-basis: 100%; }
 .eg-page .grid { grid-template-columns: 1fr; gap: 12px; }
 .eg-page .card { flex-direction: row; }
 .eg-page .card-bd { padding: 12px 14px; flex: 1; min-width: 0; }
@@ -169,10 +139,4 @@ body { font-family: 'DM Sans', sans-serif; background: var(--warm); color: var(-
 .eg-page .lb-nav { position: absolute; bottom: 24px; }
 .eg-page .lb-nav.prev { left: 16px; }
 .eg-page .lb-nav.next { right: 16px; }
-/* One academic year so far (shown in the hero stats): give the class select the row. */
-.eg-page .finder #eg-session { display: none; }
-}
-/* The shared nav drops to 64px here (shell.css); keep the sticky toolbar flush under it. */
-@media (max-width: 480px) {
-.eg-page .toolbar { top: 64px; }
 }
