@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ProgramsMotion } from "@/components/programs-motion";
 import { SitePage } from "@/components/site-page";
 import "@/site/home/page.css";
 
@@ -7,5 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <SitePage page="home" route="/" overHero />;
+  return (
+    <>
+      <SitePage page="home" route="/" overHero />
+      <ProgramsMotion />
+    </>
+  );
 }
