@@ -431,7 +431,7 @@
     .news-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; align-items: stretch; }
     .news-cta {
       position: relative; overflow: hidden; isolation: isolate;
-      border-radius: 24px; padding: 80px 40px; color: #fff;
+      border-radius: 2px; padding: 80px 40px; color: #fff;
       display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
       background-color: #1b4d30;
@@ -451,16 +451,16 @@
     .news-cta-btn {
       display: inline-block; background: #162840; color: #fff; text-decoration: none;
       font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem;
-      padding: 14px 32px; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      padding: 14px 32px; border-radius: 3px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .news-cta-btn:hover, .news-cta-btn:focus-visible { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,0.4); }
     .news-cta-btn:focus-visible { outline: 3px solid var(--amber-light); outline-offset: 3px; }
     .news-faq { display: flex; flex-direction: column; justify-content: center; gap: 12px; }
-    .nf-item { background: #fff; border: 1px solid #f0f0f0; border-radius: 10px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: border-color 0.2s, box-shadow 0.2s; }
+    .nf-item { background: #fff; border: 1px solid #f0f0f0; border-radius: 2px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: border-color 0.2s, box-shadow 0.2s; }
     .nf-item:hover { border-color: #eaeaea; }
     .nf-item[open] { border-color: #eaeaea; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
-    .nf-item summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; cursor: pointer; border-radius: 6px; }
+    .nf-item summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; cursor: pointer; border-radius: 2px; }
     .nf-item summary::-webkit-details-marker { display: none; }
     .nf-item summary:focus-visible { outline: 3px solid var(--amber); outline-offset: 4px; }
     .nf-sum { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
