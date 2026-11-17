@@ -29,7 +29,6 @@
     /* the drawn night sky, mountains and Deodar row give way to the photograph */
     .hero .hero-stars, .hero > svg { display: none; }
     .about-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .nf-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .gi-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .hero {
@@ -404,30 +403,76 @@
 
     /* ─── NEWS ─── */
     .news { padding: 96px 80px; background: var(--warm); }
-    .news-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2px; background: var(--border); margin-top: 56px; }
-    .news-featured {
-      background: #fff; overflow: hidden; position: relative;
-      display: flex; flex-direction: column;
+    @property --ng-x1 { syntax: '<percentage>'; inherits: false; initial-value: 10%; }
+    @property --ng-y1 { syntax: '<percentage>'; inherits: false; initial-value: 10%; }
+    @property --ng-x2 { syntax: '<percentage>'; inherits: false; initial-value: 90%; }
+    @property --ng-y2 { syntax: '<percentage>'; inherits: false; initial-value: 10%; }
+    @property --ng-x3 { syntax: '<percentage>'; inherits: false; initial-value: 10%; }
+    @property --ng-y3 { syntax: '<percentage>'; inherits: false; initial-value: 90%; }
+    @property --ng-x4 { syntax: '<percentage>'; inherits: false; initial-value: 90%; }
+    @property --ng-y4 { syntax: '<percentage>'; inherits: false; initial-value: 90%; }
+    @property --ng-x5 { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
+    @property --ng-y5 { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
+    @property --ng-s1 { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
+    @property --ng-s2 { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
+    @property --ng-s3 { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
+    @property --ng-s4 { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
+    @property --ng-s5 { syntax: '<percentage>'; inherits: false; initial-value: 65%; }
+    @keyframes ng-blob1 { 0% { --ng-x1: 5%; --ng-y1: 5%; } 25% { --ng-x1: 45%; --ng-y1: 20%; } 50% { --ng-x1: 30%; --ng-y1: 55%; } 75% { --ng-x1: 0%; --ng-y1: 30%; } 100% { --ng-x1: 5%; --ng-y1: 5%; } }
+    @keyframes ng-blob2 { 0% { --ng-x2: 95%; --ng-y2: 5%; } 33% { --ng-x2: 55%; --ng-y2: 35%; } 66% { --ng-x2: 80%; --ng-y2: 65%; } 100% { --ng-x2: 95%; --ng-y2: 5%; } }
+    @keyframes ng-blob3 { 0% { --ng-x3: 5%; --ng-y3: 95%; } 40% { --ng-x3: 45%; --ng-y3: 65%; } 70% { --ng-x3: 25%; --ng-y3: 100%; } 100% { --ng-x3: 5%; --ng-y3: 95%; } }
+    @keyframes ng-blob4 { 0% { --ng-x4: 95%; --ng-y4: 95%; } 30% { --ng-x4: 60%; --ng-y4: 70%; } 60% { --ng-x4: 100%; --ng-y4: 50%; } 100% { --ng-x4: 95%; --ng-y4: 95%; } }
+    @keyframes ng-blob5 { 0% { --ng-x5: 50%; --ng-y5: 50%; } 25% { --ng-x5: 70%; --ng-y5: 30%; } 50% { --ng-x5: 40%; --ng-y5: 70%; } 75% { --ng-x5: 30%; --ng-y5: 40%; } 100% { --ng-x5: 50%; --ng-y5: 50%; } }
+    @keyframes ng-size1 { 0%, 100% { --ng-s1: 45%; } 50% { --ng-s1: 80%; } }
+    @keyframes ng-size2 { 0%, 100% { --ng-s2: 45%; } 50% { --ng-s2: 85%; } }
+    @keyframes ng-size3 { 0%, 100% { --ng-s3: 45%; } 50% { --ng-s3: 78%; } }
+    @keyframes ng-size4 { 0%, 100% { --ng-s4: 45%; } 50% { --ng-s4: 82%; } }
+    @keyframes ng-size5 { 0%, 100% { --ng-s5: 50%; } 50% { --ng-s5: 85%; } }
+    .news-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; align-items: stretch; }
+    .news-cta {
+      position: relative; overflow: hidden; isolation: isolate;
+      border-radius: 24px; padding: 80px 40px; color: #fff;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      background-color: #1b4d30;
+      background-image:
+      radial-gradient(circle at var(--ng-x1) var(--ng-y1), #3d8f5a 0px, transparent var(--ng-s1)),
+      radial-gradient(circle at var(--ng-x2) var(--ng-y2), #162840 0px, transparent var(--ng-s2)),
+      radial-gradient(circle at var(--ng-x3) var(--ng-y3), #2f7ea8 0px, transparent var(--ng-s3)),
+      radial-gradient(circle at var(--ng-x4) var(--ng-y4), #c8831a 0px, transparent var(--ng-s4)),
+      radial-gradient(circle at var(--ng-x5) var(--ng-y5), #1e3a5c 0px, transparent var(--ng-s5));
+      animation: ng-blob1 20s ease-in-out infinite, ng-blob2 24s ease-in-out infinite, ng-blob3 22s ease-in-out infinite, ng-blob4 26s ease-in-out infinite, ng-blob5 16s ease-in-out infinite,
+                 ng-size1 14s ease-in-out infinite, ng-size2 16.8s ease-in-out infinite, ng-size3 15.2s ease-in-out infinite, ng-size4 18.4s ease-in-out infinite, ng-size5 12s ease-in-out infinite;
     }
-    .nf-thumb {
-      aspect-ratio: 16/8; position: relative; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
+    .news-cta::before { content: ""; position: absolute; inset: 0; background: rgba(13,31,51,0.28); z-index: -1; }
+    .news-cta-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: 15px; }
+    .news-cta h3 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 4.5vw, 3.5rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 15px; color: #fff; }
+    .news-cta p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 30px; max-width: 420px; line-height: 1.6; }
+    .news-cta-btn {
+      display: inline-block; background: #162840; color: #fff; text-decoration: none;
+      font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem;
+      padding: 14px 32px; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .nf-body { padding: 36px; flex: 1; display: flex; flex-direction: column; }
-    .n-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--forest-mid); margin-bottom: 10px; }
-    .news-featured h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--navy); line-height: 1.25; margin-bottom: 12px; }
-    .news-featured p { font-size: 14px; color: var(--muted); line-height: 1.7; flex: 1; }
-    .n-date { font-size: 11.5px; color: #aaa; margin-top: 20px; }
-    .news-sidebar { background: #fff; display: flex; flex-direction: column; gap: 1px; }
-    .ns-item {
-      background: #fff; padding: 24px 28px; border-bottom: 1px solid var(--border);
-      transition: background 0.2s;
-    }
-    .ns-item:last-child { border-bottom: none; }
-    .ns-item:hover { background: var(--snow); }
-    .ns-item h4 { font-size: 15px; font-weight: 600; color: var(--navy); line-height: 1.35; margin-bottom: 8px; }
-    .ns-item p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-    .ns-item .n-date { margin-top: 10px; }
+    .news-cta-btn:hover, .news-cta-btn:focus-visible { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,0.4); }
+    .news-cta-btn:focus-visible { outline: 3px solid var(--amber-light); outline-offset: 3px; }
+    .news-faq { display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+    .nf-item { background: #fff; border: 1px solid #f0f0f0; border-radius: 10px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: border-color 0.2s, box-shadow 0.2s; }
+    .nf-item:hover { border-color: #eaeaea; }
+    .nf-item[open] { border-color: #eaeaea; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+    .nf-item summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; cursor: pointer; border-radius: 6px; }
+    .nf-item summary::-webkit-details-marker { display: none; }
+    .nf-item summary:focus-visible { outline: 3px solid var(--amber); outline-offset: 4px; }
+    .nf-sum { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .nf-meta { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #286640; }
+    .nf-title { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; color: #1a2418; }
+    .nf-chev { flex: none; color: #52645a; transition: transform 0.2s; }
+    .nf-item[open] .nf-chev { transform: rotate(180deg); }
+    .nf-body { margin-top: 12px; font-size: 0.9rem; color: #52645a; line-height: 1.6; }
+    .nf-body p { font-size: 0.9rem; color: #52645a; line-height: 1.6; margin-bottom: 10px; }
+    .nf-link { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; color: #1b4d30; text-decoration: none; }
+    .nf-link:hover { text-decoration: underline; }
+    @media (prefers-reduced-motion: reduce) { .news-cta { animation: none; } .nf-chev, .nf-item, .news-cta-btn { transition: none; } }
 
     /* ─── GALLERY ─── */
     .gallery { background: var(--navy); padding: 96px 80px 0; }
@@ -570,7 +615,6 @@
       .events-inner { flex-direction: column; }
       .events-hd { width: 100%; border-right: none; border-bottom: 1px solid rgba(22,40,64,0.12); padding-right: 0; padding-bottom: 24px; }
       .events-list { grid-template-columns: 1fr 1fr; gap: 16px; }
-      .news-layout { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
       .hero h1 { font-size: clamp(32px, 9vw, 40px); line-height: 1.1; }
@@ -584,6 +628,9 @@
       .ac-num { font-size: 40px; }
       p, .lede, .sec-intro { font-size: 14px; line-height: 1.5; }
     }
+
+    @media (max-width: 900px) { .news-layout { grid-template-columns: 1fr; gap: 40px; } }
+    @media (max-width: 600px) { .news-cta { padding: 56px 24px; } }
 
     /* Overflow fixes (not in the design): these blocks were wider than a phone. */
     .adm-grid > *, .contact-grid > *, .about-grid > * { min-width: 0; }
