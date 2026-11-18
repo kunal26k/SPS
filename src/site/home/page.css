@@ -443,8 +443,7 @@
 
     /* ─── NEWS ─── */
     .news { padding: 112px var(--gx); background: var(--parchment); }
-    .news-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; align-items: start; }
-    @media (min-width: 901px) { .news-cta { height: 520px; } }
+    .news-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; align-items: stretch; }
     .news-cta {
       position: relative; overflow: hidden; isolation: isolate;
       border-radius: var(--r-lg); padding: 80px 40px; color: #fff;
@@ -466,10 +465,11 @@
     }
     .news-cta-btn:hover, .news-cta-btn:focus-visible { transform: translateY(-2px); box-shadow: var(--shadow-hover); background: var(--driftwood); }
     .news-cta-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-    .news-faq { display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+    .news-faq { display: flex; flex-direction: column; justify-content: flex-start; gap: 12px; }
     .nf-item { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; box-shadow: var(--shadow-subtle); transition: box-shadow 0.2s; }
     .nf-item:hover { box-shadow: var(--shadow-hover); }
     .nf-item[open] { box-shadow: var(--shadow-hover); }
+    .nf-item[open] summary { cursor: default; }
     .nf-item summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 14px; cursor: pointer; border-radius: var(--r); }
     .nf-item summary::-webkit-details-marker { display: none; }
     .nf-item summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }

@@ -796,6 +796,31 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
+    // News & Events: one story is always open, and the list (and the photo card beside it)
+    // keeps the height of its tallest open state so nothing resizes when stories switch.
+    (function () {
+      const faq = document.querySelector('.news-faq');
+      if (!faq) return;
+      const items = Array.from(faq.querySelectorAll('details.nf-item'));
+      if (!items.length) return;
+      items.forEach(d => d.querySelector('summary').addEventListener('click', e => { if (d.open) e.preventDefault(); }));
+      if (!items.some(d => d.open)) items[0].open = true;
+      const wide = window.matchMedia('(min-width: 901px)');
+      const fit = () => {
+        faq.style.minHeight = '';
+        if (!wide.matches) return;
+        const current = items.find(d => d.open) || items[0];
+        let tallest = 0;
+        items.forEach(d => { d.open = true; tallest = Math.max(tallest, faq.offsetHeight); });
+        current.open = true;
+        if (tallest) faq.style.minHeight = tallest + 'px';
+      };
+      let t;
+      window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(fit, 150); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit); else fit();
+      fit();
+    })();
+
     // Hero animations fire immediately
     document.querySelectorAll('.hero .reveal').forEach(el => {
       setTimeout(() => el.classList.add('visible'), 200);
