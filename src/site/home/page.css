@@ -443,48 +443,17 @@
 
     /* ─── NEWS ─── */
     .news { padding: 112px var(--gx); background: var(--parchment); }
-@property --ng-x1 { syntax: '<percentage>'; inherits: false; initial-value: 10%; }
-    @property --ng-y1 { syntax: '<percentage>'; inherits: false; initial-value: 10%; }
-    @property --ng-x2 { syntax: '<percentage>'; inherits: false; initial-value: 90%; }
-    @property --ng-y2 { syntax: '<percentage>'; inherits: false; initial-value: 10%; }
-    @property --ng-x3 { syntax: '<percentage>'; inherits: false; initial-value: 10%; }
-    @property --ng-y3 { syntax: '<percentage>'; inherits: false; initial-value: 90%; }
-    @property --ng-x4 { syntax: '<percentage>'; inherits: false; initial-value: 90%; }
-    @property --ng-y4 { syntax: '<percentage>'; inherits: false; initial-value: 90%; }
-    @property --ng-x5 { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
-    @property --ng-y5 { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
-    @property --ng-s1 { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
-    @property --ng-s2 { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
-    @property --ng-s3 { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
-    @property --ng-s4 { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
-    @property --ng-s5 { syntax: '<percentage>'; inherits: false; initial-value: 65%; }
-    @keyframes ng-blob1 { 0% { --ng-x1: 5%; --ng-y1: 5%; } 25% { --ng-x1: 45%; --ng-y1: 20%; } 50% { --ng-x1: 30%; --ng-y1: 55%; } 75% { --ng-x1: 0%; --ng-y1: 30%; } 100% { --ng-x1: 5%; --ng-y1: 5%; } }
-    @keyframes ng-blob2 { 0% { --ng-x2: 95%; --ng-y2: 5%; } 33% { --ng-x2: 55%; --ng-y2: 35%; } 66% { --ng-x2: 80%; --ng-y2: 65%; } 100% { --ng-x2: 95%; --ng-y2: 5%; } }
-    @keyframes ng-blob3 { 0% { --ng-x3: 5%; --ng-y3: 95%; } 40% { --ng-x3: 45%; --ng-y3: 65%; } 70% { --ng-x3: 25%; --ng-y3: 100%; } 100% { --ng-x3: 5%; --ng-y3: 95%; } }
-    @keyframes ng-blob4 { 0% { --ng-x4: 95%; --ng-y4: 95%; } 30% { --ng-x4: 60%; --ng-y4: 70%; } 60% { --ng-x4: 100%; --ng-y4: 50%; } 100% { --ng-x4: 95%; --ng-y4: 95%; } }
-    @keyframes ng-blob5 { 0% { --ng-x5: 50%; --ng-y5: 50%; } 25% { --ng-x5: 70%; --ng-y5: 30%; } 50% { --ng-x5: 40%; --ng-y5: 70%; } 75% { --ng-x5: 30%; --ng-y5: 40%; } 100% { --ng-x5: 50%; --ng-y5: 50%; } }
-    @keyframes ng-size1 { 0%, 100% { --ng-s1: 45%; } 50% { --ng-s1: 80%; } }
-    @keyframes ng-size2 { 0%, 100% { --ng-s2: 45%; } 50% { --ng-s2: 85%; } }
-    @keyframes ng-size3 { 0%, 100% { --ng-s3: 45%; } 50% { --ng-s3: 78%; } }
-    @keyframes ng-size4 { 0%, 100% { --ng-s4: 45%; } 50% { --ng-s4: 82%; } }
-    @keyframes ng-size5 { 0%, 100% { --ng-s5: 50%; } 50% { --ng-s5: 85%; } }
     .news-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; align-items: stretch; }
     .news-cta {
       position: relative; overflow: hidden; isolation: isolate;
       border-radius: var(--r-lg); padding: 80px 40px; color: #fff;
       display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-      background-color: #1b4d30;
-      background-image:
-      radial-gradient(circle at var(--ng-x1) var(--ng-y1), #2f5d3f 0px, transparent var(--ng-s1)),
-      radial-gradient(circle at var(--ng-x2) var(--ng-y2), #0f2c1c 0px, transparent var(--ng-s2)),
-      radial-gradient(circle at var(--ng-x3) var(--ng-y3), #286640 0px, transparent var(--ng-s3)),
-      radial-gradient(circle at var(--ng-x4) var(--ng-y4), #375033 0px, transparent var(--ng-s4)),
-      radial-gradient(circle at var(--ng-x5) var(--ng-y5), #1f3d2a 0px, transparent var(--ng-s5));
-      animation: ng-blob1 20s ease-in-out infinite, ng-blob2 24s ease-in-out infinite, ng-blob3 22s ease-in-out infinite, ng-blob4 26s ease-in-out infinite, ng-blob5 16s ease-in-out infinite,
-                 ng-size1 14s ease-in-out infinite, ng-size2 16.8s ease-in-out infinite, ng-size3 15.2s ease-in-out infinite, ng-size4 18.4s ease-in-out infinite, ng-size5 12s ease-in-out infinite;
+      background-color: #111;
     }
-    /* dark overlay: white text keeps well over 4.5:1 on the lightest blob */
-    .news-cta::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: -1; }
+    .news-cta-collage { position: absolute; inset: 0; z-index: -2; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 4px; }
+    .news-cta-collage img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 0; }
+    /* 70% black overlay over the photo collage keeps white text readable */
+    .news-cta::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.7); z-index: -1; }
     .news-cta-eyebrow { font-family: var(--font); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.92); margin-bottom: 15px; }
     .news-cta h3 { font-family: var(--font); font-size: clamp(2.4rem, 4.5vw, 3.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 15px; color: #fff; }
     .news-cta p { font-size: 18px; line-height: 1.5; opacity: 0.95; margin-bottom: 30px; max-width: 420px; }
@@ -516,7 +485,7 @@
     .nf-link:hover { text-decoration: underline; }
     .nf-title { overflow-wrap: anywhere; }
     @media (max-width: 600px) { .nf-item summary { gap: 12px; } .nf-thumb { width: 48px; height: 48px; } }
-    @media (prefers-reduced-motion: reduce) { .news-cta { animation: none; } .nf-chev, .nf-item, .news-cta-btn { transition: none; } }
+    @media (prefers-reduced-motion: reduce) { .nf-chev, .nf-item, .news-cta-btn { transition: none; } }
 
     /* ─── GALLERY ─── */
     .gallery { background: var(--sand); padding: 112px var(--gx); }
