@@ -443,7 +443,8 @@
 
     /* ─── NEWS ─── */
     .news { padding: 112px var(--gx); background: var(--parchment); }
-    .news-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; align-items: stretch; }
+    .news-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; align-items: start; }
+    @media (min-width: 901px) { .news-cta { height: 520px; } }
     .news-cta {
       position: relative; overflow: hidden; isolation: isolate;
       border-radius: var(--r-lg); padding: 80px 40px; color: #fff;
